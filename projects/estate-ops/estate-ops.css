@@ -201,6 +201,53 @@ h1 {
   .span-2 { grid-column: span 2; }
 }
 
+.brand-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.brand-heading h3 {
+  margin: 0 0 4px;
+  padding: 0;
+  border: 0;
+}
+
+.brand-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.inline-brand-logo {
+  width: 88px;
+  max-height: 56px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.brand-placeholder {
+  width: 88px;
+  height: 56px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #d8e6ff;
+  background: rgba(255,255,255,0.05);
+  border: 1px dashed rgba(255,255,255,0.18);
+}
+
 @media (max-width: 720px) {
   .hero,
   .intro-grid,
@@ -214,4 +261,8 @@ h1 {
   }
   .hero { align-items: start; }
   .span-2 { grid-column: span 1; }
+  .brand-heading {
+    align-items: start;
+    flex-direction: column;
+  }
 }

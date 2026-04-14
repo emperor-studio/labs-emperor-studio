@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Estate Ops Role Architecture v3</title>
-  <link rel="stylesheet" href="./estate-ops.css?v=20260414a" />
+  <title>Estate Ops Role Architecture v4</title>
+  <link rel="stylesheet" href="./estate-ops.css?v=20260414b" />
 </head>
 <body>
   <main class="page">
@@ -12,7 +12,7 @@
       <div class="hero-copy">
         <p class="eyebrow">Executive support system</p>
         <h1>Dylan Control Center, Role iPhones, and Seamless Estate Operations</h1>
-        <p class="sub">Version 3 of the architecture: Dylan uses a Mac Studio as the stable control center, the current iPhone is assigned to the Personal Assistant role, and the House Manager role remains the next dedicated device to add.</p>
+        <p class="sub">Version 4 of the architecture: Dylan uses a Mac Studio as the stable control center, the current iPhone is assigned to the Personal Assistant role, and the system is now defined around clear coordination between Dylan’s digital extension, the estate’s operational extension, and adjacent assistants.</p>
       </div>
       <div class="hero-stamp">
         <div class="stamp-label">Designed for</div>
@@ -23,15 +23,15 @@
     <section class="intro-grid">
       <article class="card tone-ink">
         <h2>Core idea</h2>
-        <p>Dylan’s dedicated Mac Studio becomes the digital concierge desk and operations brain. The iPhones remain role devices used by whoever currently occupies the Personal Assistant or House Manager role.</p>
+        <p>Dylan’s dedicated Mac Studio becomes the digital concierge desk and operations brain. The Personal Assistant role becomes Dylan’s digital extension, while the House Manager role becomes the estate’s operational extension.</p>
       </article>
       <article class="card tone-olive">
         <h2>Why this is better</h2>
         <ul>
           <li>The Mac Studio becomes the stable long-term system.</li>
-          <li>The role iPhones remain handoffable field devices.</li>
-          <li>Dylan does not need every app, password, or vendor system on his own devices.</li>
-          <li>Roles persist even as humans in those roles change.</li>
+          <li>The current iPhone can begin operating as the Personal Assistant role immediately.</li>
+          <li>The House Manager role remains separate and can be added cleanly with its own device next.</li>
+          <li>Coordination relationships are explicit instead of implied.</li>
         </ul>
       </article>
       <article class="card tone-plum">
@@ -43,7 +43,7 @@
     <section class="section">
       <div class="section-heading">
         <p class="kicker">Operating model</p>
-        <h2>The new v2 architecture</h2>
+        <h2>The new v4 architecture</h2>
       </div>
       <div class="architecture-grid">
         <article class="card role-card tone-slate">
@@ -60,20 +60,18 @@
           <h3>Personal Assistant iPhone</h3>
           <ul>
             <li>The currently available iPhone is now assigned to this role</li>
+            <li>This role functions as Dylan’s digital extension</li>
             <li>Dedicated Apple account, email, and phone number</li>
-            <li>Travel, scheduling, errands, messaging, bookings, logistics, vendors</li>
-            <li>Portable role identity used by the current assistant, with a stable role number that can be forwarded when staffing changes</li>
-            <li>Receives what it needs from the Mac Studio control center</li>
+            <li>Travel, scheduling, errands, messaging, bookings, logistics, and follow-through</li>
           </ul>
         </article>
         <article class="card role-card tone-emerald">
           <h3>House Manager iPhone</h3>
           <ul>
             <li>This remains the next dedicated device to add</li>
+            <li>This role functions as the estate’s operational extension</li>
             <li>Dedicated Apple account, email, and phone number</li>
-            <li>Lighting, locks, cameras, gates, utilities, maintenance, vendors</li>
-            <li>Portable role identity used by the current house manager, with a stable role number that can be forwarded when staffing changes</li>
-            <li>Acts on the estate using apps that need a real mobile device</li>
+            <li>Lighting, locks, cameras, gates, utilities, maintenance, vendors, and readiness</li>
           </ul>
         </article>
       </div>
@@ -81,38 +79,111 @@
 
     <section class="section">
       <div class="section-heading">
-        <p class="kicker">Why the Mac Studio matters</p>
-        <h2>What should live in Dylan’s control center</h2>
+        <p class="kicker">Role definition</p>
+        <h2>Personal Assistant as Dylan’s digital extension</h2>
       </div>
       <div class="stack-grid">
         <article class="card tone-violet with-dividers">
-          <h3>Executive support</h3>
+          <h3>Core scope</h3>
           <ul>
-            <li>Calendars and scheduling oversight</li>
-            <li>Travel planning and logistics</li>
-            <li>Philanthropy coordination</li>
-            <li>Art, collection, and event operations</li>
-            <li>Shared documents, notes, and summaries</li>
+            <li>Calendar, scheduling, and priority coordination</li>
+            <li>Travel, reservations, movement, and logistics</li>
+            <li>Email/admin follow-up and communication support</li>
+            <li>Project and business coordination across Dylan’s world</li>
+            <li>Maintaining continuity of what Dylan needs, expects, and is tracking</li>
           </ul>
         </article>
         <article class="card tone-teal with-dividers">
-          <h3>Estate operations</h3>
+          <h3>Why this framing works</h3>
           <ul>
-            <li>Property records and vendor directory</li>
-            <li>Household logs and maintenance notes</li>
-            <li>Issue tracking and escalation records</li>
-            <li>Operational dashboards and alerts</li>
-            <li>Reference material for the current house manager</li>
+            <li>This is not just a helper role, it is an operational extension of Dylan’s presence.</li>
+            <li>It can hold context, continuity, and coordination across many domains without needing to split too early.</li>
+            <li>It becomes the main bridge between people, projects, time, and action.</li>
           </ul>
         </article>
         <article class="card tone-amber with-dividers">
-          <h3>Identity administration</h3>
+          <h3>Continuity requirement</h3>
           <ul>
-            <li>Role account inventory</li>
-            <li>Password vault administration</li>
-            <li>Recovery records and trusted contacts</li>
-            <li>Which human currently holds which role device</li>
-            <li>Handoff and offboarding procedures</li>
+            <li>This role needs the strongest handoff discipline.</li>
+            <li>It should retain memory, standards, active threads, and relationship context over time.</li>
+            <li>It is the role closest to Dylan’s actual working life.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">Coordination domains</p>
+        <h2>What the Personal Assistant currently covers</h2>
+      </div>
+      <div class="sharing-grid">
+        <article class="card tone-mist with-dividers brand-panel">
+          <div class="brand-heading">
+            <div class="brand-placeholder">TH</div>
+            <div>
+              <h3>Two Heads Projects + Collection Coordination</h3>
+              <p class="brand-note">Logo placeholder for now</p>
+            </div>
+          </div>
+          <ul>
+            <li>Support Dylan-side coordination for Two Heads projects and collection-related work</li>
+            <li>Maintain shared timelines, notes, follow-ups, and project visibility</li>
+            <li>Coordinate with <strong>Austyn’s Assistant</strong> on overlapping scheduling, logistics, communication, and execution</li>
+            <li>Keep collaboration synchronized without collapsing role boundaries</li>
+          </ul>
+        </article>
+        <article class="card tone-emerald with-dividers brand-panel">
+          <div class="brand-heading">
+            <img src="./blue-cloud-logo.png" alt="Blue Cloud Ranch logo" class="inline-brand-logo" />
+            <div>
+              <h3>Blue Cloud Ranch</h3>
+              <p class="brand-note">Business/admin coordination under the Personal Assistant role</p>
+            </div>
+          </div>
+          <ul>
+            <li>Coordinate business/admin follow-through tied to the ranch</li>
+            <li>Support planning, communications, tasks, and external follow-up</li>
+            <li>Work in sync with the House Manager when site readiness or property operations are involved</li>
+          </ul>
+        </article>
+        <article class="card tone-slate with-dividers brand-panel">
+          <div class="brand-heading">
+            <img src="./new-normal-logo.png" alt="New Normal Films logo" class="inline-brand-logo" />
+            <div>
+              <h3>New Normal</h3>
+              <p class="brand-note">Operational and project follow-through under the Personal Assistant role</p>
+            </div>
+          </div>
+          <ul>
+            <li>Handle communication, scheduling, status tracking, and project coordination</li>
+            <li>Support ongoing film/business tasks without requiring a separate role yet</li>
+            <li>Keep New Normal work connected to Dylan’s broader calendar and priorities</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">Coordination interfaces</p>
+        <h2>How the roles work together</h2>
+      </div>
+      <div class="apps-grid">
+        <article class="card tone-blue with-dividers">
+          <h3>Personal Assistant ↔ House Manager</h3>
+          <ul>
+            <li>The Personal Assistant coordinates schedule, guests, travel, events, and priorities.</li>
+            <li>The House Manager coordinates property readiness, access, vendors, and on-site execution.</li>
+            <li>These two roles must stay in sync when time, people, and place intersect.</li>
+          </ul>
+        </article>
+        <article class="card tone-plum with-dividers">
+          <h3>Personal Assistant ↔ Austyn’s Assistant</h3>
+          <ul>
+            <li>Used where Dylan and Austyn’s worlds overlap through Two Heads and shared project work.</li>
+            <li>Supports coordination without blurring ownership.</li>
+            <li>Keeps both sides synchronized while respecting separate roles.</li>
           </ul>
         </article>
       </div>
@@ -157,55 +228,6 @@
 
     <section class="section">
       <div class="section-heading">
-        <p class="kicker">Recommended roles</p>
-        <h2>Start with these two, expand later</h2>
-      </div>
-      <div class="apps-grid">
-        <article class="card tone-blue with-dividers">
-          <h3>Personal Assistant role</h3>
-          <ul>
-            <li>Scheduling</li>
-            <li>Travel</li>
-            <li>Reservations</li>
-            <li>Vendor communication</li>
-            <li>Concierge tasks</li>
-            <li>Errands and logistics</li>
-          </ul>
-        </article>
-        <article class="card tone-emerald with-dividers">
-          <h3>House Manager role</h3>
-          <ul>
-            <li>Lighting and smart-home control</li>
-            <li>Locks, gates, cameras, alarms</li>
-            <li>Maintenance tracking</li>
-            <li>Household services and contractors</li>
-            <li>Property readiness and daily operations</li>
-          </ul>
-        </article>
-      </div>
-      <div class="apps-grid secondary-grid">
-        <article class="card tone-plum with-dividers">
-          <h3>Later possible roles</h3>
-          <ul>
-            <li>Art / Collection Operations</li>
-            <li>Philanthropy Operations</li>
-            <li>Guest / Travel Services</li>
-            <li>Security / Access Operations</li>
-          </ul>
-        </article>
-        <article class="card tone-ink with-dividers">
-          <h3>Why not start with more</h3>
-          <ul>
-            <li>Too many role identities too early creates noise.</li>
-            <li>Two devices are enough to prove the model.</li>
-            <li>You can add more once the first handoff and admin patterns are solid.</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-heading">
         <p class="kicker">Handoff and security</p>
         <h2>How to keep the system stable as people change</h2>
       </div>
@@ -232,23 +254,6 @@
 
     <section class="section">
       <div class="section-heading">
-        <p class="kicker">What this becomes</p>
-        <h2>The bigger picture</h2>
-      </div>
-      <div class="rules-grid">
-        <article class="card tone-ink with-dividers">
-          <ul>
-            <li>Dylan gets a curated, seamless digital life instead of app sprawl.</li>
-            <li>You get a coherent administrative structure instead of ad hoc device chaos.</li>
-            <li>The staff around Dylan can plug into stable roles rather than inheriting personal-device messes.</li>
-            <li>The Mac Studio can eventually host a Dylan-focused assistant system, dashboard, and role orchestration layer.</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-heading">
         <p class="kicker">Hardware</p>
         <h2>Practical hardware list for this system</h2>
       </div>
@@ -257,6 +262,7 @@
           <h3>Already covered</h3>
           <ul>
             <li>Dylan Mac Studio control center</li>
+            <li>Personal Assistant iPhone already in hand and assigned</li>
             <li>Custom NAS for shared storage and backups</li>
             <li>External SSD</li>
             <li>UPS for the Mac Studio</li>
@@ -265,18 +271,17 @@
         <article class="card tone-emerald with-dividers">
           <h3>Still needed</h3>
           <ul>
-            <li>Personal Assistant iPhone already in hand and assigned</li>
             <li>1 iPhone still needed for House Manager role</li>
             <li>2 dedicated phone numbers, one per role</li>
             <li>Cases, screen protectors, and charging kits</li>
           </ul>
         </article>
         <article class="card tone-amber with-dividers">
-          <h3>Explicitly not needed</h3>
+          <h3>Explicitly not needed yet</h3>
           <ul>
-            <li>No spare iPhone required</li>
-            <li>Replacement devices can be sourced same day if needed</li>
-            <li>Keep the system simple instead of overbuying backup hardware</li>
+            <li>No separate Business Assistant device yet</li>
+            <li>No role split for Two Heads / Blue Cloud / New Normal yet</li>
+            <li>Do not add extra roles until volume actually justifies them</li>
           </ul>
         </article>
       </div>
