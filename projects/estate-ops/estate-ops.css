@@ -148,7 +148,7 @@ p {
   font-size: 1.1rem;
 }
 
-.panel:not(.hero-panel) {
+.panel:not(.hero-panel):not(.photo-panel) {
   padding: 26px 24px;
 }
 
