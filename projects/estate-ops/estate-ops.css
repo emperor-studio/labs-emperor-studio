@@ -64,8 +64,8 @@ body {
   z-index: 2;
   padding: 8px 10px;
   border-radius: 999px;
-  background: rgba(247, 108, 108, 0.9);
-  color: #fff8f8;
+  background: #f76c6c;
+  color: #ffffff;
   backdrop-filter: blur(8px);
 }
 
