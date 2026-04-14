@@ -90,6 +90,10 @@ body {
   object-position: center;
 }
 
+.hero-standalone-photo-panel {
+  min-height: 460px;
+}
+
 .hero-photo-label {
   left: 18px;
   bottom: 16px;
@@ -113,13 +117,13 @@ body {
 }
 
 .hero-panel {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  display: block;
   padding: 0;
 }
 
 .hero-copy-block {
   padding: 34px 32px;
+  min-height: 100%;
 }
 
 .color-block {
