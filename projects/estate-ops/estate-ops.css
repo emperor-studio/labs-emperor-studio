@@ -1,17 +1,16 @@
 :root {
   color-scheme: dark;
-  --bg: #0b3446;
-  --bg-deep: #072838;
-  --text: #f7f0ea;
-  --muted: rgba(247, 240, 234, 0.76);
-  --line: rgba(255,255,255,0.1);
-  --shadow: 0 24px 70px rgba(14, 27, 35, 0.28);
-  --copper: #d88752;
-  --copper-deep: #b66738;
-  --cream: #efe6df;
-  --navy: #0b3446;
-  --navy-deep: #072838;
-  --black: #0a0a0b;
+  --bg: #a8d0e6;
+  --bg-deep: #8dbfd9;
+  --text: #fdfcff;
+  --muted: rgba(253, 252, 255, 0.78);
+  --line: rgba(255,255,255,0.18);
+  --shadow: 0 22px 60px rgba(36, 48, 94, 0.18);
+  --yellow: #f8e9a1;
+  --coral: #f76c6c;
+  --sky: #a8d0e6;
+  --indigo: #374785;
+  --navy: #24305e;
 }
 
 * { box-sizing: border-box; }
@@ -19,8 +18,9 @@ body {
   margin: 0;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background:
-    radial-gradient(circle at top left, rgba(216, 135, 82, 0.26), transparent 28%),
-    linear-gradient(180deg, #1f4b5d 0%, #0b3446 100%);
+    radial-gradient(circle at top left, rgba(248, 233, 161, 0.42), transparent 26%),
+    radial-gradient(circle at 80% 10%, rgba(247, 108, 108, 0.18), transparent 18%),
+    linear-gradient(180deg, #b7dbed 0%, #8ebfd9 100%);
   color: var(--text);
 }
 
@@ -190,63 +190,70 @@ li::before {
 .row-end { min-height: 320px; }
 
 .tone-ink {
-  background: linear-gradient(180deg, rgba(11, 52, 70, 0.96) 0%, rgba(7, 40, 56, 0.99) 100%);
+  background: linear-gradient(180deg, rgba(36, 48, 94, 0.96) 0%, rgba(26, 36, 74, 0.99) 100%);
 }
 .tone-slate {
-  background: linear-gradient(180deg, rgba(18, 61, 81, 0.96) 0%, rgba(9, 39, 54, 0.99) 100%);
+  background: linear-gradient(180deg, rgba(55, 71, 133, 0.96) 0%, rgba(43, 56, 107, 0.99) 100%);
 }
 .tone-blue {
-  background: linear-gradient(180deg, rgba(11, 52, 70, 0.94) 0%, rgba(7, 40, 56, 0.99) 100%);
+  background: linear-gradient(180deg, rgba(168, 208, 230, 0.98) 0%, rgba(150, 197, 222, 0.99) 100%);
+  color: #24305e;
+}
+.tone-blue p,
+.tone-blue h2,
+.tone-blue .kicker,
+.tone-blue li {
+  color: #24305e;
 }
 .tone-emerald {
-  background: linear-gradient(180deg, rgba(216, 135, 82, 0.95) 0%, rgba(182, 103, 56, 0.99) 100%);
+  background: linear-gradient(180deg, rgba(247, 108, 108, 0.95) 0%, rgba(233, 93, 93, 0.99) 100%);
 }
 .tone-plum {
-  background: linear-gradient(180deg, rgba(239, 230, 223, 0.98) 0%, rgba(229, 218, 210, 0.99) 100%);
-  color: #14232b;
+  background: linear-gradient(180deg, rgba(248, 233, 161, 0.98) 0%, rgba(241, 223, 143, 0.99) 100%);
+  color: #24305e;
 }
 .tone-plum p,
 .tone-plum h2,
 .tone-plum .kicker,
 .tone-plum li {
-  color: #14232b;
+  color: #24305e;
 }
 .tone-violet {
-  background: linear-gradient(180deg, rgba(216, 135, 82, 0.94) 0%, rgba(188, 112, 68, 0.99) 100%);
+  background: linear-gradient(180deg, rgba(247, 108, 108, 0.94) 0%, rgba(226, 87, 100, 0.99) 100%);
 }
 .tone-rose {
-  background: linear-gradient(180deg, rgba(11, 52, 70, 0.96) 0%, rgba(6, 31, 43, 0.99) 100%);
+  background: linear-gradient(180deg, rgba(55, 71, 133, 0.96) 0%, rgba(36, 48, 94, 0.99) 100%);
 }
 .tone-gold {
-  background: linear-gradient(180deg, rgba(239, 230, 223, 0.98) 0%, rgba(227, 217, 209, 0.99) 100%);
-  color: #14232b;
+  background: linear-gradient(180deg, rgba(248, 233, 161, 0.98) 0%, rgba(241, 223, 143, 0.99) 100%);
+  color: #24305e;
 }
 .tone-gold p,
 .tone-gold h2,
 .tone-gold .kicker,
 .tone-gold li {
-  color: #14232b;
+  color: #24305e;
 }
 .tone-sand {
-  background: linear-gradient(180deg, rgba(216, 135, 82, 0.98) 0%, rgba(205, 124, 74, 0.99) 100%);
-  color: #fff8f2;
+  background: linear-gradient(180deg, rgba(247, 108, 108, 0.98) 0%, rgba(236, 100, 100, 0.99) 100%);
+  color: #fffdfc;
 }
 .tone-sand p,
 .tone-sand h2,
 .tone-sand .kicker {
-  color: #fff8f2;
+  color: #fffdfc;
 }
 .tone-image-plum {
-  background: linear-gradient(135deg, #af6439 0%, #d88752 45%, #8f4d2b 100%);
+  background: linear-gradient(135deg, #f76c6c 0%, #f8e9a1 100%);
 }
 .tone-image-gold {
-  background: linear-gradient(135deg, #d88752 0%, #f0dcd0 100%);
+  background: linear-gradient(135deg, #f8e9a1 0%, #a8d0e6 100%);
 }
 .tone-image-ink {
-  background: linear-gradient(135deg, #0b3446 0%, #072838 100%);
+  background: linear-gradient(135deg, #374785 0%, #24305e 100%);
 }
 .tone-image-blue {
-  background: linear-gradient(135deg, #d88752 0%, #0b3446 60%, #072838 100%);
+  background: linear-gradient(135deg, #a8d0e6 0%, #374785 56%, #24305e 100%);
 }
 
 @media (max-width: 1100px) {
