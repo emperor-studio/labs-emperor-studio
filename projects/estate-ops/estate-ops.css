@@ -286,6 +286,13 @@ li::before {
   padding: 10px;
 }
 
+.two-heads-logo {
+  width: 104px;
+  height: 104px;
+  padding: 14px;
+  align-self: start;
+}
+
 .brand-placeholder {
   width: 86px;
   height: 58px;
