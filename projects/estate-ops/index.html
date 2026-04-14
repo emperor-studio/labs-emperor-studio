@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estate Ops Role Architecture v2</title>
+  <link rel="stylesheet" href="./estate-ops.css?v=20260414a" />
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Executive support system</p>
+        <h1>Dylan Control Center, Role iPhones, and Seamless Estate Operations</h1>
+        <p class="sub">Version 2 of the architecture: Dylan gets a dedicated Mac mini as the stable control center, while Personal Assistant and House Manager iPhones remain the real-world operational devices.</p>
+      </div>
+      <div class="hero-stamp">
+        <div class="stamp-label">Designed for</div>
+        <div class="stamp-value">private office continuity</div>
+      </div>
+    </header>
+
+    <section class="intro-grid">
+      <article class="card tone-ink">
+        <h2>Core idea</h2>
+        <p>Dylan’s dedicated Mac mini becomes the digital concierge desk and operations brain. The iPhones remain role devices used by whoever currently occupies the Personal Assistant or House Manager role.</p>
+      </article>
+      <article class="card tone-olive">
+        <h2>Why this is better</h2>
+        <ul>
+          <li>The Mac mini becomes the stable long-term system.</li>
+          <li>The role iPhones remain handoffable field devices.</li>
+          <li>Dylan does not need every app, password, or vendor system on his own devices.</li>
+          <li>Roles persist even as humans in those roles change.</li>
+        </ul>
+      </article>
+      <article class="card tone-plum">
+        <h2>Main rule</h2>
+        <p>The Mac mini is the <strong>control plane</strong>. The iPhones are the <strong>execution layer</strong>.</p>
+      </article>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">Operating model</p>
+        <h2>The new v2 architecture</h2>
+      </div>
+      <div class="architecture-grid">
+        <article class="card role-card tone-slate">
+          <h3>Dylan Mac mini</h3>
+          <ul>
+            <li>Central control center for executive and estate operations</li>
+            <li>Shared calendars, notes, task boards, vendor records, and dashboards</li>
+            <li>Password manager administration and recovery records</li>
+            <li>Messaging orchestration, summaries, reminders, and future AI concierge layer</li>
+            <li>Stable home for continuity even when staff changes</li>
+          </ul>
+        </article>
+        <article class="card role-card tone-blue">
+          <h3>Personal Assistant iPhone</h3>
+          <ul>
+            <li>Dedicated Apple account, email, and phone number</li>
+            <li>Travel, scheduling, errands, messaging, bookings, logistics, vendors</li>
+            <li>Portable role identity used by the current assistant, with a stable role number that can be forwarded when staffing changes</li>
+            <li>Receives what it needs from the Mac mini control center</li>
+          </ul>
+        </article>
+        <article class="card role-card tone-emerald">
+          <h3>House Manager iPhone</h3>
+          <ul>
+            <li>Dedicated Apple account, email, and phone number</li>
+            <li>Lighting, locks, cameras, gates, utilities, maintenance, vendors</li>
+            <li>Portable role identity used by the current house manager, with a stable role number that can be forwarded when staffing changes</li>
+            <li>Acts on the estate using apps that need a real mobile device</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">Why the Mac mini matters</p>
+        <h2>What should live in Dylan’s control center</h2>
+      </div>
+      <div class="stack-grid">
+        <article class="card tone-violet with-dividers">
+          <h3>Executive support</h3>
+          <ul>
+            <li>Calendars and scheduling oversight</li>
+            <li>Travel planning and logistics</li>
+            <li>Philanthropy coordination</li>
+            <li>Art, collection, and event operations</li>
+            <li>Shared documents, notes, and summaries</li>
+          </ul>
+        </article>
+        <article class="card tone-teal with-dividers">
+          <h3>Estate operations</h3>
+          <ul>
+            <li>Property records and vendor directory</li>
+            <li>Household logs and maintenance notes</li>
+            <li>Issue tracking and escalation records</li>
+            <li>Operational dashboards and alerts</li>
+            <li>Reference material for the current house manager</li>
+          </ul>
+        </article>
+        <article class="card tone-amber with-dividers">
+          <h3>Identity administration</h3>
+          <ul>
+            <li>Role account inventory</li>
+            <li>Password vault administration</li>
+            <li>Recovery records and trusted contacts</li>
+            <li>Which human currently holds which role device</li>
+            <li>Handoff and offboarding procedures</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">Routing</p>
+        <h2>What routes through the Mac mini vs the iPhones</h2>
+      </div>
+      <div class="sharing-grid">
+        <article class="card tone-mist with-dividers">
+          <h3>Best on the Mac mini</h3>
+          <ul>
+            <li>Dashboards and control views</li>
+            <li>Shared calendars, notes, docs, and summaries</li>
+            <li>Password manager administration</li>
+            <li>Automation, reminders, routing, and reporting</li>
+            <li>Long-term memory of what happened and why</li>
+          </ul>
+        </article>
+        <article class="card tone-rose with-dividers">
+          <h3>Best on the role iPhones</h3>
+          <ul>
+            <li>Apps that open, unlock, or locally control physical systems</li>
+            <li>Bluetooth, Wi‑Fi, NFC, HomeKit, and local-presence flows</li>
+            <li>SMS and 2FA flows tied to the role</li>
+            <li>Portable communications while in the field</li>
+          </ul>
+        </article>
+        <article class="card tone-gold with-dividers">
+          <h3>Careful split</h3>
+          <ul>
+            <li>Email identities can be role-based, but summaries and admin visibility should flow back to the Mac mini.</li>
+            <li>Each role should have its own dedicated phone number, and that number should either live on the role iPhone or be easily forwarded to the current responsible human or backup device while contact logs and escalation notes are captured centrally.</li>
+            <li>Credentials should be managed through a proper vault, not only stored on the devices themselves.</li>
+            <li>Role phone numbers should be treated as permanent service numbers, not personal numbers, so they remain stable even when the human in the role changes.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">Recommended roles</p>
+        <h2>Start with these two, expand later</h2>
+      </div>
+      <div class="apps-grid">
+        <article class="card tone-blue with-dividers">
+          <h3>Personal Assistant role</h3>
+          <ul>
+            <li>Scheduling</li>
+            <li>Travel</li>
+            <li>Reservations</li>
+            <li>Vendor communication</li>
+            <li>Concierge tasks</li>
+            <li>Errands and logistics</li>
+          </ul>
+        </article>
+        <article class="card tone-emerald with-dividers">
+          <h3>House Manager role</h3>
+          <ul>
+            <li>Lighting and smart-home control</li>
+            <li>Locks, gates, cameras, alarms</li>
+            <li>Maintenance tracking</li>
+            <li>Household services and contractors</li>
+            <li>Property readiness and daily operations</li>
+          </ul>
+        </article>
+      </div>
+      <div class="apps-grid secondary-grid">
+        <article class="card tone-plum with-dividers">
+          <h3>Later possible roles</h3>
+          <ul>
+            <li>Art / Collection Operations</li>
+            <li>Philanthropy Operations</li>
+            <li>Guest / Travel Services</li>
+            <li>Security / Access Operations</li>
+          </ul>
+        </article>
+        <article class="card tone-ink with-dividers">
+          <h3>Why not start with more</h3>
+          <ul>
+            <li>Too many role identities too early creates noise.</li>
+            <li>Two devices are enough to prove the model.</li>
+            <li>You can add more once the first handoff and admin patterns are solid.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">Handoff and security</p>
+        <h2>How to keep the system stable as people change</h2>
+      </div>
+      <div class="handoff-grid">
+        <article class="card tone-slate with-dividers span-2">
+          <h3>Handoff checklist</h3>
+          <ul>
+            <li>Recover the physical role iPhone.</li>
+            <li>Change the device passcode.</li>
+            <li>Review the Apple account trusted devices and recovery options.</li>
+            <li>Remove the prior human from password manager access.</li>
+            <li>Rotate sensitive passwords if needed.</li>
+            <li>Review 2FA enrollments, vendor sessions, and Home/security app permissions.</li>
+            <li>Update the Mac mini admin record showing who currently holds the role.</li>
+            <li>Brief the new human using the role handbook and escalation notes.</li>
+          </ul>
+        </article>
+        <article class="card tone-rose">
+          <h3>Key principle</h3>
+          <p>The system must survive staff turnover gracefully.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">What this becomes</p>
+        <h2>The bigger picture</h2>
+      </div>
+      <div class="rules-grid">
+        <article class="card tone-ink with-dividers">
+          <ul>
+            <li>Dylan gets a curated, seamless digital life instead of app sprawl.</li>
+            <li>You get a coherent administrative structure instead of ad hoc device chaos.</li>
+            <li>The staff around Dylan can plug into stable roles rather than inheriting personal-device messes.</li>
+            <li>The Mac mini can eventually host a Dylan-focused assistant system, dashboard, and role orchestration layer.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">Hardware</p>
+        <h2>Practical hardware list for this system</h2>
+      </div>
+      <div class="sharing-grid">
+        <article class="card tone-blue with-dividers">
+          <h3>Already covered</h3>
+          <ul>
+            <li>Dylan Mac mini control center</li>
+            <li>Custom NAS for shared storage and backups</li>
+            <li>External SSD</li>
+            <li>UPS for the Mac mini</li>
+          </ul>
+        </article>
+        <article class="card tone-emerald with-dividers">
+          <h3>Still needed</h3>
+          <ul>
+            <li>1 iPhone for Personal Assistant role</li>
+            <li>1 iPhone for House Manager role</li>
+            <li>2 dedicated phone numbers, one per role</li>
+            <li>Cases, screen protectors, and charging kits</li>
+          </ul>
+        </article>
+        <article class="card tone-amber with-dividers">
+          <h3>Explicitly not needed</h3>
+          <ul>
+            <li>No spare iPhone required</li>
+            <li>Replacement devices can be sourced same day if needed</li>
+            <li>Keep the system simple instead of overbuying backup hardware</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="kicker">Future layer</p>
+        <h2>Where Home Assistant fits</h2>
+      </div>
+      <div class="apps-grid">
+        <article class="card tone-teal with-dividers">
+          <h3>Why add Home Assistant later</h3>
+          <ul>
+            <li>Centralize property systems into a cleaner control layer</li>
+            <li>Reduce app sprawl for routine estate operations</li>
+            <li>Create better dashboards and automations</li>
+            <li>Give Dylan curated visibility without needing every vendor app personally</li>
+          </ul>
+        </article>
+        <article class="card tone-plum with-dividers">
+          <h3>Important caution</h3>
+          <ul>
+            <li>Do not try to replace every vendor app immediately</li>
+            <li>Keep role iPhones for mobile control, local presence, and edge-case apps</li>
+            <li>Let Home Assistant become the unifying layer gradually</li>
+            <li>Use the Mac mini as the natural host and control center for it</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section footer-callout">
+      <article class="card tone-emerald">
+        <h2>Recommended next move</h2>
+        <p>Build Dylan’s Mac mini as the central operations hub first, then pair it with two role iPhones: <strong>Personal Assistant</strong> and <strong>House Manager</strong>. That gives you the cleanest path to a truly seamless private-office system.</p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
