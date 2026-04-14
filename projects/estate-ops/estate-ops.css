@@ -1,16 +1,17 @@
 :root {
   color-scheme: dark;
-  --bg: #355c7d;
-  --bg-deep: #2c4d69;
-  --text: #fff7f1;
-  --muted: rgba(255, 247, 241, 0.76);
-  --line: rgba(255,255,255,0.12);
-  --shadow: 0 24px 70px rgba(34, 36, 52, 0.26);
-  --peach: #f8b195;
-  --coral: #f67280;
-  --mauve: #c06c84;
-  --violet: #6c5b7b;
-  --slate: #355c7d;
+  --bg: #0b3446;
+  --bg-deep: #072838;
+  --text: #f7f0ea;
+  --muted: rgba(247, 240, 234, 0.76);
+  --line: rgba(255,255,255,0.1);
+  --shadow: 0 24px 70px rgba(14, 27, 35, 0.28);
+  --copper: #d88752;
+  --copper-deep: #b66738;
+  --cream: #efe6df;
+  --navy: #0b3446;
+  --navy-deep: #072838;
+  --black: #0a0a0b;
 }
 
 * { box-sizing: border-box; }
@@ -18,9 +19,8 @@ body {
   margin: 0;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background:
-    radial-gradient(circle at top, rgba(248, 177, 149, 0.45), transparent 34%),
-    radial-gradient(circle at 70% 20%, rgba(246, 114, 128, 0.28), transparent 28%),
-    linear-gradient(180deg, #cf8f8a 0%, #8f6884 36%, #355c7d 100%);
+    radial-gradient(circle at top left, rgba(216, 135, 82, 0.26), transparent 28%),
+    linear-gradient(180deg, #1f4b5d 0%, #0b3446 100%);
   color: var(--text);
 }
 
@@ -190,49 +190,63 @@ li::before {
 .row-end { min-height: 320px; }
 
 .tone-ink {
-  background: linear-gradient(180deg, rgba(53, 92, 125, 0.94) 0%, rgba(41, 72, 99, 0.98) 100%);
+  background: linear-gradient(180deg, rgba(11, 52, 70, 0.96) 0%, rgba(7, 40, 56, 0.99) 100%);
 }
 .tone-slate {
-  background: linear-gradient(180deg, rgba(108, 91, 123, 0.94) 0%, rgba(78, 67, 90, 0.98) 100%);
+  background: linear-gradient(180deg, rgba(18, 61, 81, 0.96) 0%, rgba(9, 39, 54, 0.99) 100%);
 }
 .tone-blue {
-  background: linear-gradient(180deg, rgba(53, 92, 125, 0.92) 0%, rgba(44, 77, 105, 0.98) 100%);
+  background: linear-gradient(180deg, rgba(11, 52, 70, 0.94) 0%, rgba(7, 40, 56, 0.99) 100%);
 }
 .tone-emerald {
-  background: linear-gradient(180deg, rgba(192, 108, 132, 0.92) 0%, rgba(147, 81, 102, 0.98) 100%);
+  background: linear-gradient(180deg, rgba(216, 135, 82, 0.95) 0%, rgba(182, 103, 56, 0.99) 100%);
 }
 .tone-plum {
-  background: linear-gradient(180deg, rgba(108, 91, 123, 0.94) 0%, rgba(72, 61, 83, 0.98) 100%);
+  background: linear-gradient(180deg, rgba(239, 230, 223, 0.98) 0%, rgba(229, 218, 210, 0.99) 100%);
+  color: #14232b;
+}
+.tone-plum p,
+.tone-plum h2,
+.tone-plum .kicker,
+.tone-plum li {
+  color: #14232b;
 }
 .tone-violet {
-  background: linear-gradient(180deg, rgba(246, 114, 128, 0.92) 0%, rgba(192, 108, 132, 0.98) 100%);
+  background: linear-gradient(180deg, rgba(216, 135, 82, 0.94) 0%, rgba(188, 112, 68, 0.99) 100%);
 }
 .tone-rose {
-  background: linear-gradient(180deg, rgba(246, 114, 128, 0.92) 0%, rgba(176, 88, 109, 0.98) 100%);
+  background: linear-gradient(180deg, rgba(11, 52, 70, 0.96) 0%, rgba(6, 31, 43, 0.99) 100%);
 }
 .tone-gold {
-  background: linear-gradient(180deg, rgba(248, 177, 149, 0.94) 0%, rgba(192, 108, 132, 0.98) 100%);
+  background: linear-gradient(180deg, rgba(239, 230, 223, 0.98) 0%, rgba(227, 217, 209, 0.99) 100%);
+  color: #14232b;
+}
+.tone-gold p,
+.tone-gold h2,
+.tone-gold .kicker,
+.tone-gold li {
+  color: #14232b;
 }
 .tone-sand {
-  background: linear-gradient(180deg, rgba(248, 177, 149, 0.98) 0%, rgba(236, 159, 132, 0.98) 100%);
-  color: #2e2230;
+  background: linear-gradient(180deg, rgba(216, 135, 82, 0.98) 0%, rgba(205, 124, 74, 0.99) 100%);
+  color: #fff8f2;
 }
 .tone-sand p,
 .tone-sand h2,
 .tone-sand .kicker {
-  color: #2e2230;
+  color: #fff8f2;
 }
 .tone-image-plum {
-  background: linear-gradient(135deg, #f8b195 0%, #f67280 38%, #c06c84 68%, #6c5b7b 100%);
+  background: linear-gradient(135deg, #af6439 0%, #d88752 45%, #8f4d2b 100%);
 }
 .tone-image-gold {
-  background: linear-gradient(135deg, #f8b195 0%, #c06c84 52%, #6c5b7b 100%);
+  background: linear-gradient(135deg, #d88752 0%, #f0dcd0 100%);
 }
 .tone-image-ink {
-  background: linear-gradient(135deg, #c06c84 0%, #6c5b7b 45%, #355c7d 100%);
+  background: linear-gradient(135deg, #0b3446 0%, #072838 100%);
 }
 .tone-image-blue {
-  background: linear-gradient(135deg, #f67280 0%, #6c5b7b 52%, #355c7d 100%);
+  background: linear-gradient(135deg, #d88752 0%, #0b3446 60%, #072838 100%);
 }
 
 @media (max-width: 1100px) {
