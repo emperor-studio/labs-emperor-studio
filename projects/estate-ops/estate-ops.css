@@ -73,6 +73,10 @@ body {
   min-height: 420px;
 }
 
+.hero-photo-panel {
+  min-height: 100%;
+}
+
 .detail-photo-panel::after {
   content: '';
   position: absolute;
