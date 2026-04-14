@@ -18,9 +18,9 @@ body {
   margin: 0;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background:
-    radial-gradient(circle at top left, rgba(248, 233, 161, 0.42), transparent 26%),
-    radial-gradient(circle at 80% 10%, rgba(247, 108, 108, 0.18), transparent 18%),
-    linear-gradient(180deg, #b7dbed 0%, #8ebfd9 100%);
+    radial-gradient(circle at top left, rgba(248, 233, 161, 0.14), transparent 22%),
+    radial-gradient(circle at 80% 10%, rgba(247, 108, 108, 0.12), transparent 16%),
+    linear-gradient(180deg, #374785 0%, #24305e 100%);
   color: var(--text);
 }
 
