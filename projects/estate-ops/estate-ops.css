@@ -53,9 +53,8 @@ body {
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
-  background: rgba(36, 48, 94, 0.32);
 }
 
 .photo-label {
@@ -69,11 +68,15 @@ body {
   backdrop-filter: blur(8px);
 }
 
+.detail-photo-panel {
+  min-height: 300px;
+}
+
 .detail-photo-panel::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(16, 23, 43, 0.06) 0%, rgba(16, 23, 43, 0.42) 100%);
+  background: linear-gradient(180deg, rgba(16, 23, 43, 0.06) 0%, rgba(16, 23, 43, 0.28) 100%);
   pointer-events: none;
 }
 
