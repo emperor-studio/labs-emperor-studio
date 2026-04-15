@@ -1,0 +1,205 @@
+:root {
+  --bg: #0d0d0d;
+  --paper: #e9e2d8;
+  --ink: #111111;
+  --muted: rgba(17,17,17,0.62);
+  --light-line: rgba(17,17,17,0.08);
+  --dark-line: rgba(255,255,255,0.12);
+  --accent: #c5a074;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #0a0a0a;
+  color: var(--paper);
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 28px;
+}
+
+.frame {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  gap: 18px;
+}
+
+.hero,
+.panel,
+.footer {
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+.hero {
+  background: linear-gradient(180deg, #171717 0%, #0e0e0e 100%);
+  padding: 44px 40px 36px;
+  border: 1px solid var(--dark-line);
+}
+
+.eyebrow,
+.label {
+  margin: 0 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.78rem;
+  color: var(--accent);
+}
+
+.label.inverse {
+  color: rgba(255,255,255,0.62);
+}
+
+h1, h2, p {
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(2.8rem, 6vw, 6.6rem);
+  line-height: 0.93;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  max-width: 12ch;
+}
+
+.deck {
+  margin-top: 18px;
+  max-width: 42rem;
+  font-size: 1.16rem;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.8);
+}
+
+.intro-grid,
+.section-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.intro-grid {
+  grid-template-columns: 1.35fr 0.65fr;
+}
+
+.section-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.section-grid.third {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.panel {
+  padding: 30px 28px;
+}
+
+.panel-light {
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--light-line);
+}
+
+.panel-dark {
+  background: linear-gradient(180deg, #171717 0%, #101010 100%);
+  color: var(--paper);
+  border: 1px solid var(--dark-line);
+}
+
+.panel-accent {
+  background: linear-gradient(180deg, #b9966d 0%, #9b7854 100%);
+  color: #111;
+}
+
+.panel-accent .label,
+.panel-accent h2,
+.panel-accent p {
+  color: #111;
+}
+
+.large-quote {
+  min-height: 260px;
+  display: flex;
+  align-items: end;
+}
+
+.large-quote p {
+  font-size: clamp(1.8rem, 3vw, 3.1rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  max-width: 18ch;
+}
+
+.small-note {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.small-note p:last-child,
+.panel-light p,
+.panel-dark p,
+.panel-accent p {
+  line-height: 1.75;
+  font-size: 1.02rem;
+}
+
+h2 {
+  font-size: clamp(1.6rem, 2.6vw, 2.8rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+
+.image-block {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.45)),
+    radial-gradient(circle at top left, rgba(197,160,116,0.18), transparent 30%),
+    linear-gradient(180deg, #202020 0%, #111111 100%);
+}
+
+.tall {
+  min-height: 420px;
+}
+
+.book-panel {
+  min-height: 420px;
+}
+
+.book-panel p + p {
+  margin-top: 16px;
+}
+
+.footer {
+  padding: 18px 22px;
+  background: #121212;
+  border: 1px solid var(--dark-line);
+  color: rgba(255,255,255,0.54);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 980px) {
+  .intro-grid,
+  .section-grid,
+  .section-grid.third {
+    grid-template-columns: 1fr;
+  }
+
+  .page {
+    padding: 16px;
+  }
+
+  .hero,
+  .panel {
+    padding: 24px 22px;
+  }
+}
