@@ -1,30 +1,31 @@
 :root {
   color-scheme: light;
-  --bg: #f6f1e8;
-  --paper: #faf6ef;
-  --ink: #161311;
-  --muted: #625952;
-  --line: rgba(22, 19, 17, 0.12);
-  --line-strong: rgba(22, 19, 17, 0.18);
-  --accent: #be5633;
-  --card: rgba(255,255,255,0.46);
-  --shadow: 0 18px 40px rgba(58, 33, 18, 0.08);
+  --bg: #f3f1ec;
+  --paper: #fbfaf7;
+  --ink: #101010;
+  --muted: #5c5d61;
+  --line: rgba(16, 16, 16, 0.1);
+  --line-strong: rgba(16, 16, 16, 0.18);
+  --red: #e5442e;
+  --blue: #2563eb;
+  --accent: #ef6a3a;
+  --card: rgba(255,255,255,0.64);
+  --shadow: 0 18px 40px rgba(26, 26, 26, 0.06);
 }
 
 * { box-sizing: border-box; }
 body {
   margin: 0;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: Inter, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background:
-    radial-gradient(circle at top left, rgba(190, 86, 51, 0.12), transparent 30%),
-    linear-gradient(180deg, #f8f3eb 0%, #f3ede4 100%);
+    linear-gradient(180deg, #f7f6f2 0%, #f1efea 100%);
   color: var(--ink);
 }
 
 .page {
   max-width: 1240px;
   margin: 0 auto;
-  padding: 48px 28px 88px;
+  padding: 44px 28px 88px;
 }
 
 .eyebrow,
@@ -34,7 +35,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.14em;
   font-size: 11px;
-  color: var(--accent);
+  color: var(--red);
 }
 
 .hero-grid,
@@ -45,32 +46,76 @@ body {
   gap: 22px;
 }
 
+.hero {
+  position: relative;
+}
+
 .hero-grid {
-  grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.8fr);
+  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.8fr);
   align-items: start;
   gap: 28px;
 }
 
+.hero-title-row {
+  display: grid;
+  gap: 10px;
+}
+
+.hangul-mark {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  padding: 7px 12px 6px;
+  border-radius: 999px;
+  background: var(--red);
+  color: white;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-size: 0.95rem;
+}
+
+.hero-strip {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hero-strip span {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: white;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 0.92rem;
+  box-shadow: 0 8px 20px rgba(16,16,16,0.04);
+}
+
 h1 {
   margin: 0;
-  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
-  font-size: clamp(3rem, 6vw, 5.6rem);
-  line-height: 0.96;
-  letter-spacing: -0.04em;
+  font-family: Inter, "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+  font-size: clamp(3rem, 6vw, 5.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  font-weight: 800;
 }
 
 h2 {
   margin: 0;
-  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
-  font-size: clamp(1.8rem, 3vw, 2.9rem);
-  line-height: 1.04;
-  letter-spacing: -0.02em;
+  font-family: Inter, "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  font-weight: 700;
 }
 
 h3 {
   margin: 0 0 12px;
-  font-size: 1.1rem;
+  font-size: 1.08rem;
   line-height: 1.25;
+  font-weight: 700;
 }
 
 .lead,
@@ -78,16 +123,16 @@ p,
 li,
 .note-copy,
 .question-item {
-  font-size: 1.05rem;
+  font-size: 1.03rem;
   line-height: 1.72;
   color: var(--muted);
 }
 
 .lead {
-  max-width: 780px;
+  max-width: 760px;
   margin: 18px 0 0;
-  font-size: 1.18rem;
-  line-height: 1.76;
+  font-size: 1.16rem;
+  line-height: 1.78;
 }
 
 .hero-note,
@@ -95,13 +140,13 @@ li,
 .question-item {
   border: 1px solid var(--line);
   background: var(--card);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(6px);
   box-shadow: var(--shadow);
 }
 
 .hero-note {
   padding: 22px 22px 20px;
-  border-radius: 22px;
+  border-radius: 20px;
 }
 
 .note-label {
@@ -114,13 +159,14 @@ li,
 }
 
 .section {
-  margin-top: 38px;
+  margin-top: 40px;
 }
 
 .section-rule {
-  height: 1px;
-  background: linear-gradient(90deg, var(--line-strong), transparent 76%);
+  height: 2px;
+  background: linear-gradient(90deg, var(--red), var(--blue), transparent 72%);
   margin-bottom: 18px;
+  border-radius: 999px;
 }
 
 .two-col {
@@ -147,7 +193,7 @@ li,
 }
 
 .question-item {
-  border-radius: 18px;
+  border-radius: 16px;
   padding: 18px 20px;
   color: var(--ink);
 }
@@ -161,12 +207,12 @@ li,
 }
 
 .memo-card {
-  border-radius: 22px;
+  border-radius: 18px;
   padding: 22px 22px 20px;
 }
 
 .memo-card.soft {
-  background: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.78);
 }
 
 .memo-card p {
@@ -198,7 +244,7 @@ li,
   width: 6px;
   height: 6px;
   border-radius: 999px;
-  background: rgba(190, 86, 51, 0.72);
+  background: var(--red);
 }
 
 .memo-card li:first-child::before {
