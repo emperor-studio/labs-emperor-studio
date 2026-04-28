@@ -4,211 +4,171 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Insurance App Concept</title>
-  <link rel="stylesheet" href="./insurance-app.css?v=20260428a" />
+  <link rel="stylesheet" href="./insurance-app.css?v=20260428b" />
 </head>
 <body>
   <main class="page">
     <section class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow">Labs concept page</p>
-        <h1>Insurance, finally visible.</h1>
-        <p class="sub">A concept for an app that turns scattered policies, brokers, premiums, riders, deductibles, and overlapping coverage into one clear control panel, so people can understand what they have, spot waste, and model smarter decisions.</p>
-      </div>
-      <aside class="hero-stamp">
-        <div class="stamp-label">Core idea</div>
-        <div class="stamp-value">Coverage mapping, overlap analysis, and scenario modeling for messy insurance stacks.</div>
-      </aside>
-    </section>
-
-    <section class="section">
-      <div class="section-heading">
-        <h2>The problem</h2>
-      </div>
-      <div class="problem-grid">
-        <article class="card tone-ink span-2">
-          <h3>Most insurance stacks are fragmented and opaque</h3>
-          <p>People often have multiple policies with multiple providers and brokers, spread across home, auto, umbrella, business, liability, equipment, property, and specialty coverage. Premiums keep getting paid, but the actual coverage picture stays blurry.</p>
-        </article>
-        <article class="card tone-rose">
-          <h3>What people cannot easily answer</h3>
-          <ul class="with-dividers">
-            <li>What am I actually covered for?</li>
-            <li>Where am I double-covered?</li>
-            <li>Where am I exposed?</li>
-            <li>What is costing too much?</li>
-            <li>What could be consolidated?</li>
-            <li>What changes would affect premium and exposure?</li>
-          </ul>
-        </article>
+      <p class="eyebrow">Labs concept memo</p>
+      <div class="hero-grid">
+        <div class="hero-main">
+          <h1>Insurance, made legible.</h1>
+          <p class="lead">A concept for a private control panel that turns scattered policies, brokers, premiums, deductibles, riders, and overlapping coverage into one readable system, so people can understand what they have, see where money is leaking, and make cleaner decisions.</p>
+        </div>
+        <aside class="hero-note">
+          <p class="note-label">Core proposition</p>
+          <p class="note-copy">Coverage mapping, overlap analysis, and scenario modeling for people whose insurance stacks have become too fragmented to understand at a glance.</p>
+        </aside>
       </div>
     </section>
 
-    <section class="section">
-      <div class="section-heading">
-        <h2>What the app does</h2>
+    <section class="section intro-section">
+      <div class="section-rule"></div>
+      <div class="two-col intro-copy">
+        <div>
+          <p class="section-label">Problem</p>
+          <h2>Most insurance portfolios become opaque long before they become optimized.</h2>
+        </div>
+        <div>
+          <p>Over time, people accumulate policies across homes, autos, liability, umbrella, business operations, equipment, property, and specialty risks. Different brokers enter at different moments. Policies are renewed, amended, and layered. Premiums continue to be paid, but the total structure becomes increasingly difficult to read with confidence.</p>
+          <p>The result is familiar: uncertainty about true coverage, suspicion of redundancy, and no clean way to test what could be consolidated, shifted, or eliminated.</p>
+        </div>
       </div>
-      <div class="features-grid">
-        <article class="card tone-blue">
-          <p class="kicker">1. Ingest</p>
-          <h3>Collect and read policy documents</h3>
-          <ul class="with-dividers">
-            <li>Upload declarations pages, full policy PDFs, endorsements, schedules, and broker notes</li>
-            <li>Capture provider, policy number, term, premium, deductible, limits, riders, and exclusions</li>
-            <li>Turn ugly documents into structured data</li>
-          </ul>
-        </article>
+    </section>
 
-        <article class="card tone-emerald">
-          <p class="kicker">2. Normalize</p>
-          <h3>Create a unified coverage map</h3>
-          <ul class="with-dividers">
-            <li>Map assets, entities, locations, and risks across policies</li>
-            <li>Group similar coverage types into one readable system</li>
-            <li>Show which assets are covered where, and by whom</li>
-          </ul>
-        </article>
+    <section class="section questions-section">
+      <div class="section-rule"></div>
+      <div class="section-heading-block">
+        <p class="section-label">Decision pressure</p>
+        <h2>The questions people should be able to answer, but usually cannot.</h2>
+      </div>
+      <div class="question-list">
+        <div class="question-item">What am I actually covered for across all active policies?</div>
+        <div class="question-item">Where am I likely paying for overlapping or unnecessary coverage?</div>
+        <div class="question-item">Which risks are thinly covered, ambiguously covered, or not covered at all?</div>
+        <div class="question-item">What can be moved, consolidated, or restructured before I call a broker?</div>
+        <div class="question-item">How would deductible or limit changes alter cost and exposure?</div>
+      </div>
+    </section>
 
-        <article class="card tone-plum">
-          <p class="kicker">3. Reveal</p>
-          <h3>Make the stack visible at a glance</h3>
-          <ul class="with-dividers">
-            <li>Total annual premium across all policies</li>
-            <li>Provider and broker map</li>
-            <li>Coverage by asset, category, and location</li>
-            <li>Overlap flags, gap flags, and upcoming renewals</li>
-          </ul>
+    <section class="section">
+      <div class="section-rule"></div>
+      <div class="section-heading-block narrow">
+        <p class="section-label">Product shape</p>
+        <h2>What the app would do.</h2>
+      </div>
+      <div class="memo-grid four-up">
+        <article class="memo-card">
+          <p class="card-index">01</p>
+          <h3>Ingest policy documents</h3>
+          <p>Upload declarations pages, policy PDFs, endorsements, schedules, and broker notes. Extract providers, terms, premiums, deductibles, limits, riders, exclusions, and named entities into structured fields.</p>
         </article>
-
-        <article class="card tone-teal">
-          <p class="kicker">4. Model</p>
-          <h3>Test scenarios before calling the broker</h3>
-          <ul class="with-dividers">
-            <li>Move assets between policies in a sandbox</li>
-            <li>Raise or lower deductibles with simple sliders</li>
-            <li>Compare what premium and exposure might look like under different structures</li>
-            <li>Identify which questions to take back to the broker or advisor</li>
-          </ul>
+        <article class="memo-card">
+          <p class="card-index">02</p>
+          <h3>Normalize the stack</h3>
+          <p>Translate scattered policy language into one consistent coverage map, showing which assets, locations, entities, and risks are being covered where, by whom, and under what conditions.</p>
+        </article>
+        <article class="memo-card">
+          <p class="card-index">03</p>
+          <h3>Surface the whole picture</h3>
+          <p>Present total annual premium, active policies, renewal timing, provider relationships, coverage by asset class, and visible overlap or gap areas in one at-a-glance view.</p>
+        </article>
+        <article class="memo-card">
+          <p class="card-index">04</p>
+          <h3>Model possible changes</h3>
+          <p>Let users test scenarios in a sandbox, such as shifting assets, changing deductibles, or comparing alternate structures before taking concrete options back to their broker or advisor.</p>
         </article>
       </div>
     </section>
 
     <section class="section">
-      <div class="section-heading">
-        <h2>What the experience could feel like</h2>
+      <div class="section-rule"></div>
+      <div class="two-col split-emphasis">
+        <div>
+          <p class="section-label">Interface</p>
+          <h2>A calm dashboard, not a legal labyrinth.</h2>
+        </div>
+        <div>
+          <p>The value of the app is not theatrical complexity. It is a private system that makes an insurance portfolio readable. The interface should feel more like an elegant financial control panel than an overloaded insurtech gimmick.</p>
+        </div>
       </div>
-      <div class="dashboard-grid">
-        <article class="card tone-slate">
+      <div class="memo-grid three-up">
+        <article class="memo-card soft">
           <h3>Coverage dashboard</h3>
-          <ul class="with-dividers">
-            <li>Annual premium rollup</li>
-            <li>Active policies and renewal dates</li>
-            <li>Coverage categories and limits</li>
-            <li>Assets tied to specific policies</li>
-            <li>Notes, uncertainties, and broker questions</li>
+          <ul>
+            <li>Total annual premium across all policies</li>
+            <li>Active policies and renewal timing</li>
+            <li>Coverage categories, limits, and deductibles</li>
+            <li>Assets, locations, and named entities tied to policies</li>
           </ul>
         </article>
-        <article class="card tone-violet">
-          <h3>Overlap and gap analysis</h3>
-          <ul class="with-dividers">
+        <article class="memo-card soft">
+          <h3>Overlap and gap review</h3>
+          <ul>
             <li>Potential duplicate coverage</li>
-            <li>Coverage that appears thin or absent</li>
-            <li>Policies that may exist mainly out of inertia</li>
-            <li>Places where a rider may be unnecessary</li>
+            <li>Coverage that appears absent or uncertain</li>
+            <li>Policies that may exist mostly through inertia</li>
+            <li>Areas that deserve broker follow-up</li>
           </ul>
         </article>
-        <article class="card tone-gold span-2">
+        <article class="memo-card soft">
           <h3>Scenario sandbox</h3>
-          <p>The app does not need to pretend it replaces an insurance professional. Its value is clarity. A smart sandbox could help users ask better questions, see likely tradeoffs, and understand whether a change might simplify the stack, reduce waste, or shift risk in a way worth discussing.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-heading">
-        <h2>Why this is useful</h2>
-      </div>
-      <div class="value-grid">
-        <article class="card tone-amber">
-          <h3>For households</h3>
-          <p>People with multiple homes, cars, assets, or specialty coverage often lose track of the total picture. This creates a real sense of uncertainty and often unnecessary spend.</p>
-        </article>
-        <article class="card tone-olive">
-          <h3>For business owners</h3>
-          <p>Businesses accumulate policies over time, often through separate events and separate advisors. What starts as prudent coverage can become a confusing patchwork.</p>
-        </article>
-        <article class="card tone-mist">
-          <h3>For brokers and advisors</h3>
-          <p>This could also become a better client-facing review surface. Instead of reading opaque PDFs together, broker and client could look at one map of reality and discuss changes from a shared picture.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-heading">
-        <h2>Important posture</h2>
-      </div>
-      <div class="posture-grid">
-        <article class="card tone-ink span-2">
-          <h3>This is not fake magic insurance autopilot</h3>
-          <p>The smartest version of this product is not “AI replaces your broker.” It is a decision-support layer that makes policy stacks understandable, exposes inefficiencies, surfaces ambiguity, and helps people ask the right questions before making real changes.</p>
-        </article>
-        <article class="card tone-blue">
-          <h3>Better promise</h3>
-          <ul class="with-dividers">
-            <li>Coverage clarity</li>
-            <li>Portfolio visibility</li>
-            <li>Overlap detection</li>
-            <li>Scenario comparison</li>
-            <li>Smarter broker conversations</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-heading">
-        <h2>Who it is for</h2>
-      </div>
-      <div class="audience-grid">
-        <article class="card tone-slate">
-          <ul class="with-dividers">
-            <li>High-complexity households</li>
-            <li>People with multiple policies across multiple providers</li>
-            <li>Small businesses with layered insurance needs</li>
-            <li>Studios, property owners, and operators with mixed asset classes</li>
-            <li>Brokers who want a clearer client review interface</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-heading">
-        <h2>Potential v1</h2>
-      </div>
-      <div class="v1-grid">
-        <article class="card tone-emerald">
-          <h3>Start with clarity, not optimization theater</h3>
-          <ul class="with-dividers">
-            <li>Document upload</li>
-            <li>Structured policy summary cards</li>
-            <li>Premium rollup</li>
-            <li>Coverage-by-asset map</li>
-            <li>Overlap and gap flags</li>
-            <li>Renewal calendar</li>
-            <li>Broker questions and notes</li>
-          </ul>
-        </article>
-        <article class="card tone-plum">
-          <h3>Then add modeling</h3>
-          <ul class="with-dividers">
+          <ul>
             <li>Deductible and limit sliders</li>
-            <li>Asset-move sandbox</li>
-            <li>Policy comparison views</li>
-            <li>Confidence labels where interpretation is uncertain</li>
-            <li>Decision memos users can bring into broker conversations</li>
+            <li>Asset-move simulations</li>
+            <li>Comparative premium and exposure views</li>
+            <li>Notes and questions to carry into review meetings</li>
           </ul>
         </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-rule"></div>
+      <div class="section-heading-block narrow">
+        <p class="section-label">Why it matters</p>
+        <h2>Useful for households, businesses, and the advisors who serve them.</h2>
+      </div>
+      <div class="memo-grid three-up">
+        <article class="memo-card">
+          <h3>For complex households</h3>
+          <p>Multiple homes, vehicles, property classes, and specialty policies often create exactly the kind of fragmented stack that becomes expensive and hard to understand.</p>
+        </article>
+        <article class="memo-card">
+          <h3>For business owners</h3>
+          <p>Insurance portfolios grow in layers. What begins as prudent coverage can become a patchwork of overlapping policies, partial visibility, and uncertain total exposure.</p>
+        </article>
+        <article class="memo-card">
+          <h3>For brokers and advisors</h3>
+          <p>The same system could become a far better review surface, helping broker and client discuss the same reality rather than decoding PDFs together in real time.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section posture-section">
+      <div class="section-rule"></div>
+      <div class="two-col intro-copy">
+        <div>
+          <p class="section-label">Product posture</p>
+          <h2>This should not pretend to replace professional judgment.</h2>
+        </div>
+        <div>
+          <p>The strongest version of this idea is not “AI replaces your broker.” It is a decision-support layer that makes policy structures understandable, exposes inefficiencies, reveals ambiguity, and helps people ask sharper questions before making real changes.</p>
+          <p>That is a more credible promise, and probably a more valuable one.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section final-section">
+      <div class="section-rule"></div>
+      <div class="two-col split-emphasis">
+        <div>
+          <p class="section-label">V1</p>
+          <h2>Start with clarity. Add optimization later.</h2>
+        </div>
+        <div>
+          <p>A strong first version would focus on document upload, structured policy summaries, premium rollups, coverage-by-asset mapping, overlap and gap flags, renewal tracking, and broker-question notes. Scenario modeling can come next, once the system already provides reliable visibility.</p>
+        </div>
       </div>
     </section>
   </main>
