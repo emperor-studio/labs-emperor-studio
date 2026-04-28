@@ -1,0 +1,242 @@
+:root {
+  color-scheme: light;
+  --bg: #f6f1e8;
+  --paper: #faf6ef;
+  --ink: #161311;
+  --muted: #625952;
+  --line: rgba(22, 19, 17, 0.12);
+  --line-strong: rgba(22, 19, 17, 0.18);
+  --accent: #be5633;
+  --card: rgba(255,255,255,0.46);
+  --shadow: 0 18px 40px rgba(58, 33, 18, 0.08);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(190, 86, 51, 0.12), transparent 30%),
+    linear-gradient(180deg, #f8f3eb 0%, #f3ede4 100%);
+  color: var(--ink);
+}
+
+.page {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 48px 28px 88px;
+}
+
+.eyebrow,
+.section-label,
+.note-label,
+.card-index {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 11px;
+  color: var(--accent);
+}
+
+.hero-grid,
+.two-col,
+.memo-grid,
+.question-list {
+  display: grid;
+  gap: 22px;
+}
+
+.hero-grid {
+  grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.8fr);
+  align-items: start;
+  gap: 28px;
+}
+
+h1 {
+  margin: 0;
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: clamp(3rem, 6vw, 5.6rem);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+}
+
+h2 {
+  margin: 0;
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: clamp(1.8rem, 3vw, 2.9rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+  line-height: 1.25;
+}
+
+.lead,
+p,
+li,
+.note-copy,
+.question-item {
+  font-size: 1.05rem;
+  line-height: 1.72;
+  color: var(--muted);
+}
+
+.lead {
+  max-width: 780px;
+  margin: 18px 0 0;
+  font-size: 1.18rem;
+  line-height: 1.76;
+}
+
+.hero-note,
+.memo-card,
+.question-item {
+  border: 1px solid var(--line);
+  background: var(--card);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow);
+}
+
+.hero-note {
+  padding: 22px 22px 20px;
+  border-radius: 22px;
+}
+
+.note-label {
+  margin: 0 0 8px;
+}
+
+.note-copy {
+  margin: 0;
+  color: var(--ink);
+}
+
+.section {
+  margin-top: 38px;
+}
+
+.section-rule {
+  height: 1px;
+  background: linear-gradient(90deg, var(--line-strong), transparent 76%);
+  margin-bottom: 18px;
+}
+
+.two-col {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  align-items: start;
+}
+
+.intro-copy p,
+.split-emphasis p {
+  margin: 0 0 16px;
+}
+
+.section-heading-block {
+  max-width: 860px;
+  margin-bottom: 18px;
+}
+
+.section-heading-block.narrow {
+  max-width: 700px;
+}
+
+.question-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.question-item {
+  border-radius: 18px;
+  padding: 18px 20px;
+  color: var(--ink);
+}
+
+.memo-grid.four-up {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.memo-grid.three-up {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.memo-card {
+  border-radius: 22px;
+  padding: 22px 22px 20px;
+}
+
+.memo-card.soft {
+  background: rgba(255,255,255,0.5);
+}
+
+.memo-card p {
+  margin: 0;
+}
+
+.memo-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.memo-card li {
+  position: relative;
+  padding: 10px 0 10px 18px;
+  border-top: 1px solid var(--line);
+}
+
+.memo-card li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.memo-card li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 18px;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(190, 86, 51, 0.72);
+}
+
+.memo-card li:first-child::before {
+  top: 8px;
+}
+
+.final-section {
+  padding-bottom: 20px;
+}
+
+@media (max-width: 1000px) {
+  .hero-grid,
+  .two-col,
+  .memo-grid.three-up,
+  .memo-grid.four-up,
+  .question-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding: 28px 18px 64px;
+  }
+
+  .hero-grid,
+  .two-col,
+  .memo-grid.three-up,
+  .memo-grid.four-up,
+  .question-list {
+    grid-template-columns: 1fr;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 12vw, 4.2rem);
+  }
+
+  h2 {
+    font-size: clamp(1.6rem, 7vw, 2.4rem);
+  }
+}
