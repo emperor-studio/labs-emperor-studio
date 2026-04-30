@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ken’s Mac mini Agent Setup</title>
+  <style>
+    :root {
+      --background: #f3f1ec;
+      --foreground: #131313;
+      --panel: #ffffff;
+      --muted: #7b7b77;
+      --line: rgba(19, 19, 19, 0.12);
+      --blue: #3168de;
+      --red: #ef5d3d;
+      --cream: #f6ead9;
+      --dark: #15181d;
+      --green: #1d9a68;
+      --shadow: 0 16px 32px rgba(20, 20, 20, 0.05);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--foreground);
+      font-family: Inter, "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", ui-sans-serif,
+        system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .system-page {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    .side-rail {
+      background: #f6f4ef;
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .rail-brand {
+      background: var(--blue);
+      padding: 22px 18px 18px;
+      border-bottom: 1px solid rgba(19, 19, 19, 0.15);
+    }
+
+    .rail-kicker,
+    .rail-code,
+    .kicker,
+    .panel-warning-label,
+    .eyebrow {
+      margin: 0 0 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 10px;
+    }
+
+    .rail-brand h1 {
+      margin: 0;
+      font-size: 3rem;
+      line-height: 0.9;
+      letter-spacing: -0.06em;
+    }
+
+    .rail-title { margin: 8px 0 6px; font-weight: 700; }
+
+    .rail-meta,
+    .rail-owner,
+    .rail-link,
+    .rail-code,
+    .rail-label,
+    .panel-meta-row,
+    .metric-label,
+    .metric-note,
+    .system-page p,
+    .system-page li,
+    figcaption { color: var(--muted); }
+
+    .rail-nav { display: grid; }
+    .rail-link {
+      display: grid;
+      gap: 4px;
+      text-decoration: none;
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(19, 19, 19, 0.08);
+      background: transparent;
+    }
+    .rail-link.active { background: white; box-shadow: inset 4px 0 0 var(--blue); }
+    .rail-label { color: var(--foreground); font-size: 1rem; }
+    .rail-footer { margin-top: auto; padding: 18px; border-top: 1px solid rgba(19, 19, 19, 0.08); }
+
+    .main-stage { padding: 22px 24px 40px; }
+
+    .top-bar {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr);
+      align-items: end;
+      gap: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--foreground);
+    }
+
+    .top-bar-index {
+      font-size: clamp(4rem, 8vw, 5.8rem);
+      line-height: 0.88;
+      letter-spacing: -0.08em;
+      font-weight: 800;
+    }
+
+    .top-bar-title-wrap h2 {
+      margin: 12px 0 0;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1;
+      text-align: right;
+      letter-spacing: -0.05em;
+    }
+
+    .phase-tag {
+      width: fit-content;
+      margin-left: auto;
+      background: var(--foreground);
+      color: white;
+      padding: 6px 10px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .panel-grid,
+    .wide-panel-grid,
+    .bar-group,
+    .check-stack,
+    .footer-grid { display: grid; gap: 18px; }
+
+    .hero-grid { grid-template-columns: 1.2fr 0.8fr; margin-top: 18px; }
+    .triple-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 18px; }
+    .quad-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 18px; }
+    .footer-grid { grid-template-columns: 1.1fr 0.9fr; margin-top: 18px; }
+    .wide-panel-grid { grid-template-columns: 1fr 0.8fr; align-items: start; }
+
+    .panel,
+    .wide-panel {
+      background: var(--panel);
+      border: 1px solid rgba(19, 19, 19, 0.08);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .wide-panel { margin-top: 18px; }
+    .span-2 { grid-column: span 2; }
+    .span-3 { grid-column: span 3; }
+
+    .panel-meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid rgba(19, 19, 19, 0.08);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    h3 { margin: 0 0 12px; font-size: 1.2rem; letter-spacing: -0.03em; }
+    p { margin: 0; line-height: 1.65; }
+    p + p { margin-top: 12px; }
+    ul { list-style: none; margin: 18px 0 0; padding: 0; }
+    li { position: relative; padding: 0 0 12px 18px; line-height: 1.45; }
+    li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--red);
+    }
+
+    .thesis-copy {
+      margin: 0;
+      font-size: 2rem;
+      line-height: 1.28;
+      color: var(--foreground);
+    }
+    .thesis-copy.small { font-size: 1.35rem; }
+    mark { background: var(--blue); padding: 0 4px; color: var(--foreground); }
+
+    .metric-block { margin-top: 28px; }
+    .metric-value {
+      margin: 8px 0 0;
+      font-size: 2rem;
+      line-height: 1.1;
+      color: var(--foreground);
+      font-weight: 800;
+    }
+    .metric-note { margin: 8px 0 0; font-size: 0.92rem; color: var(--green); }
+
+    .mini-terminal {
+      display: grid;
+      gap: 10px;
+      padding: 14px 16px;
+      border: 1px solid rgba(19, 19, 19, 0.08);
+    }
+    .terminal-row { display: flex; justify-content: space-between; gap: 12px; font-size: 0.95rem; }
+    .terminal-row strong { color: var(--foreground); text-align: right; }
+
+    .behavior-list { display: grid; gap: 10px; }
+    .behavior-item {
+      padding: 12px 14px;
+      border: 1px solid rgba(19, 19, 19, 0.08);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.9rem;
+    }
+
+    .tone-red { background: var(--red); color: white; }
+    .tone-blue { background: var(--blue); color: white; }
+    .tone-cream { background: var(--cream); }
+    .tone-dark { background: var(--dark); color: white; }
+    .tone-red p,
+    .tone-red li,
+    .tone-red .panel-meta-row,
+    .tone-blue p,
+    .tone-blue li,
+    .tone-blue .panel-meta-row,
+    .tone-dark p,
+    .tone-dark li,
+    .tone-dark .panel-meta-row { color: inherit; }
+
+    .barcode-box {
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      border: 1px solid rgba(19, 19, 19, 0.08);
+    }
+    .barcode {
+      width: 100%;
+      height: 42px;
+      background: repeating-linear-gradient(90deg, var(--foreground) 0 2px, transparent 2px 5px);
+      margin-bottom: 14px;
+      opacity: 0.65;
+    }
+
+    .bar-item + .bar-item { margin-top: 10px; }
+    .bar-label-row { display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 6px; color: var(--muted); }
+    .bar-track { width: 100%; height: 10px; background: #eceae4; overflow: hidden; }
+    .bar-fill { height: 100%; }
+    .bar-fill.blue { background: var(--blue); }
+    .bar-fill.red { background: var(--red); }
+    .bar-fill.ink { background: var(--foreground); }
+    .bar-fill.green { background: var(--green); }
+
+    .check-item {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 14px;
+      padding: 16px;
+      border: 1px solid rgba(19, 19, 19, 0.08);
+      background: white;
+    }
+    .check-num {
+      display: grid;
+      place-items: center;
+      background: var(--foreground);
+      color: white;
+      font-weight: 800;
+      min-height: 42px;
+    }
+    .check-item strong { display: block; margin-bottom: 3px; }
+
+    code { background: #eceae4; color: var(--foreground); padding: 2px 5px; }
+
+    @media (max-width: 1100px) {
+      .system-page { grid-template-columns: 1fr; }
+      .side-rail { border-right: 0; border-bottom: 1px solid var(--line); }
+      .hero-grid,
+      .triple-grid,
+      .quad-grid,
+      .wide-panel-grid,
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .span-2,
+      .span-3 { grid-column: span 2; }
+    }
+
+    @media (max-width: 760px) {
+      .main-stage { padding: 18px 14px 30px; }
+      .top-bar,
+      .hero-grid,
+      .triple-grid,
+      .quad-grid,
+      .wide-panel-grid,
+      .footer-grid { grid-template-columns: 1fr; }
+      .span-2,
+      .span-3 { grid-column: span 1; }
+      .top-bar-title-wrap h2 { text-align: left; }
+      .phase-tag { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+  <main class="system-page">
+    <aside class="side-rail">
+      <div class="rail-brand">
+        <p class="rail-kicker">Build brief</p>
+        <h1>K-MINI</h1>
+        <p class="rail-title">Ken’s Mac mini Agent</p>
+        <p class="rail-meta">System: personal_server_v0.1</p>
+      </div>
+
+      <nav class="rail-nav">
+        <a href="#summary" class="rail-link active"><span class="rail-code">NODE: 001-THESIS</span><span class="rail-label">Summary</span></a>
+        <a href="#stack" class="rail-link"><span class="rail-code">NODE: 002-STACK</span><span class="rail-label">Software Stack</span></a>
+        <a href="#storage" class="rail-link"><span class="rail-code">NODE: 003-DATA</span><span class="rail-label">Storage Logic</span></a>
+        <a href="#security" class="rail-link"><span class="rail-code">NODE: 004-SEC</span><span class="rail-label">Access + Security</span></a>
+        <a href="#ops" class="rail-link"><span class="rail-code">NODE: 005-OPS</span><span class="rail-label">Operations</span></a>
+        <a href="#checklist" class="rail-link"><span class="rail-code">NODE: 006-RUN</span><span class="rail-label">Build Checklist</span></a>
+      </nav>
+
+      <div class="rail-footer">
+        <p class="rail-code">Reviewer: Mackenzi</p>
+        <p class="rail-owner">Prepared for Ken</p>
+      </div>
+    </aside>
+
+    <section class="main-stage">
+      <header class="top-bar" id="summary">
+        <div class="top-bar-index">01</div>
+        <div class="top-bar-title-wrap">
+          <div class="phase-tag">Phase 1: Architecture Review</div>
+          <h2>PERSONAL AI + STORAGE NODE</h2>
+        </div>
+      </header>
+
+      <section class="panel-grid hero-grid">
+        <article class="panel span-2">
+          <div class="panel-meta-row"><span>DATA_FIELD: CORE_VERDICT</span><span>REF: MAC-MINI-AGENT</span></div>
+          <p class="thesis-copy">
+            This is a <mark>good foundation</mark>: Tailscale for private access, Ollama/Open WebUI for local AI, and Nextcloud/Immich for personal cloud services. The success of the box depends less on installing apps and more on boring operational hygiene.
+          </p>
+          <div class="metric-block">
+            <p class="metric-label">Primary rule</p>
+            <p class="metric-value">private by default, backed up always</p>
+            <p class="metric-note">▲ good stack + backup discipline = trustworthy home infrastructure</p>
+          </div>
+        </article>
+
+        <article class="panel tone-blue">
+          <div class="panel-meta-row"><span>STATUS</span><span>APPROVED_WITH_CAUTIONS</span></div>
+          <h3>Short answer</h3>
+          <p>Yes, this setup is okay. Just do not underestimate Nextcloud, Immich, storage health, and backups. Those are the pieces that turn a fun Mac mini project into real infrastructure.</p>
+        </article>
+      </section>
+
+      <section class="wide-panel" id="stack">
+        <div class="panel-meta-row"><span>DATA_FIELD: SOFTWARE_STACK</span><span>MODE: LOCAL_SERVICES</span></div>
+        <div class="wide-panel-grid">
+          <div>
+            <h3>What each piece is doing</h3>
+            <p>The stack is coherent: Homebrew manages tools, Tailscale provides private remote access, Ollama runs local models, Open WebUI gives a ChatGPT-like frontend, and Nextcloud/Immich handle files and photos.</p>
+          </div>
+          <div class="mini-terminal">
+            <div class="terminal-row"><span>ACCESS</span><strong>Tailscale</strong></div>
+            <div class="terminal-row"><span>LOCAL AI</span><strong>Ollama</strong></div>
+            <div class="terminal-row"><span>CHAT UI</span><strong>Open WebUI</strong></div>
+            <div class="terminal-row"><span>FILES</span><strong>Nextcloud</strong></div>
+            <div class="terminal-row"><span>PHOTOS</span><strong>Immich</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel-grid triple-grid">
+        <article class="panel">
+          <div class="panel-meta-row"><span>APP: BREW</span><span>BASE_LAYER</span></div>
+          <h3>Homebrew</h3>
+          <p>Good baseline package manager for macOS. Keep it simple and avoid random one-off installs outside the managed stack.</p>
+        </article>
+        <article class="panel">
+          <div class="panel-meta-row"><span>APP: OLLAMA</span><span>MODEL_LAYER</span></div>
+          <h3>Ollama</h3>
+          <p>Good for local models. RAM sets expectations: 16 GB is okay for smaller models; 24–32+ GB is meaningfully better.</p>
+        </article>
+        <article class="panel">
+          <div class="panel-meta-row"><span>APP: WEBUI</span><span>INTERFACE</span></div>
+          <h3>Open WebUI</h3>
+          <p>Good ChatGPT-like layer for local models. Keep it behind Tailscale and require authentication.</p>
+        </article>
+      </section>
+
+      <section class="panel-grid triple-grid">
+        <article class="panel tone-cream">
+          <div class="panel-meta-row"><span>APP: NEXTCLOUD</span><span>FILES</span></div>
+          <h3>Nextcloud</h3>
+          <p>Useful for the Dropbox/OneDrive feel, but it is the most sysadmin-like part of the setup. Updates and backups matter.</p>
+        </article>
+        <article class="panel tone-cream">
+          <div class="panel-meta-row"><span>APP: IMMICH</span><span>PHOTOS</span></div>
+          <h3>Immich</h3>
+          <p>Excellent photo library, but do not treat it as the only copy of photos. It needs database-aware backups.</p>
+        </article>
+        <article class="panel tone-dark">
+          <div class="panel-meta-row"><span>RUNTIME</span><span>CONTAINERS</span></div>
+          <h3>Containerize if possible</h3>
+          <p>Immich and Nextcloud are easier to maintain when their services, volumes, and databases are explicit and reproducible.</p>
+        </article>
+      </section>
+
+      <section class="wide-panel" id="storage">
+        <div class="panel-meta-row"><span>DATA_FIELD: STORAGE_TOPOLOGY</span><span>RULE: RAID_IS_NOT_BACKUP</span></div>
+        <div class="wide-panel-grid">
+          <div>
+            <h3>Storage should be designed around failure</h3>
+            <p>LaCie 12big as primary storage and G-Speed Shuttle as archive/backup is a sensible shape, but the backup tier must be isolated enough that one mistake does not delete both copies.</p>
+          </div>
+          <div class="barcode-box">
+            <div class="barcode"></div>
+            <p>primary / archive / offsite / tested restore</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel-grid triple-grid">
+        <article class="panel">
+          <div class="panel-meta-row"><span>TIER: PRIMARY</span><span>LACIE_12BIG</span></div>
+          <h3>Live data</h3>
+          <ul>
+            <li>Nextcloud files</li>
+            <li>Immich photo library</li>
+            <li>app data and databases</li>
+            <li>project storage</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <div class="panel-meta-row"><span>TIER: BACKUP</span><span>G-SPEED</span></div>
+          <h3>Archive / backup</h3>
+          <ul>
+            <li>scheduled backup, not careless mirror</li>
+            <li>snapshots or version history</li>
+            <li>periodic restore tests</li>
+            <li>separation from accidental deletes</li>
+          </ul>
+        </article>
+        <article class="panel tone-red">
+          <div class="panel-meta-row"><span>WARNING</span><span>NO_SINGLE_COPY</span></div>
+          <h3>Important</h3>
+          <p>RAID helps uptime. It does not protect against accidental deletion, bad sync, ransomware, app corruption, or fire/theft.</p>
+        </article>
+      </section>
+
+      <section class="wide-panel" id="security">
+        <div class="panel-meta-row"><span>DATA_FIELD: SECURITY_MODEL</span><span>DEFAULT: PRIVATE</span></div>
+        <div class="wide-panel-grid">
+          <div>
+            <h3>Tailscale is the private road in, not the whole security plan</h3>
+            <p>Use Tailscale to avoid exposing dashboards publicly. Still use app-level auth, strong passwords, least privilege, and update discipline.</p>
+          </div>
+          <div class="behavior-list">
+            <div class="behavior-item">No public dashboards by default</div>
+            <div class="behavior-item">Use app passwords anyway</div>
+            <div class="behavior-item">Share tailnet access carefully</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="wide-panel" id="ops">
+        <div class="panel-meta-row"><span>DATA_FIELD: OPERATIONS</span><span>MODE: BORING_IS_GOOD</span></div>
+        <div class="wide-panel-grid">
+          <div>
+            <h3>The missing layer is operations</h3>
+            <p>The apps are not the hard part. The hard part is knowing whether disks are healthy, backups completed, services are up, and updates are safe to apply.</p>
+          </div>
+          <div class="bar-group">
+            <div class="bar-item"><div class="bar-label-row"><span>backup importance</span><span>100%</span></div><div class="bar-track"><div class="bar-fill green" style="width:100%"></div></div></div>
+            <div class="bar-item"><div class="bar-label-row"><span>public exposure tolerance</span><span>10%</span></div><div class="bar-track"><div class="bar-fill red" style="width:10%"></div></div></div>
+            <div class="bar-item"><div class="bar-label-row"><span>maintenance reality</span><span>75%</span></div><div class="bar-track"><div class="bar-fill blue" style="width:75%"></div></div></div>
+            <div class="bar-item"><div class="bar-label-row"><span>restore testing</span><span>mandatory</span></div><div class="bar-track"><div class="bar-fill ink" style="width:92%"></div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel-grid quad-grid">
+        <article class="panel tone-cream"><h3>UPS</h3><p>Add battery backup. External storage, databases, and photo libraries hate surprise power loss.</p></article>
+        <article class="panel tone-cream"><h3>Monitoring</h3><p>Watch disk health, disk capacity, backup success, service uptime, and update status.</p></article>
+        <article class="panel tone-cream"><h3>Updates</h3><p>Do planned updates for Nextcloud/Immich. Avoid “everything auto-updates blindly.”</p></article>
+        <article class="panel tone-cream"><h3>Offsite</h3><p>For irreplaceable photos and documents, keep at least one offsite/cloud copy.</p></article>
+      </section>
+
+      <section class="wide-panel" id="checklist">
+        <div class="panel-meta-row"><span>DATA_FIELD: BUILD_SEQUENCE</span><span>VERSION: PRACTICAL</span></div>
+        <div class="check-stack">
+          <div class="check-item"><div class="check-num">01</div><div><strong>Install base tools</strong><p>Homebrew, Tailscale, Docker/OrbStack or equivalent, then Ollama.</p></div></div>
+          <div class="check-item"><div class="check-num">02</div><div><strong>Lock down access</strong><p>Use Tailscale for remote access. Keep admin surfaces private. Enable app auth.</p></div></div>
+          <div class="check-item"><div class="check-num">03</div><div><strong>Bring up local AI</strong><p>Ollama first, Open WebUI second, then test from another device over Tailscale.</p></div></div>
+          <div class="check-item"><div class="check-num">04</div><div><strong>Bring up storage apps</strong><p>Nextcloud and Immich with explicit data directories on primary storage.</p></div></div>
+          <div class="check-item"><div class="check-num">05</div><div><strong>Configure backups</strong><p>Primary storage to archive/backup storage, plus offsite/cloud for irreplaceable files.</p></div></div>
+          <div class="check-item"><div class="check-num">06</div><div><strong>Test restore</strong><p>Restore sample files, sample photos, and app config before trusting the system.</p></div></div>
+        </div>
+      </section>
+
+      <section class="panel-grid footer-grid">
+        <article class="panel tone-blue">
+          <div class="panel-meta-row"><span>FINAL_READ</span><span>YES</span></div>
+          <p class="thesis-copy small">Good setup. The deciding factor is whether the boring stuff gets done: backups, restore tests, updates, monitoring, and keeping services private by default.</p>
+        </article>
+        <article class="panel">
+          <div class="panel-meta-row"><span>HANDOFF</span><span>KEN_BUILD_BRIEF</span></div>
+          <p>Prepared as a practical review for Ken’s Mac mini agent / personal server build.</p>
+          <p>Recommended next step: confirm Mac mini RAM/storage details, then decide whether Nextcloud and Immich should run in containers.</p>
+        </article>
+      </section>
+    </section>
+  </main>
+</body>
+</html>
