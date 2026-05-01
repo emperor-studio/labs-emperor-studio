@@ -9,13 +9,13 @@
     @import url("https://fonts.googleapis.com/css2?family=Handjet:wght@300;400;500;600;700&display=swap");
     :root {
       --bg: #120f0f;
-      --panel: rgba(50, 43, 42, .88);
-      --panel-2: rgba(36, 31, 31, .86);
-      --line: rgba(255, 230, 224, .16);
-      --line-bright: rgba(255, 230, 224, .42);
+      --panel: rgba(11, 31, 36, .82);
+      --panel-2: rgba(8, 24, 29, .86);
+      --line: rgba(80, 224, 255, .14);
+      --line-bright: rgba(80, 224, 255, .30);
       --text: #f6eeee;
-      --muted: #aaa0a0;
-      --dim: #756c6c;
+      --muted: #a6b9bc;
+      --dim: #6d8589;
       --pink: #ff2bd6;
       --pink-2: #ff7be8;
       --white: #fff8f6;
@@ -102,7 +102,7 @@
       height: 62px;
       display: flex;
       align-items: center;
-      border-bottom: 1px solid rgba(255,235,230,.08);
+      border-bottom: 1px solid rgba(80,224,255,.09);
       background: linear-gradient(180deg, rgba(15,12,12,.76), rgba(15,12,12,.22));
       backdrop-filter: blur(8px);
     }
@@ -122,7 +122,7 @@
       align-items: center;
       padding: 92px 0 64px;
       position: relative;
-      border-bottom: 1px solid rgba(255,235,230,.08);
+      border-bottom: 1px solid rgba(80,224,255,.09);
     }
 
     .slide.compact { min-height: 78vh; }
@@ -203,11 +203,21 @@
       min-height: 250px;
       padding: 30px;
       border-radius: 28px;
-      background: var(--panel);
-      border: 1px solid rgba(255,235,230,.14);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.045), 0 30px 80px rgba(0,0,0,.28);
+      background: linear-gradient(180deg, rgba(18, 45, 51, .82), rgba(12, 29, 35, .84));
+      border: 1px solid rgba(80, 224, 255, .16);
+      box-shadow: inset 0 1px 0 rgba(126,236,255,.08), 0 30px 80px rgba(0,0,0,.30);
       position: relative;
       overflow: hidden;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(80,224,255,.075), transparent 48%),
+        linear-gradient(135deg, rgba(80,224,255,.035), transparent 45%);
+      opacity: .72;
     }
     .card::after {
       content: "✦";
@@ -218,7 +228,7 @@
       color: var(--white);
       font-size: 24px;
     }
-    .card.featured { border-color: rgba(255,216,210,.62); }
+    .card.featured { border-color: rgba(80,224,255,.32); }
     .card-kicker { color: var(--muted); font-size: 11px; margin-bottom: 34px; }
     .card h3 { margin: 0 0 24px; font-family: var(--mono); font-weight: 400; text-transform: uppercase; letter-spacing: -.025em; font-size: 42px; color: var(--white); }
     .card p, .card li { color: var(--muted); font-size: 21px; line-height: 1.25; letter-spacing: .02em; }
@@ -232,29 +242,29 @@
     .step h3 { margin: 0 0 10px; font-family: var(--mono); font-weight: 400; letter-spacing: -.05em; text-transform: uppercase; font-size: 34px; }
     .step p { margin: 0; color: var(--muted); line-height: 1.28; letter-spacing: .02em; }
 
-    .marquee { position: absolute; left: 0; right: 0; top: 86px; overflow: hidden; border-block: 1px solid rgba(255,235,230,.10); background: rgba(60,52,51,.68); }
+    .marquee { position: absolute; left: 0; right: 0; top: 86px; overflow: hidden; border-block: 1px solid rgba(80,224,255,.12); background: rgba(10, 31, 37, .68); }
     .marquee-track { display: flex; width: max-content; animation: crawl 24s linear infinite; }
     .marquee span { font-family: var(--mono); text-transform: uppercase; font-size: clamp(32px, 5vw, 64px); letter-spacing: -.075em; padding: 18px 34px; white-space: nowrap; color: rgba(255,245,242,.92); }
     .marquee span:nth-child(even) { color: rgba(255,245,242,.28); }
     @keyframes crawl { to { transform: translateX(-50%); } }
 
     .gate-grid { display: grid; grid-template-columns: repeat(5, minmax(190px, 1fr)); gap: 14px; margin-top: 48px; overflow-x: auto; padding-bottom: 4px; }
-    .gate { background: rgba(35,30,30,.78); border: 1px solid rgba(255,235,230,.13); border-radius: 22px; padding: 22px; min-height: 245px; }
+    .gate { background: linear-gradient(180deg, rgba(14, 37, 43, .78), rgba(9, 25, 31, .82)); border: 1px solid rgba(80,224,255,.14); border-radius: 22px; padding: 22px; min-height: 245px; }
     .gate b { display: block; font-family: var(--mono); font-size: 13px; color: var(--pink); margin-bottom: 24px; letter-spacing: .12em; }
     .gate h3 { font-family: var(--mono); font-weight: 400; text-transform: uppercase; letter-spacing: -.05em; margin: 0 0 12px; font-size: 34px; }
     .gate p { color: var(--muted); margin: 0; font-size: 20px; line-height: 1.22; letter-spacing: .02em; }
 
     .split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; margin-top: 48px; }
     .terminal {
-      border: 1px solid rgba(255,235,230,.16);
-      background: rgba(16,14,14,.76);
+      border: 1px solid rgba(80,224,255,.14);
+      background: rgba(8, 24, 29, .76);
       border-radius: 24px;
       padding: 24px;
       font-family: var(--mono);
       color: var(--muted);
       min-height: 290px;
     }
-    .terminal div { padding: 10px 0; border-bottom: 1px solid rgba(255,235,230,.08); }
+    .terminal div { padding: 10px 0; border-bottom: 1px solid rgba(80,224,255,.09); }
     .terminal div:last-child { border-bottom: 0; }
     .terminal strong { color: var(--pink); font-weight: 400; }
 
