@@ -1,176 +1,973 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Insurance App Concept</title>
-  <link rel="stylesheet" href="./insurance-app.css?v=20260428b" />
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Insurance Control Panel — Emperor Studio Labs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Source+Serif+Pro:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=1777647607">
 </head>
 <body>
-  <main class="page">
+
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="hamburger" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="brand">New Normal · Atelier</div>
+  </div>
+  <div class="session">concept · v0.5 · 1777653003</div>
+</div>
+<div class="nav-overlay" id="nav-overlay"></div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h4>Overview</h4>
+    <a href="#snapshot" class="active">Portfolio Snapshot</a>
+    <a href="#entities">Entities</a>
+    <h4>Coverage</h4>
+    <a href="#matrix">Coverage Map</a>
+    <a href="#findings">Gaps &amp; Overlaps</a>
+    <h4>Policies</h4>
+    <a href="#library">Policy Library</a>
+    <a href="#renewals">Renewal Timeline</a>
+    <h4>Workflows</h4>
+    <a href="#extraction">Document Review</a>
+    <a href="#scenario">Scenario Sandbox</a>
+    <h4>Context</h4>
+    <a href="#about">About</a>
+  </aside>
+
+  <main class="main">
+
     <section class="hero">
-      <p class="eyebrow">Labs concept memo</p>
-      <div class="hero-grid">
-        <div class="hero-main">
-          <h1>Insurance, made legible.</h1>
-          <p class="lead">A concept for a private control panel that turns scattered policies, brokers, premiums, deductibles, riders, and overlapping coverage into one readable system, so people can understand what they have, see where money is leaking, and make cleaner decisions.</p>
-        </div>
-        <aside class="hero-note">
-          <p class="note-label">Core proposition</p>
-          <p class="note-copy">Coverage mapping, overlap analysis, and scenario modeling for people whose insurance stacks have become too fragmented to understand at a glance.</p>
-        </aside>
-      </div>
+      <div class="kicker">New Normal · Atelier · Private Operations</div>
+      <h1>Insurance, simplified.</h1>
+      <p class="lede">A private command center for fragmented insurance portfolios. One map for every policy, asset, entity, and renewal — so that "what am I actually covered for?" has an answer you can see in ten seconds, not ten phone calls.</p>
     </section>
 
-    <section class="section intro-section">
-      <div class="section-rule"></div>
-      <div class="two-col intro-copy">
-        <div>
-          <p class="section-label">Problem</p>
-          <h2>Most insurance portfolios become opaque long before they become optimized.</h2>
+    <section class="section" id="snapshot">
+      <div class="section-header">
+        <h2>Portfolio Snapshot</h2>
+        <span class="meta">FY 2026 · as of Apr 30</span>
+        <span class="line"></span>
+      </div>
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="label">Annual Premium</div>
+          <div class="value">$147,842</div>
+          <div class="sub">across 11 active policies</div>
         </div>
-        <div>
-          <p>Over time, people accumulate policies across homes, autos, liability, umbrella, business operations, equipment, property, and specialty risks. Different brokers enter at different moments. Policies are renewed, amended, and layered. Premiums continue to be paid, but the total structure becomes increasingly difficult to read with confidence.</p>
-          <p>The result is familiar: uncertainty about true coverage, suspicion of redundancy, and no clean way to test what could be consolidated, shifted, or eliminated.</p>
+        <div class="stat">
+          <div class="label">Active Policies</div>
+          <div class="value">11</div>
+          <div class="sub">4 carriers · 3 brokers</div>
         </div>
-      </div>
-    </section>
-
-    <section class="section questions-section">
-      <div class="section-rule"></div>
-      <div class="section-heading-block">
-        <p class="section-label">Decision pressure</p>
-        <h2>The questions people should be able to answer, but usually cannot.</h2>
-      </div>
-      <div class="question-list">
-        <div class="question-item">What am I actually covered for across all active policies?</div>
-        <div class="question-item">Where am I likely paying for overlapping or unnecessary coverage?</div>
-        <div class="question-item">Which risks are thinly covered, ambiguously covered, or not covered at all?</div>
-        <div class="question-item">What can be moved, consolidated, or restructured before I call a broker?</div>
-        <div class="question-item">How would deductible or limit changes alter cost and exposure?</div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-rule"></div>
-      <div class="section-heading-block narrow">
-        <p class="section-label">Product shape</p>
-        <h2>What the app would do.</h2>
-      </div>
-      <div class="memo-grid four-up">
-        <article class="memo-card">
-          <p class="card-index">01</p>
-          <h3>Ingest policy documents</h3>
-          <p>Upload declarations pages, policy PDFs, endorsements, schedules, and broker notes. Extract providers, terms, premiums, deductibles, limits, riders, exclusions, and named entities into structured fields.</p>
-        </article>
-        <article class="memo-card">
-          <p class="card-index">02</p>
-          <h3>Normalize the stack</h3>
-          <p>Translate scattered policy language into one consistent coverage map, showing which assets, locations, entities, and risks are being covered where, by whom, and under what conditions.</p>
-        </article>
-        <article class="memo-card">
-          <p class="card-index">03</p>
-          <h3>Surface the whole picture</h3>
-          <p>Present total annual premium, active policies, renewal timing, provider relationships, coverage by asset class, and visible overlap or gap areas in one at-a-glance view.</p>
-        </article>
-        <article class="memo-card">
-          <p class="card-index">04</p>
-          <h3>Model possible changes</h3>
-          <p>Let users test scenarios in a sandbox, such as shifting assets, changing deductibles, or comparing alternate structures before taking concrete options back to their broker or advisor.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-rule"></div>
-      <div class="two-col split-emphasis">
-        <div>
-          <p class="section-label">Interface</p>
-          <h2>A calm dashboard, not a legal labyrinth.</h2>
+        <div class="stat warn">
+          <div class="label">Renewals · 60 days</div>
+          <div class="value">3</div>
+          <div class="sub">next: May 18 · auto fleet</div>
         </div>
-        <div>
-          <p>The value of the app is not theatrical complexity. It is a private system that makes an insurance portfolio readable. The interface should feel more like an elegant financial control panel than an overloaded insurtech gimmick.</p>
-        </div>
-      </div>
-      <div class="memo-grid three-up">
-        <article class="memo-card soft">
-          <h3>Coverage dashboard</h3>
-          <ul>
-            <li>Total annual premium across all policies</li>
-            <li>Active policies and renewal timing</li>
-            <li>Coverage categories, limits, and deductibles</li>
-            <li>Assets, locations, and named entities tied to policies</li>
-          </ul>
-        </article>
-        <article class="memo-card soft">
-          <h3>Overlap and gap review</h3>
-          <ul>
-            <li>Potential duplicate coverage</li>
-            <li>Coverage that appears absent or uncertain</li>
-            <li>Policies that may exist mostly through inertia</li>
-            <li>Areas that deserve broker follow-up</li>
-          </ul>
-        </article>
-        <article class="memo-card soft">
-          <h3>Scenario sandbox</h3>
-          <ul>
-            <li>Deductible and limit sliders</li>
-            <li>Asset-move simulations</li>
-            <li>Comparative premium and exposure views</li>
-            <li>Notes and questions to carry into review meetings</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-rule"></div>
-      <div class="section-heading-block narrow">
-        <p class="section-label">Why it matters</p>
-        <h2>Useful for households, businesses, and the advisors who serve them.</h2>
-      </div>
-      <div class="memo-grid three-up">
-        <article class="memo-card">
-          <h3>For complex households</h3>
-          <p>Multiple homes, vehicles, property classes, and specialty policies often create exactly the kind of fragmented stack that becomes expensive and hard to understand.</p>
-        </article>
-        <article class="memo-card">
-          <h3>For business owners</h3>
-          <p>Insurance portfolios grow in layers. What begins as prudent coverage can become a patchwork of overlapping policies, partial visibility, and uncertain total exposure.</p>
-        </article>
-        <article class="memo-card">
-          <h3>For brokers and advisors</h3>
-          <p>The same system could become a far better review surface, helping broker and client discuss the same reality rather than decoding PDFs together in real time.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section posture-section">
-      <div class="section-rule"></div>
-      <div class="two-col intro-copy">
-        <div>
-          <p class="section-label">Product posture</p>
-          <h2>This should not pretend to replace professional judgment.</h2>
-        </div>
-        <div>
-          <p>The strongest version of this idea is not “AI replaces your broker.” It is a decision-support layer that makes policy structures understandable, exposes inefficiencies, reveals ambiguity, and helps people ask sharper questions before making real changes.</p>
-          <p>That is a more credible promise, and probably a more valuable one.</p>
+        <div class="stat alert">
+          <div class="label">Findings</div>
+          <div class="value">7</div>
+          <div class="sub">2 gaps · 3 overlaps · 2 thin</div>
         </div>
       </div>
     </section>
 
-    <section class="section final-section">
-      <div class="section-rule"></div>
-      <div class="two-col split-emphasis">
-        <div>
-          <p class="section-label">V1</p>
-          <h2>Start with clarity. Add optimization later.</h2>
+    <section class="section" id="entities">
+      <div class="section-header">
+        <h2>Entities</h2>
+        <span class="meta">3 entities · 5 locations</span>
+        <span class="line"></span>
+      </div>
+      <div class="entity-stack">
+        <div class="entity-card">
+          <div class="name">DHL Personal</div>
+          <div class="type">Individual · Named Insured</div>
+          <div class="rows">
+            <strong>4 policies</strong> · $38,410/yr<br>
+            Primary residence, auto fleet, personal umbrella, jewelry floater
+          </div>
         </div>
-        <div>
-          <p>A strong first version would focus on document upload, structured policy summaries, premium rollups, coverage-by-asset mapping, overlap and gap flags, renewal tracking, and broker-question notes. Scenario modeling can come next, once the system already provides reliable visibility.</p>
+        <div class="entity-card">
+          <div class="name">New Normal LLC</div>
+          <div class="type">LLC · Production entity</div>
+          <div class="rows">
+            <strong>4 policies</strong> · $61,280/yr<br>
+            General liability, E&amp;O, equipment floater, cyber
+          </div>
+        </div>
+        <div class="entity-card">
+          <div class="name">Blue Cloud Holdings</div>
+          <div class="type">LLC · Ranch operating entity</div>
+          <div class="rows">
+            <strong>3 policies</strong> · $48,152/yr<br>
+            Commercial property, commercial auto, production liability
+          </div>
         </div>
       </div>
     </section>
+
+    <section class="section" id="matrix">
+      <div class="section-header">
+        <h2>Coverage Map</h2>
+        <span class="meta">asset × risk category</span>
+        <span class="line"></span>
+      </div>
+      <div class="panel">
+        <div class="panel-head">
+          <h3>What is covered, where, by whom</h3>
+          <span class="hint">hover a cell · click to trace policy</span>
+        </div>
+        <div class="matrix-wrap">
+          <table class="matrix">
+            <thead>
+              <tr>
+                <th class="asset-col">Asset / Location</th>
+                <th>Property</th>
+                <th>Liability</th>
+                <th>Auto</th>
+                <th>Equipment</th>
+                <th>Business Int.</th>
+                <th>Umbrella</th>
+                <th>Cyber</th>
+                <th>Flood</th>
+                <th>Earthquake</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="asset-name">Primary Residence<div class="sub">Pacific Palisades · DHL</div></td>
+                <td><div class="cell c-covered">$4.2M</div></td>
+                <td><div class="cell c-covered">$500k</div></td>
+                <td><div class="cell c-na"></div></td>
+                <td><div class="cell c-na"></div></td>
+                <td><div class="cell c-na"></div></td>
+                <td><div class="cell c-covered">$5M</div></td>
+                <td><div class="cell c-na"></div></td>
+                <td><div class="cell c-missing">none</div></td>
+                <td><div class="cell c-thin">$50k</div></td>
+              </tr>
+              <tr>
+                <td class="asset-name">Auto Fleet (3 vehicles)<div class="sub">DHL personal</div></td>
+                <td><div class="cell c-na"></div></td>
+                <td><div class="cell c-covered">$500k</div></td>
+                <td><div class="cell c-covered">$250/500k</div></td>
+                <td><div class="cell c-na"></div></td>
+                <td><div class="cell c-na"></div></td>
+                <td><div class="cell c-covered">$5M</div></td>
+                <td><div class="cell c-na"></div></td>
+                <td><div class="cell c-na"></div></td>
+                <td><div class="cell c-na"></div></td>
+              </tr>
+              <tr>
+                <td class="asset-name">Studio HQ<div class="sub">Culver City · Emperor LLC</div></td>
+                <td><div class="cell c-covered">$1.8M</div></td>
+                <td><div class="cell c-overlap">$2M / $1M</div></td>
+                <td><div class="cell c-na"></div></td>
+                <td><div class="cell c-covered">$850k</div></td>
+                <td><div class="cell c-thin">$250k</div></td>
+                <td><div class="cell c-unclear">see note</div></td>
+                <td><div class="cell c-covered">$1M</div></td>
+                <td><div class="cell c-missing">none</div></td>
+                <td><div class="cell c-na"></div></td>
+              </tr>
+              <tr>
+                <td class="asset-name">Production Equipment<div class="sub">cameras · lighting · grip</div></td>
+                <td><div class="cell c-na"></div></td>
+                <td><div class="cell c-covered">incl.</div></td>
+                <td><div class="cell c-na"></div></td>
+                <td><div class="cell c-overlap">$850k / $600k</div></td>
+                <td><div class="cell c-na"></div></td>
+                <td><div class="cell c-na"></div></td>
+                <td><div class="cell c-na"></div></td>
+                <td><div class="cell c-na"></div></td>
+                <td><div class="cell c-na"></div></td>
+              </tr>
+              <tr>
+                <td class="asset-name">Blue Cloud Ranch<div class="sub">Santa Clarita · 250 acres</div></td>
+                <td><div class="cell c-covered">$12M</div></td>
+                <td><div class="cell c-covered">$2M</div></td>
+                <td><div class="cell c-covered">comm.</div></td>
+                <td><div class="cell c-thin">$180k</div></td>
+                <td><div class="cell c-covered">$500k</div></td>
+                <td><div class="cell c-unclear">?</div></td>
+                <td><div class="cell c-missing">none</div></td>
+                <td><div class="cell c-na"></div></td>
+                <td><div class="cell c-missing">none</div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="matrix-legend">
+          <span><span class="c-covered cell" style="display:inline-block;width:auto;height:auto;padding:1px 6px">covered</span></span>
+          <span><span class="c-thin cell" style="display:inline-block;width:auto;height:auto;padding:1px 6px">thin limit</span></span>
+          <span><span class="c-overlap cell" style="display:inline-block;width:auto;height:auto;padding:1px 6px">overlap</span></span>
+          <span><span class="c-missing cell" style="display:inline-block;width:auto;height:auto;padding:1px 6px">missing</span></span>
+          <span><span class="c-unclear cell" style="display:inline-block;width:auto;height:auto;padding:1px 6px">unclear</span></span>
+          <span><span class="c-na cell" style="display:inline-block;width:auto;height:auto;padding:1px 6px">n/a</span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="findings">
+      <div class="section-header">
+        <h2>Gaps &amp; Overlaps</h2>
+        <span class="meta">7 findings · decision support only</span>
+        <span class="line"></span>
+      </div>
+      <div class="findings">
+        <div class="finding gap">
+          <div class="ftype">Gap · High Priority</div>
+          <div class="title">No flood coverage · Primary residence</div>
+          <div class="body">Pacific Palisades sits in a FEMA Zone X (moderate risk). Standard HO-3 excludes flood. No NFIP or private flood policy on file.</div>
+          <div class="question">Ask broker: quote $250k/$100k NFIP policy — est. $650–900/yr?</div>
+        </div>
+        <div class="finding gap">
+          <div class="ftype">Gap · High Priority</div>
+          <div class="title">Earthquake exposure · Blue Cloud Ranch</div>
+          <div class="body">$12M property policy on the ranch excludes earth movement. San Andreas fault &lt; 18 miles. No separate CEA or DIC in force.</div>
+          <div class="question">Ask broker: DIC quote with $100k deductible on $12M TIV?</div>
+        </div>
+        <div class="finding overlap">
+          <div class="ftype">Overlap</div>
+          <div class="title">General liability · Studio HQ</div>
+          <div class="body">Emperor LLC carries a $2M GL through Hiscox AND a $1M GL rider on the studio property policy through Chubb. Double-paying on the first $1M.</div>
+          <div class="question">Ask broker: drop rider at next renewal — est. savings $2,400/yr?</div>
+        </div>
+        <div class="finding overlap">
+          <div class="ftype">Overlap</div>
+          <div class="title">Equipment coverage · production gear</div>
+          <div class="body">$850k inland marine (Hiscox) overlaps with $600k equipment schedule on the commercial property policy. Same cameras, two policies.</div>
+          <div class="question">Consolidate to one floater · est. savings $1,800/yr.</div>
+        </div>
+        <div class="finding overlap">
+          <div class="ftype">Overlap</div>
+          <div class="title">Umbrella stacking ambiguity</div>
+          <div class="body">Personal $5M umbrella and Emperor LLC $5M umbrella both claim to sit over auto. On a business-use claim involving the G-Wagon, which one pays first?</div>
+          <div class="question">Get written confirmation of priority from both carriers.</div>
+        </div>
+        <div class="finding thin">
+          <div class="ftype">Thin · Review</div>
+          <div class="title">Business interruption · Studio HQ</div>
+          <div class="body">$250k BI limit with 72-hour waiting period. A 6-week shutdown on a $2M/yr revenue studio could easily exceed this.</div>
+          <div class="question">Ask broker: increase to $750k · est. premium delta $1,100/yr.</div>
+        </div>
+        <div class="finding thin">
+          <div class="ftype">Thin · Review</div>
+          <div class="title">Equipment schedule · Blue Cloud Ranch</div>
+          <div class="body">$180k schedule covers named items only. Ranch operations include tractors, ATVs, a water truck not on the list.</div>
+          <div class="question">Reconcile physical inventory vs scheduled items.</div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="library">
+      <div class="section-header">
+        <h2>Policy Library</h2>
+        <span class="meta">11 active policies</span>
+        <span class="line"></span>
+      </div>
+      <div class="panel">
+        <div class="panel-body">
+          <table class="policy-table">
+            <thead>
+              <tr>
+                <th>Carrier</th>
+                <th>Type</th>
+                <th>Named Insured</th>
+                <th>Policy #</th>
+                <th class="num">Premium</th>
+                <th class="num">Deductible</th>
+                <th class="num">Limit</th>
+                <th>Renews</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="carrier">Chubb Masterpiece</td>
+                <td class="ptype">HO-5 · primary residence</td>
+                <td>DHL Personal</td>
+                <td class="num">MP-4471-882</td>
+                <td class="num">$14,280</td>
+                <td class="num">$10,000</td>
+                <td class="num">$4.2M</td>
+                <td>Aug 12</td>
+                <td><span class="pill pill-green">active</span></td>
+              </tr>
+              <tr>
+                <td class="carrier">GEICO</td>
+                <td class="ptype">Personal auto · 3 veh.</td>
+                <td>DHL Personal</td>
+                <td class="num">A-2209114</td>
+                <td class="num">$6,840</td>
+                <td class="num">$1,000</td>
+                <td class="num">$250/500k</td>
+                <td>May 18</td>
+                <td><span class="pill pill-amber">renewing</span></td>
+              </tr>
+              <tr>
+                <td class="carrier">Chubb</td>
+                <td class="ptype">Personal umbrella</td>
+                <td>DHL Personal</td>
+                <td class="num">UM-2209114</td>
+                <td class="num">$1,290</td>
+                <td class="num">—</td>
+                <td class="num">$5M</td>
+                <td>Aug 12</td>
+                <td><span class="pill pill-green">active</span></td>
+              </tr>
+              <tr>
+                <td class="carrier">Jewelers Mutual</td>
+                <td class="ptype">Scheduled jewelry</td>
+                <td>DHL Personal</td>
+                <td class="num">JM-70421</td>
+                <td class="num">$2,100</td>
+                <td class="num">$0</td>
+                <td class="num">$180k</td>
+                <td>Jan 05</td>
+                <td><span class="pill pill-green">active</span></td>
+              </tr>
+              <tr>
+                <td class="carrier">Hiscox</td>
+                <td class="ptype">Commercial GL</td>
+                <td>New Normal LLC</td>
+                <td class="num">HX-MPL-88412</td>
+                <td class="num">$8,450</td>
+                <td class="num">$5,000</td>
+                <td class="num">$2M agg.</td>
+                <td>Jun 30</td>
+                <td><span class="pill pill-green">active</span></td>
+              </tr>
+              <tr>
+                <td class="carrier">Hiscox</td>
+                <td class="ptype">E&amp;O · Media liability</td>
+                <td>New Normal LLC</td>
+                <td class="num">HX-EO-44118</td>
+                <td class="num">$11,200</td>
+                <td class="num">$10,000</td>
+                <td class="num">$3M</td>
+                <td>Jun 30</td>
+                <td><span class="pill pill-green">active</span></td>
+              </tr>
+              <tr>
+                <td class="carrier">Hiscox</td>
+                <td class="ptype">Inland marine · equipment</td>
+                <td>New Normal LLC</td>
+                <td class="num">HX-IM-99142</td>
+                <td class="num">$14,800</td>
+                <td class="num">$2,500</td>
+                <td class="num">$850k</td>
+                <td>Jun 30</td>
+                <td><span class="pill pill-amber">overlap</span></td>
+              </tr>
+              <tr>
+                <td class="carrier">Coalition</td>
+                <td class="ptype">Cyber · breach + liability</td>
+                <td>New Normal LLC</td>
+                <td class="num">C-2024-8871</td>
+                <td class="num">$26,830</td>
+                <td class="num">$25,000</td>
+                <td class="num">$1M</td>
+                <td>Oct 01</td>
+                <td><span class="pill pill-green">active</span></td>
+              </tr>
+              <tr>
+                <td class="carrier">Chubb Commercial</td>
+                <td class="ptype">Commercial property + GL</td>
+                <td>Blue Cloud Holdings</td>
+                <td class="num">CC-BC-55019</td>
+                <td class="num">$28,940</td>
+                <td class="num">$25,000</td>
+                <td class="num">$12M</td>
+                <td>Jul 15</td>
+                <td><span class="pill pill-amber">thin EQ</span></td>
+              </tr>
+              <tr>
+                <td class="carrier">Progressive Commercial</td>
+                <td class="ptype">Commercial auto · ranch</td>
+                <td>Blue Cloud Holdings</td>
+                <td class="num">P-CA-71120</td>
+                <td class="num">$7,412</td>
+                <td class="num">$2,500</td>
+                <td class="num">$1M CSL</td>
+                <td>Jul 15</td>
+                <td><span class="pill pill-green">active</span></td>
+              </tr>
+              <tr>
+                <td class="carrier">OneBeacon Entertainment</td>
+                <td class="ptype">Production liability</td>
+                <td>Blue Cloud Holdings</td>
+                <td class="num">OB-ENT-30144</td>
+                <td class="num">$11,800</td>
+                <td class="num">$10,000</td>
+                <td class="num">$5M</td>
+                <td>Sep 22</td>
+                <td><span class="pill pill-ink">review</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="renewals">
+      <div class="section-header">
+        <h2>Renewal Timeline</h2>
+        <span class="meta">next 180 days</span>
+        <span class="line"></span>
+      </div>
+      <div class="renewal-grid">
+        <div class="renewal-card urgent">
+          <div class="days">18 days</div>
+          <div class="name">Personal Auto</div>
+          <div class="carrier">GEICO · DHL Personal</div>
+          <div class="date">renews May 18 · $6,840</div>
+        </div>
+        <div class="renewal-card soon">
+          <div class="days">61 days</div>
+          <div class="name">Commercial GL + E&amp;O + Equipment</div>
+          <div class="carrier">Hiscox · New Normal LLC</div>
+          <div class="date">renews Jun 30 · $34,450</div>
+        </div>
+        <div class="renewal-card soon">
+          <div class="days">76 days</div>
+          <div class="name">Commercial Property + Auto</div>
+          <div class="carrier">Chubb + Progressive · Blue Cloud</div>
+          <div class="date">renews Jul 15 · $36,352</div>
+        </div>
+        <div class="renewal-card">
+          <div class="days">104 days</div>
+          <div class="name">Primary Residence + Umbrella</div>
+          <div class="carrier">Chubb Masterpiece · DHL</div>
+          <div class="date">renews Aug 12 · $15,570</div>
+        </div>
+        <div class="renewal-card">
+          <div class="days">145 days</div>
+          <div class="name">Production Liability</div>
+          <div class="carrier">OneBeacon · Blue Cloud</div>
+          <div class="date">renews Sep 22 · $11,800</div>
+        </div>
+        <div class="renewal-card">
+          <div class="days">154 days</div>
+          <div class="name">Cyber</div>
+          <div class="carrier">Coalition · New Normal LLC</div>
+          <div class="date">renews Oct 01 · $26,830</div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="extraction">
+      <div class="section-header">
+        <h2>Document Extraction Review</h2>
+        <span class="meta">1 of 14 · Chubb HO-5 declarations page</span>
+        <span class="line"></span>
+      </div>
+      <div class="panel">
+        <div class="panel-head">
+          <h3>chubb-masterpiece-decpage-2026.pdf</h3>
+          <span class="hint">uploaded apr 22 · 2 pages · human review</span>
+        </div>
+        <div class="extraction">
+          <div class="left">
+            <div class="doc-preview">CHUBB MASTERPIECE
+HOMEOWNERS DECLARATIONS
+
+Policy Number: <span class="hl">MP-4471-882</span>
+Named Insured: <span class="hl">Dylan H. Lewis</span>
+Location: 1247 Palisades Drive
+          Pacific Palisades, CA 90272
+
+Effective:   <span class="hl">August 12, 2025</span>
+Expiration:  <span class="hl">August 12, 2026</span>
+
+COVERAGES                 LIMIT        PREMIUM
+A - Dwelling          <span class="hl">$4,200,000</span>      $11,840
+B - Other Structures    $420,000         $420
+C - Personal Property <span class="hl">$2,100,000</span>         incl.
+D - Loss of Use         $840,000         incl.
+E - Liability           <span class="hl">$500,000</span>          $320
+F - Medical Payments      $5,000           $30
+
+Deductible: <span class="hl">$10,000</span> (All Other)
+            $50,000 (Hurricane)
+            <span class="hl">5% (Earthquake excluded)</span>
+
+Annual Premium: <span class="hl">$14,280</span>
+
+ENDORSEMENTS
+  — Water Backup &amp; Sump: $50k
+  — Identity Protection: incl.
+  — Service Line: $10k
+  — EQ: EXCLUDED (see separate quote)
+  — FLOOD: NOT COVERED</div>
+          </div>
+          <div class="right">
+            <div class="field-list">
+              <div class="field">
+                <div class="fkey">Carrier</div>
+                <div class="fval">Chubb Masterpiece <span class="conf conf-high">98%</span></div>
+              </div>
+              <div class="field">
+                <div class="fkey">Policy Number</div>
+                <div class="fval mono">MP-4471-882 <span class="conf conf-high">99%</span></div>
+              </div>
+              <div class="field">
+                <div class="fkey">Policy Type</div>
+                <div class="fval">Homeowners HO-5 · Primary residence <span class="conf conf-high">95%</span></div>
+              </div>
+              <div class="field">
+                <div class="fkey">Named Insured</div>
+                <div class="fval">Dylan H. Lewis <span class="conf conf-high">97%</span></div>
+              </div>
+              <div class="field">
+                <div class="fkey">Effective → Expiration</div>
+                <div class="fval mono">2025-08-12 → 2026-08-12 <span class="conf conf-high">99%</span></div>
+              </div>
+              <div class="field">
+                <div class="fkey">Dwelling Limit</div>
+                <div class="fval mono">$4,200,000 <span class="conf conf-high">99%</span></div>
+              </div>
+              <div class="field">
+                <div class="fkey">Liability Limit</div>
+                <div class="fval mono">$500,000 <span class="conf conf-high">96%</span></div>
+              </div>
+              <div class="field">
+                <div class="fkey">Deductible</div>
+                <div class="fval mono">$10,000 AOP · 5% EQ · $50k hurricane <span class="conf conf-med">82%</span></div>
+              </div>
+              <div class="field">
+                <div class="fkey">Annual Premium</div>
+                <div class="fval mono">$14,280 <span class="conf conf-high">99%</span></div>
+              </div>
+              <div class="field">
+                <div class="fkey">Key Exclusions</div>
+                <div class="fval">Earthquake · Flood <span class="conf conf-high">94%</span></div>
+              </div>
+              <div class="field">
+                <div class="fkey">Endorsements</div>
+                <div class="fval">Water backup ($50k) · Identity · Service line ($10k) <span class="conf conf-med">78%</span></div>
+              </div>
+              <div class="field">
+                <div class="fkey">Needs Human Review</div>
+                <div class="fval"><span class="pill pill-amber">2 fields</span> deductible structure · endorsement list</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="scenario">
+      <div class="section-header">
+        <h2>Scenario Sandbox</h2>
+        <span class="meta">decision support · not a quote</span>
+        <span class="line"></span>
+      </div>
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Scenario: consolidate overlapping GL + drop duplicate equipment floater</h3>
+          <span class="hint">model · adjust · ask broker</span>
+        </div>
+        <div class="scenario">
+          <div class="scenario-row">
+            <div class="current">
+              <div class="label">Current</div>
+              <div class="amount">Hiscox $2M GL + Chubb GL rider $1M</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:4px">$8,450 + $2,400 riders = $10,850/yr</div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="proposed">
+              <div class="label">Proposed</div>
+              <div class="amount">Hiscox $2M GL only · drop Chubb rider</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:4px">$8,450/yr</div>
+            </div>
+          </div>
+          <div class="scenario-row">
+            <div class="current">
+              <div class="label">Current</div>
+              <div class="amount">Hiscox $850k IM + Chubb $600k equip sched.</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:4px">$14,800 + $1,800 = $16,600/yr</div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="proposed">
+              <div class="label">Proposed</div>
+              <div class="amount">Single Hiscox IM floater raised to $1M</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:4px">est. $15,200/yr</div>
+            </div>
+          </div>
+          <div class="scenario-delta">
+            <div class="label">Estimated annual savings</div>
+            <div class="amount">~$3,800/yr</div>
+            <div class="caveat">Estimate only. Does not constitute a quote. Confirm with broker that Hiscox IM floater extends to all ranch equipment before dropping Chubb schedule.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section" id="consolidator">
+      <div class="section-header">
+        <h2>Coverage Consolidator</h2>
+        <span class="meta">8 policies · adjust to redistribute · decision support</span>
+        <span class="line"></span>
+      </div>
+
+      <div class="cons-totals">
+        <div class="cons-total-card">
+          <div class="clabel">Total Coverage</div>
+          <div class="cvalue" id="total-coverage">—</div>
+        </div>
+        <div class="cons-total-card">
+          <div class="clabel">Annual Premium</div>
+          <div class="cvalue" id="total-premium">—</div>
+        </div>
+        <div class="cons-total-card good">
+          <div class="clabel">Est. Savings</div>
+          <div class="cvalue" id="total-savings">—</div>
+          <div class="csublabel">vs. original portfolio</div>
+        </div>
+        <div class="cons-total-card">
+          <div class="clabel">Active Policies</div>
+          <div class="cvalue" id="total-active">8</div>
+          <div class="csublabel">slide to zero to eliminate</div>
+        </div>
+      </div>
+
+      <div class="cons-caveat">Estimates only. Premium changes are modeled proportionally to limit changes — actual quotes will differ. Confirm all consolidations with your broker. This is decision support, not insurance advice.</div>
+
+      <div class="cons-grid" id="cons-grid">
+        <!-- rendered by JS below -->
+      </div>
+
+      <div class="cons-summary" id="cons-summary"></div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="section-header">
+        <h2>About this prototype</h2>
+        <span class="meta">labs concept · v0.1</span>
+        <span class="line"></span>
+      </div>
+      <div class="panel">
+        <div class="panel-body" style="padding:24px 28px;">
+          <p style="margin-top:0"><strong>What this is.</strong> A Labs concept page showing what a private insurance control panel could look like once an insurance portfolio is extracted, normalized, and mapped. All data on this page is mock.</p>
+          <p><strong>What it solves.</strong> Insurance portfolios fragment over time. Different brokers, different renewal dates, different carriers, overlapping riders, buried exclusions. The question "what am I actually covered for?" becomes a phone call instead of a glance.</p>
+          <p><strong>What Dylan would upload.</strong> Declarations pages, full policies, endorsements, broker invoices, renewal notices. PDF in, structured data out. Every extracted field shows a confidence score; anything below 85% flags for human review.</p>
+          <p><strong>What Dylan would get back.</strong> One coverage map across every asset and entity. A renewal timeline with decision windows. A gap + overlap report with questions already written for the broker call. Scenario modeling for consolidations and limit changes.</p>
+          <p style="margin-bottom:0"><strong>Guardrails.</strong> Decision support, not legal or insurance advice. Local-first document storage. Nothing leaves the machine without explicit permission. Human-in-the-loop for every extracted field and every scenario estimate.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="note">New Normal · Atelier · Insurance Control Panel v0.1 · All figures on this page are mock data. No real policies are represented. This is decision support, not insurance advice.</div>
+      <div>© 2026 Emperor Studio</div>
+    </footer>
   </main>
+</div>
+
+
+
+<div id="cell-tooltip" class="cell-tooltip" style="display:none">
+  <div class="ct-close" id="ct-close">✕</div>
+  <div class="ct-policy" id="ct-policy"></div>
+  <div class="ct-meta">
+    <div><span class="ct-label">Carrier</span><span class="ct-val" id="ct-carrier"></span></div>
+    <div><span class="ct-label">Entity</span><span class="ct-val" id="ct-entity"></span></div>
+    <div><span class="ct-label">Limit</span><span class="ct-val" id="ct-limit"></span></div>
+  </div>
+  <div class="ct-note" id="ct-note"></div>
+</div>
+
+<script>
+(function() {
+  const POLICIES = [
+    { id: 'p1', entity: 'DHL Personal',   carrier: 'Chubb Masterpiece',       type: 'Homeowners HO-5',          limit: 4200000,  premium: 14280,  color: '#1d9a68' },
+    { id: 'p2', entity: 'DHL Personal',   carrier: 'GEICO',                   type: 'Personal Auto (3 veh.)',   limit: 500000,   premium: 6840,   color: '#1d9a68' },
+    { id: 'p3', entity: 'DHL Personal',   carrier: 'Chubb',                   type: 'Personal Umbrella',        limit: 5000000,  premium: 1290,   color: '#1d9a68' },
+    { id: 'p4', entity: 'DHL Personal',   carrier: 'Jewelers Mutual',         type: 'Scheduled Jewelry',        limit: 180000,   premium: 2100,   color: '#1d9a68' },
+    { id: 'p5', entity: 'New Normal',     carrier: 'Hiscox',                  type: 'Commercial GL + E&O',      limit: 3000000,  premium: 19650,  color: '#0d1554' },
+    { id: 'p6', entity: 'New Normal',     carrier: 'Hiscox',                  type: 'Inland Marine / Equipment',limit: 850000,   premium: 14800,  color: '#0d1554' },
+    { id: 'p7', entity: 'New Normal',     carrier: 'Coalition',               type: 'Cyber / Breach Liability', limit: 1000000,  premium: 26830,  color: '#0d1554' },
+    { id: 'p8', entity: 'Blue Cloud Holdings', carrier: 'Chubb Commercial',   type: 'Commercial Property + GL', limit: 12000000, premium: 28940,  color: '#c9a961' },
+  ];
+
+  const MAX_LIMIT = 15000000;
+  const ORIGINAL_TOTAL_PREMIUM = POLICIES.reduce((s,p) => s + p.premium, 0);
+
+  let state = POLICIES.map(p => ({ ...p, current: p.limit }));
+
+  function fmt(n) {
+    if (n === 0) return '$0';
+    if (n >= 1000000) return '$' + (n/1000000).toFixed(n % 1000000 === 0 ? 0 : 1) + 'M';
+    if (n >= 1000) return '$' + Math.round(n/1000) + 'k';
+    return '$' + n.toLocaleString();
+  }
+
+  function fmtFull(n) {
+    return '$' + Math.round(n).toLocaleString();
+  }
+
+  function estimatedPremium(p, newLimit) {
+    if (newLimit === 0) return 0;
+    return Math.round(p.premium * (newLimit / p.limit));
+  }
+
+  function render() {
+    const grid = document.getElementById('cons-grid');
+    grid.innerHTML = '';
+    state.forEach((p, i) => {
+      const pct = Math.round((p.current / MAX_LIMIT) * 100);
+      const origPct = Math.round((p.limit / MAX_LIMIT) * 100);
+      const estPrem = estimatedPremium(p, p.current);
+      const eliminated = p.current === 0;
+
+      const card = document.createElement('div');
+      card.className = 'cons-card' + (eliminated ? ' cons-eliminated' : '');
+      card.innerHTML = `
+        <div class="cons-card-head">
+          <div class="cons-entity" style="color:${p.color}">${p.entity}</div>
+          <div class="cons-type">${p.type}</div>
+          <div class="cons-carrier">${p.carrier}</div>
+        </div>
+        <div class="cons-bar-wrap">
+          <div class="cons-bar-track">
+            <div class="cons-bar-orig" style="width:${origPct}%;background:${p.color}22;border-color:${p.color}44"></div>
+            <div class="cons-bar-fill" style="width:${pct}%;background:${p.color}"></div>
+          </div>
+        </div>
+        <div class="cons-controls">
+          <input type="range" class="cons-slider" min="0" max="${MAX_LIMIT}" step="50000"
+            value="${p.current}" data-idx="${i}"
+            style="--fill-color:${p.color};--fill-pct:${pct}%">
+          <div class="cons-inputs">
+            <div class="cons-input-group">
+              <label>Limit</label>
+              <input type="number" class="cons-num" data-idx="${i}" data-field="current"
+                value="${p.current}" min="0" max="${MAX_LIMIT}" step="50000">
+            </div>
+          </div>
+        </div>
+        <div class="cons-card-footer">
+          <div class="cons-orig">Original: ${fmt(p.limit)} · ${fmtFull(p.premium)}/yr</div>
+          <div class="cons-est ${eliminated ? 'cons-est-zero' : ''}">
+            ${eliminated ? '⊘ Eliminated' : `Est: ${fmt(p.current)} · ${fmtFull(estPrem)}/yr`}
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    // Attach events
+    grid.querySelectorAll('.cons-slider').forEach(el => {
+      el.addEventListener('input', e => {
+        const idx = +e.target.dataset.idx;
+        state[idx].current = +e.target.value;
+        render();
+        updateTotals();
+      });
+    });
+    grid.querySelectorAll('.cons-num').forEach(el => {
+      el.addEventListener('change', e => {
+        const idx = +e.target.dataset.idx;
+        let val = Math.max(0, Math.min(MAX_LIMIT, +e.target.value));
+        state[idx].current = val;
+        render();
+        updateTotals();
+      });
+    });
+
+    updateTotals();
+  }
+
+  function updateTotals() {
+    const totalCoverage = state.reduce((s,p) => s + p.current, 0);
+    const totalPremium = state.reduce((s,p) => s + estimatedPremium(p, p.current), 0);
+    const savings = ORIGINAL_TOTAL_PREMIUM - totalPremium;
+    const active = state.filter(p => p.current > 0).length;
+
+    document.getElementById('total-coverage').textContent = fmt(totalCoverage);
+    document.getElementById('total-premium').textContent = fmtFull(totalPremium) + '/yr';
+    document.getElementById('total-savings').textContent = (savings >= 0 ? '+' : '') + fmtFull(savings) + '/yr';
+    document.getElementById('total-savings').parentElement.className = 'cons-total-card ' + (savings > 0 ? 'good' : savings < 0 ? 'warn' : '');
+    document.getElementById('total-active').textContent = active;
+
+    // Summary
+    const eliminated = state.filter(p => p.current === 0);
+    const reduced = state.filter(p => p.current > 0 && p.current < p.limit);
+    const summary = document.getElementById('cons-summary');
+    if (eliminated.length === 0 && reduced.length === 0) {
+      summary.innerHTML = '';
+      return;
+    }
+    let html = '<div class="cons-summary-inner">';
+    if (eliminated.length) {
+      html += `<div class="cons-summary-group"><div class="cons-summary-label">Eliminated (${eliminated.length})</div>`;
+      eliminated.forEach(p => {
+        html += `<div class="cons-summary-row"><span class="cons-summary-name">${p.type} · ${p.carrier}</span><span class="cons-summary-val">saves ${fmtFull(p.premium)}/yr</span></div>`;
+      });
+      html += '</div>';
+    }
+    if (reduced.length) {
+      html += `<div class="cons-summary-group"><div class="cons-summary-label">Reduced (${reduced.length})</div>`;
+      reduced.forEach(p => {
+        const diff = p.premium - estimatedPremium(p, p.current);
+        html += `<div class="cons-summary-row"><span class="cons-summary-name">${p.type} · ${p.carrier}</span><span class="cons-summary-val">${fmt(p.limit)} → ${fmt(p.current)} · saves ~${fmtFull(diff)}/yr</span></div>`;
+      });
+      html += '</div>';
+    }
+    html += '</div>';
+    summary.innerHTML = html;
+  }
+
+  render();
+})();
+</script>
+
+
+<script>
+(function() {
+  const toggle = document.getElementById('nav-toggle');
+  const overlay = document.getElementById('nav-overlay');
+  const sidebar = document.querySelector('.sidebar');
+  function open() {
+    sidebar.classList.add('sidebar-open');
+    overlay.classList.add('overlay-visible');
+    toggle.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    sidebar.classList.remove('sidebar-open');
+    overlay.classList.remove('overlay-visible');
+    toggle.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+  toggle.addEventListener('click', () => sidebar.classList.contains('sidebar-open') ? close() : open());
+  overlay.addEventListener('click', close);
+  sidebar.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+})();
+</script>
+
+
+<script>
+(function() {
+  // Map: [row-index][col-index] => {policy, carrier, entity, limit, note}
+  // Rows: 0=Primary Res, 1=Auto Fleet, 2=Studio HQ, 3=Prod Equip, 4=Blue Cloud
+  // Cols: 0=Property, 1=Liability, 2=Auto, 3=Equipment, 4=Business Int, 5=Umbrella, 6=Cyber, 7=Flood, 8=Earthquake
+  const CELL_DATA = {
+    '0,0': { policy:'HO-5 · Primary Residence', carrier:'Chubb Masterpiece', entity:'DHL Personal', limit:'$4.2M', note:'Standard replacement cost. Scheduled items covered separately under jewelry floater.' },
+    '0,1': { policy:'Personal Auto / Home Liability', carrier:'Chubb Masterpiece', entity:'DHL Personal', limit:'$500k', note:'Personal liability rider on HO-5.' },
+    '0,5': { policy:'Personal Umbrella', carrier:'Chubb', entity:'DHL Personal', limit:'$5M excess', note:'Sits over home and auto liability. Pays after underlying limits exhausted.' },
+    '0,7': { policy:'No flood policy on file', carrier:'—', entity:'DHL Personal', limit:'$0', note:'⚠ Gap. Pacific Palisades is FEMA Zone X moderate risk. Standard HO-3/5 excludes flood. Est. NFIP quote: $650–900/yr.' },
+    '0,8': { policy:'HO-5 Earthquake Rider', carrier:'Chubb Masterpiece', entity:'DHL Personal', limit:'$50k', note:'⚠ Thin. Minimal earthquake sub-limit. Standalone CEA policy recommended for meaningful coverage.' },
+
+    '1,1': { policy:'Personal Auto', carrier:'GEICO', entity:'DHL Personal', limit:'$500k liability', note:'Combined single limit liability across 3 vehicles.' },
+    '1,2': { policy:'Personal Auto · 3 vehicles', carrier:'GEICO', entity:'DHL Personal', limit:'$250k/$500k', note:'Comprehensive + collision on all three vehicles. G-Wagon, Range Rover, Sprinter.' },
+    '1,5': { policy:'Personal Umbrella', carrier:'Chubb', entity:'DHL Personal', limit:'$5M excess', note:'⚠ Unclear priority: personal umbrella AND New Normal LLC umbrella both claim auto. Confirm which pays first on business-use claims.' },
+
+    '2,0': { policy:'Commercial Property', carrier:'Chubb Commercial', entity:'New Normal LLC', limit:'$1.8M', note:'Building + tenant improvements at Culver City studio.' },
+    '2,1': { policy:'Commercial GL + GL Rider', carrier:'Hiscox + Chubb', entity:'New Normal LLC', limit:'$2M / $1M', note:'⚠ Overlap. Hiscox GL ($2M agg) and Chubb property GL rider ($1M) both cover the same space. Est. savings by dropping rider: $2,400/yr.' },
+    '2,3': { policy:'Inland Marine / Equipment Floater', carrier:'Hiscox', entity:'New Normal LLC', limit:'$850k', note:'Scheduled cameras, lenses, lighting, grip. All-risk including transit.' },
+    '2,4': { policy:'Business Interruption', carrier:'Chubb Commercial', entity:'New Normal LLC', limit:'$250k', note:'⚠ Thin. 72-hour waiting period. $250k limit vs ~$2M annual revenue — a 6-week shutdown could exceed this. Recommend increasing to $750k.' },
+    '2,5': { policy:'Umbrella (priority unclear)', carrier:'—', entity:'New Normal LLC', limit:'see note', note:'⚠ Unclear. Both personal ($5M Chubb) and commercial ($5M New Normal) umbrellas may apply. Written priority confirmation needed from both carriers.' },
+    '2,6': { policy:'Cyber / Breach Liability', carrier:'Coalition', entity:'New Normal LLC', limit:'$1M', note:'First-party breach costs + third-party liability. Includes ransomware response and notification expenses.' },
+    '2,7': { policy:'No flood policy on file', carrier:'—', entity:'New Normal LLC', limit:'$0', note:'⚠ Gap. Studio HQ in Culver City — low flood risk but no coverage. Consider reviewing.' },
+
+    '3,1': { policy:'Commercial GL', carrier:'Hiscox', entity:'New Normal LLC', limit:'included', note:'Equipment liability included in GL policy aggregate.' },
+    '3,3': { policy:'Inland Marine + Commercial Property Schedule', carrier:'Hiscox + Chubb', entity:'New Normal LLC', limit:'$850k / $600k', note:'⚠ Overlap. Same cameras covered under both Hiscox inland marine floater ($850k) and Chubb commercial property equipment schedule ($600k). Est. savings by consolidating: $1,800/yr.' },
+
+    '4,0': { policy:'Commercial Property', carrier:'Chubb Commercial', entity:'Blue Cloud Holdings', limit:'$12M', note:'Full replacement value on ranch structures and improvements. 250 acres, Santa Clarita.' },
+    '4,1': { policy:'Commercial GL · Ranch', carrier:'Chubb Commercial', entity:'Blue Cloud Holdings', limit:'$2M', note:'General liability for ranch operations, events, and production activities.' },
+    '4,2': { policy:'Commercial Auto', carrier:'Chubb Commercial', entity:'Blue Cloud Holdings', limit:'commercial', note:'Ranch vehicles: trucks, ATVs, water truck. Scheduled policy.' },
+    '4,3': { policy:'Equipment Schedule · Ranch', carrier:'Chubb Commercial', entity:'Blue Cloud Holdings', limit:'$180k', note:'⚠ Thin. Named-item schedule. Tractors, ATVs, water truck not confirmed on current schedule. Reconcile inventory.' },
+    '4,4': { policy:'Business Interruption · Ranch', carrier:'Chubb Commercial', entity:'Blue Cloud Holdings', limit:'$500k', note:'Covers lost rental/production income if ranch is unavailable. 48-hour waiting period.' },
+    '4,5': { policy:'Umbrella (applicability unclear)', carrier:'—', entity:'Blue Cloud Holdings', limit:'?', note:'⚠ Unclear. Ranch umbrella coverage not confirmed. Personal ($5M Chubb) may extend — needs verification.' },
+    '4,6': { policy:'No cyber policy on file', carrier:'—', entity:'Blue Cloud Holdings', limit:'$0', note:'Ranch operations have limited cyber exposure. Review if smart systems / booking platforms are in use.' },
+    '4,8': { policy:'No earthquake policy on file', carrier:'—', entity:'Blue Cloud Holdings', limit:'$0', note:'⚠ Gap · High Priority. San Andreas fault <18 miles. $12M property with no earth movement coverage. DIC policy recommended.' },
+  };
+
+  const tooltip = document.getElementById('cell-tooltip');
+  const ctPolicy = document.getElementById('ct-policy');
+  const ctCarrier = document.getElementById('ct-carrier');
+  const ctEntity = document.getElementById('ct-entity');
+  const ctLimit = document.getElementById('ct-limit');
+  const ctNote = document.getElementById('ct-note');
+  const ctClose = document.getElementById('ct-close');
+
+  function showTooltip(cell, data) {
+    ctPolicy.textContent = data.policy;
+    ctCarrier.textContent = data.carrier;
+    ctEntity.textContent = data.entity;
+    ctLimit.textContent = data.limit;
+    ctNote.textContent = data.note;
+
+    // Position near cell
+    const rect = cell.getBoundingClientRect();
+    const scrollY = window.scrollY;
+    const scrollX = window.scrollX;
+
+    tooltip.style.display = 'block';
+    tooltip.style.top = (rect.bottom + scrollY + 8) + 'px';
+
+    // Try to keep in viewport horizontally
+    let left = rect.left + scrollX;
+    const ttWidth = 320;
+    if (left + ttWidth > window.innerWidth - 16) {
+      left = window.innerWidth - ttWidth - 16;
+    }
+    if (left < 8) left = 8;
+    tooltip.style.left = left + 'px';
+
+    // Highlight cell
+    document.querySelectorAll('.cell.cell-active').forEach(c => c.classList.remove('cell-active'));
+    cell.classList.add('cell-active');
+  }
+
+  function hideTooltip() {
+    tooltip.style.display = 'none';
+    document.querySelectorAll('.cell.cell-active').forEach(c => c.classList.remove('cell-active'));
+  }
+
+  ctClose.addEventListener('click', hideTooltip);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') hideTooltip(); });
+
+  // Wire up matrix cells
+  const matrixRows = document.querySelectorAll('.matrix tbody tr');
+  matrixRows.forEach((row, ri) => {
+    const cells = row.querySelectorAll('td');
+    cells.forEach((td, ci) => {
+      if (ci === 0) return; // skip asset name col
+      const colIdx = ci - 1; // 0-indexed coverage col
+      const key = ri + ',' + colIdx;
+      const cellDiv = td.querySelector('.cell');
+      if (!cellDiv) return;
+
+      const data = CELL_DATA[key];
+      if (data) {
+        td.style.cursor = 'pointer';
+        cellDiv.title = data.policy;
+        td.addEventListener('click', e => {
+          e.stopPropagation();
+          showTooltip(td, data);
+        });
+      } else {
+        td.style.cursor = 'default';
+      }
+    });
+  });
+
+  document.addEventListener('click', e => {
+    if (!tooltip.contains(e.target)) hideTooltip();
+  });
+})();
+</script>
+
 </body>
 </html>
