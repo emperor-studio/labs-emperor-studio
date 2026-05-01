@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project Hologram — Phase 1 Deck</title>
+  <meta name="description" content="A terminal-style animated deck for Project Hologram Phase 1: adaptive projection mapping, NIR fog visibility, and 120fps MVP gates." />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Handjet:wght@300;400;500;600;700&display=swap");
+    :root {
+      --bg: #120f0f;
+      --panel: rgba(50, 43, 42, .88);
+      --panel-2: rgba(36, 31, 31, .86);
+      --line: rgba(255, 230, 224, .16);
+      --line-bright: rgba(255, 230, 224, .42);
+      --text: #f6eeee;
+      --muted: #aaa0a0;
+      --dim: #756c6c;
+      --pink: #ff2bd6;
+      --pink-2: #ff7be8;
+      --white: #fff8f6;
+      --danger: #ffb1aa;
+      --ok: #e9ffe7;
+      --mono: "Handjet", "SF Mono", "IBM Plex Mono", "Roboto Mono", "Courier New", monospace;
+      --sans: "Handjet", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background: var(--bg);
+      font-family: var(--sans);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -5;
+      background:
+        radial-gradient(circle at 50% 48%, rgba(64,228,255,.045), transparent 36rem),
+        linear-gradient(180deg, rgba(22,18,18,.78), rgba(12,10,10,.96));
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 4px),
+        radial-gradient(circle at center, transparent 0 48%, rgba(0,0,0,.22) 100%);
+      mix-blend-mode: screen;
+      opacity: .42;
+    }
+
+    #terrain {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+      opacity: .78;
+      mix-blend-mode: screen;
+    }
+
+    .dot-grid {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      opacity: .18;
+      background-image: radial-gradient(circle, rgba(64,228,255,.22) 1px, transparent 1.4px);
+      background-size: 22px 22px;
+      mask-image: linear-gradient(180deg, black, black 80%, transparent);
+    }
+
+    .hud-lines {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .18;
+      background:
+        linear-gradient(90deg, transparent 0 82%, rgba(255,235,230,.38) 82.1% 82.22%, transparent 82.3%),
+        linear-gradient(180deg, transparent 0 18%, rgba(255,235,230,.26) 18.05% 18.12%, transparent 18.2%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1140px, calc(100% - 48px)); margin: 0 auto; }
+
+    .topbar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      z-index: 10;
+      height: 62px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,235,230,.08);
+      background: linear-gradient(180deg, rgba(15,12,12,.76), rgba(15,12,12,.22));
+      backdrop-filter: blur(8px);
+    }
+
+    .topbar .wrap { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+    .brand, .sys, .section-code, .tiny, .nav a, .chip, .card-kicker, .step-num, .price { font-family: var(--mono); text-transform: uppercase; letter-spacing: .12em; }
+    .brand { font-size: 24px; color: var(--white); letter-spacing: .01em; }
+    .sys { font-size: 17px; color: var(--muted); }
+    .sys::before { content: "●"; color: var(--pink); margin-right: 8px; font-size: 10px; }
+    .nav { display: flex; gap: 20px; align-items: center; }
+    .nav a { font-size: 16px; color: var(--dim); }
+    .nav a:hover { color: var(--pink); }
+
+    .slide {
+      min-height: 100vh;
+      display: grid;
+      align-items: center;
+      padding: 92px 0 64px;
+      position: relative;
+      border-bottom: 1px solid rgba(255,235,230,.08);
+    }
+
+    .slide.compact { min-height: 78vh; }
+    .slide-top { align-items: start; padding-top: 120px; }
+
+    .section-code {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 28px;
+    }
+
+    .section-code::before {
+      content: "✦";
+      color: var(--pink);
+      margin-right: 14px;
+      font-size: 19px;
+      vertical-align: -2px;
+      letter-spacing: 0;
+    }
+
+    .mega {
+      margin: 0;
+      font-family: var(--mono);
+      font-weight: 400;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: -.045em;
+      line-height: .92;
+      font-size: clamp(4.8rem, 11vw, 10rem);
+      max-width: 980px;
+      text-shadow: 0 0 18px rgba(255,216,210,.09);
+    }
+
+    .mega.small { font-size: clamp(3.6rem, 8.2vw, 7.8rem); max-width: 1040px; }
+    .mega.center { text-align: center; margin-inline: auto; }
+    .blush { color: var(--pink); }
+
+    .dek {
+      max-width: 650px;
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: clamp(22px, 2.25vw, 30px);
+      line-height: 1.28;
+      letter-spacing: .025em;
+    }
+
+    .center .dek, .dek.centered { margin-inline: auto; text-align: center; }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 40px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 205px;
+      height: 56px;
+      padding: 0 26px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,235,230,.12);
+      color: var(--text);
+      font-weight: 700;
+      font-family: var(--mono);
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+    .btn.primary {
+      background: linear-gradient(135deg, var(--pink), var(--pink-2));
+      color: #160013;
+      border-color: rgba(255, 43, 214, .9);
+      box-shadow: 0 0 28px rgba(255, 43, 214, .20), inset 0 1px 0 rgba(255,255,255,.35);
+    }
+
+    .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 72px; }
+    .cards.four { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+    .cards.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .card {
+      min-height: 250px;
+      padding: 30px;
+      border-radius: 28px;
+      background: var(--panel);
+      border: 1px solid rgba(255,235,230,.14);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.045), 0 30px 80px rgba(0,0,0,.28);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::after {
+      content: "✦";
+      position: absolute;
+      top: 27px;
+      right: 28px;
+      font-family: var(--mono);
+      color: var(--white);
+      font-size: 24px;
+    }
+    .card.featured { border-color: rgba(255,216,210,.62); }
+    .card-kicker { color: var(--muted); font-size: 11px; margin-bottom: 34px; }
+    .card h3 { margin: 0 0 24px; font-family: var(--mono); font-weight: 400; text-transform: uppercase; letter-spacing: -.025em; font-size: 42px; color: var(--white); }
+    .card p, .card li { color: var(--muted); font-size: 21px; line-height: 1.25; letter-spacing: .02em; }
+    .card ul { margin: 0; padding-left: 18px; }
+    .card li + li { margin-top: 9px; }
+
+    .protocol { display: grid; grid-template-columns: .75fr 1.25fr; gap: 66px; align-items: start; }
+    .steps { display: grid; gap: 34px; margin-top: 8px; }
+    .step { display: grid; grid-template-columns: 64px 1fr; gap: 24px; border-left: 1px solid rgba(255,235,230,.18); padding-left: 28px; }
+    .step-num { color: var(--white); font-size: 22px; letter-spacing: -.04em; }
+    .step h3 { margin: 0 0 10px; font-family: var(--mono); font-weight: 400; letter-spacing: -.05em; text-transform: uppercase; font-size: 34px; }
+    .step p { margin: 0; color: var(--muted); line-height: 1.28; letter-spacing: .02em; }
+
+    .marquee { position: absolute; left: 0; right: 0; top: 86px; overflow: hidden; border-block: 1px solid rgba(255,235,230,.10); background: rgba(60,52,51,.68); }
+    .marquee-track { display: flex; width: max-content; animation: crawl 24s linear infinite; }
+    .marquee span { font-family: var(--mono); text-transform: uppercase; font-size: clamp(32px, 5vw, 64px); letter-spacing: -.075em; padding: 18px 34px; white-space: nowrap; color: rgba(255,245,242,.92); }
+    .marquee span:nth-child(even) { color: rgba(255,245,242,.28); }
+    @keyframes crawl { to { transform: translateX(-50%); } }
+
+    .gate-grid { display: grid; grid-template-columns: repeat(5, minmax(190px, 1fr)); gap: 14px; margin-top: 48px; overflow-x: auto; padding-bottom: 4px; }
+    .gate { background: rgba(35,30,30,.78); border: 1px solid rgba(255,235,230,.13); border-radius: 22px; padding: 22px; min-height: 245px; }
+    .gate b { display: block; font-family: var(--mono); font-size: 13px; color: var(--pink); margin-bottom: 24px; letter-spacing: .12em; }
+    .gate h3 { font-family: var(--mono); font-weight: 400; text-transform: uppercase; letter-spacing: -.05em; margin: 0 0 12px; font-size: 34px; }
+    .gate p { color: var(--muted); margin: 0; font-size: 20px; line-height: 1.22; letter-spacing: .02em; }
+
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; margin-top: 48px; }
+    .terminal {
+      border: 1px solid rgba(255,235,230,.16);
+      background: rgba(16,14,14,.76);
+      border-radius: 24px;
+      padding: 24px;
+      font-family: var(--mono);
+      color: var(--muted);
+      min-height: 290px;
+    }
+    .terminal div { padding: 10px 0; border-bottom: 1px solid rgba(255,235,230,.08); }
+    .terminal div:last-child { border-bottom: 0; }
+    .terminal strong { color: var(--pink); font-weight: 400; }
+
+    .center-block { text-align: center; max-width: 900px; margin-inline: auto; }
+    .star { font-family: var(--mono); color: var(--white); font-size: 54px; margin-bottom: 22px; animation: pulse 2.8s ease-in-out infinite; }
+    @keyframes pulse { 50% { transform: scale(1.08); opacity: .72; } }
+
+    .footer-note { position: absolute; left: 24px; bottom: 18px; color: var(--dim); font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
+
+    @media (max-width: 900px) {
+      .nav { display: none; }
+      .cards, .cards.four, .cards.two, .protocol, .split { grid-template-columns: 1fr; }
+      .cards { margin-top: 42px; }
+      .mega { font-size: clamp(3.2rem, 16vw, 5.8rem); }
+      .slide { padding-top: 92px; }
+      .marquee { top: 62px; }
+      .gate-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="terrain" aria-hidden="true"></canvas>
+  <div class="dot-grid" aria-hidden="true"></div>
+  <div class="hud-lines" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="wrap">
+      <div class="brand">PROJECT HOLOGRAM</div>
+      <nav class="nav">
+        <a href="#resources">Resources</a>
+        <a href="#protocol">Protocol</a>
+        <a href="#mvp">MVP</a>
+        <a href="#gates">Gates</a>
+      </nav>
+      <div class="sys">SYS.ONLINE // OP.READY</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="slide" id="start">
+      <div class="wrap">
+        <div class="section-code">[00] PHASE ONE // ADAPTIVE MAPPING</div>
+        <h1 class="mega">KNOW<br>WHERE<br>TO PROVE.</h1>
+        <p class="dek">A measured first phase for projection mapping and future live hologram work: prove the timing backbone, stabilize a deforming surface, then gate the fogscreen/NIR path.</p>
+        <div class="actions">
+          <a class="btn primary" href="#protocol">Enter Protocol</a>
+          <a class="btn" href="#gates">View Phase Gates</a>
+        </div>
+      </div>
+      <div class="footer-note">Project Hologram · Phase 1 Report · May 1, 2026</div>
+    </section>
+
+    <section class="slide slide-top" id="resources">
+      <div class="wrap">
+        <div class="section-code">[01] SYSTEM LEAKAGE</div>
+        <h2 class="mega small">EVERY LIVE SYSTEM RUNS ON THREE RESOURCES:<br><span class="blush">TIME, LIGHT, AND LATENCY.</span></h2>
+        <p class="dek">This phase exists to reveal where the real-time loop breaks before fog, dense reconstruction, or hidden sensing can hide the failure.</p>
+        <div class="cards">
+          <article class="card">
+            <div class="card-kicker">RESOURCE .01</div>
+            <h3>TIME</h3>
+            <p>Capture, ingest, solve, warp, render, and projection must land inside a measured 120fps loop without cadence collapse.</p>
+          </article>
+          <article class="card">
+            <div class="card-kicker">RESOURCE .02</div>
+            <h3>LIGHT</h3>
+            <p>Visible projection proves the mapping stack. 830/850nm NIR gets its own fog visibility gate before expensive integration.</p>
+          </article>
+          <article class="card">
+            <div class="card-kicker">RESOURCE .03</div>
+            <h3>LATENCY</h3>
+            <p>Photodiode and trigger traces are the authority. Software timestamps are useful, but they do not get the final vote.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="protocol">
+      <div class="wrap protocol">
+        <div>
+          <div class="section-code">[02] OPERATIONAL PROTOCOL</div>
+          <h2 class="mega small">HOW WE<br>WORK</h2>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <div class="step-num">01</div>
+            <div><h3>Backbone</h3><p>Bring up the reusable camera → CXP → GPU → projector path on a rigid board. Measure the truth before introducing a moving target.</p></div>
+          </article>
+          <article class="step">
+            <div class="step-num">02</div>
+            <div><h3>Membrane</h3><p>Move the same stack onto a fan-driven matte sheet with passive visible features and a coarse warp mesh.</p></div>
+          </article>
+          <article class="step">
+            <div class="step-num">03</div>
+            <div><h3>NIR Scout</h3><p>In a dark bench, project an 830/850nm line or sparse feature. Rigid board first, fog second. No decode logic yet.</p></div>
+          </article>
+          <article class="step">
+            <div class="step-num">04</div>
+            <div><h3>MVP Loop</h3><p>Sustain the strict 120fps adaptive loop for ten measured minutes and prove that adaptive mapping beats static mapping.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide-top" id="mvp">
+      <div class="marquee" aria-hidden="true"><div class="marquee-track"><span>120 FPS CLOSED LOOP</span><span>NIR FOG GATE</span><span>MEASURED SENSOR TO PHOTON</span><span>COARSE WARP MESH</span><span>120 FPS CLOSED LOOP</span><span>NIR FOG GATE</span><span>MEASURED SENSOR TO PHOTON</span><span>COARSE WARP MESH</span></div></div>
+      <div class="wrap" style="padding-top:120px">
+        <div class="section-code">[03] MVP DEFINITION</div>
+        <h2 class="mega small">THE MVP IS A DEFORMING-SHEET LOOP,<br><span class="blush">NOT A FOGSCREEN SYSTEM.</span></h2>
+        <div class="cards four">
+          <article class="card featured">
+            <div class="card-kicker">TARGET .01</div>
+            <h3>120 FPS</h3>
+            <p>Stable locked loop. No meaningful frame loss. No repeated-frame behavior.</p>
+          </article>
+          <article class="card">
+            <div class="card-kicker">TARGET .02</div>
+            <h3>10 MIN</h3>
+            <p>Long enough to reveal thermal, cadence, buffer, and operational instability.</p>
+          </article>
+          <article class="card">
+            <div class="card-kicker">TARGET .03</div>
+            <h3>≤2 FRAMES</h3>
+            <p>Sensor-to-photon latency at or below two 120fps frame intervals.</p>
+          </article>
+          <article class="card">
+            <div class="card-kicker">TARGET .04</div>
+            <h3>VISIBLE WIN</h3>
+            <p>Adaptive projection visibly outperforms static mapping on a disturbed membrane.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="architecture">
+      <div class="wrap">
+        <div class="section-code">[04] SYSTEM ARCHITECTURE</div>
+        <h2 class="mega small">ONE WORKSTATION.<br>ONE HOT PATH.<br><span class="blush">NO HIDING.</span></h2>
+        <div class="split">
+          <div class="terminal">
+            <div><strong>CAPTURE</strong> // 5MP mono global-shutter CXP camera</div>
+            <div><strong>INGEST</strong> // Euresys Coaxlink Duo CXP-12</div>
+            <div><strong>SOLVE</strong> // GPU-side surface proxy + coarse mesh</div>
+            <div><strong>OUTPUT</strong> // 1080p 120Hz projector, 240Hz stress available</div>
+            <div><strong>VERIFY</strong> // photodiode + trigger traces</div>
+          </div>
+          <div class="terminal">
+            <div><strong>NO</strong> Ethernet hop in the hot path</div>
+            <div><strong>NO</strong> second render node</div>
+            <div><strong>NO</strong> middleware between timing-critical stages</div>
+            <div><strong>NO</strong> fog hardware until the core loop is trusted</div>
+            <div><strong>NO</strong> NIR spending until same-side visibility is real</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide-top" id="gates">
+      <div class="wrap">
+        <div class="section-code">[05] PHASE GATES</div>
+        <h2 class="mega small">HOW TO START</h2>
+        <div class="gate-grid">
+          <article class="gate"><b>GATE 01</b><h3>Rigid Board</h3><p>Is the camera-to-GPU-to-projector path measurable and stable before moving targets?</p></article>
+          <article class="gate"><b>GATE 02</b><h3>Membrane</h3><p>Can passive visible features support stable coarse warp at 120fps?</p></article>
+          <article class="gate"><b>GATE 03</b><h3>NIR Fog</h3><p>Can projected same-side NIR structure be seen on fog as structure, not glow?</p></article>
+          <article class="gate"><b>GATE 04</b><h3>MVP Run</h3><p>Can the deforming-sheet loop sustain 120fps cleanly for ten minutes?</p></article>
+          <article class="gate"><b>GATE 05</b><h3>240Hz</h3><p>Can the visible path sustain 240Hz cleanly when future stress tests ask for it?</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide compact" id="initiate">
+      <div class="wrap center-block">
+        <div class="star">✦</div>
+        <h2 class="mega center">INITIATE<br><span class="blush">PROTOCOL.</span></h2>
+        <p class="dek centered">Buy the reusable timing backbone first. Prove rigid-board timing. Prove membrane stabilization. Treat NIR-on-fog as a major gate, not an assumption.</p>
+        <div class="actions" style="justify-content:center"><a class="btn primary" href="#start">Return To Start</a></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const canvas = document.getElementById('terrain');
+    const ctx = canvas.getContext('2d');
+    let w, h, dpr;
+
+    function resize(){
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas.width = Math.floor(innerWidth * dpr);
+      h = canvas.height = Math.floor(innerHeight * dpr);
+      canvas.style.width = innerWidth + 'px';
+      canvas.style.height = innerHeight + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    addEventListener('resize', resize, { passive: true });
+    resize();
+
+    function drawHudGlyph(x, y, scale, t){
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(scale, scale);
+      ctx.strokeStyle = 'rgba(64, 228, 255, .10)';
+      ctx.lineWidth = 1;
+      ctx.globalAlpha = .55 + Math.sin(t*.001)*.08;
+      const segs = [
+        [0,0,140,0],[140,0,140,32],[140,32,104,32],[104,32,104,58],[104,58,162,58],
+        [162,58,162,124],[162,124,88,124],[88,124,88,182],[88,182,164,182],[164,182,164,252],
+        [0,252,0,210],[0,210,54,210],[54,210,54,150],[54,150,-26,150],[-26,150,-26,90],[30,90,30,58],[30,58,72,58],[72,58,72,0]
+      ];
+      segs.forEach(([a,b,c,d]) => { ctx.beginPath(); ctx.moveTo(a,b); ctx.lineTo(c,d); ctx.stroke(); });
+      ctx.restore();
+    }
+
+    function draw(t){
+      const W = innerWidth, H = innerHeight;
+      ctx.clearRect(0,0,W,H);
+
+      const grd = ctx.createRadialGradient(W*.52, H*.54, 0, W*.52, H*.54, W*.72);
+      grd.addColorStop(0, 'rgba(64,228,255,.032)');
+      grd.addColorStop(.62, 'rgba(18,15,15,.05)');
+      grd.addColorStop(1, 'rgba(0,0,0,.20)');
+      ctx.fillStyle = grd;
+      ctx.fillRect(0,0,W,H);
+
+      // slow parallax dot stars, drawn in code rather than as an asset
+      ctx.fillStyle = 'rgba(64, 228, 255, .13)';
+      const driftX = (t * .006) % 22;
+      const driftY = (t * .003) % 22;
+      for(let x=-22; x<W+22; x+=22){
+        for(let y=-22; y<H+22; y+=22){
+          const tw = .55 + .45*Math.sin((x*13.1 + y*7.7 + t*.002));
+          ctx.globalAlpha = .16 * tw;
+          ctx.fillRect(x + driftX, y + driftY, 1.15, 1.15);
+        }
+      }
+      ctx.globalAlpha = 1;
+
+      const horizon = H * .39;
+      const rows = 38;
+      const cols = 58;
+      const time = t * .00018;
+      const pts = [];
+
+      for(let r=0; r<rows; r++){
+        const z = r / (rows - 1);
+        const yBase = horizon + Math.pow(z, 1.72) * H * .73;
+        const row = [];
+        for(let c=0; c<cols; c++){
+          const xNorm = (c/(cols-1))*2 - 1;
+          const perspective = .12 + z * 1.36;
+          const x = W/2 + xNorm * W * .66 * perspective;
+          const waveA = Math.sin(c*.35 + r*.18 + time*8.0) * 26;
+          const waveB = Math.sin(c*.13 - r*.22 - time*5.7) * 22;
+          const ridge = Math.sin(xNorm*5.8 + time*4.5) * 42 * (1-z);
+          const swell = Math.sin((xNorm + z*.8)*9.2 - time*7) * 18 * Math.sin(z*Math.PI);
+          const y = yBase + (waveA + waveB) * (1-z*.15) + ridge + swell;
+          row.push([x,y]);
+        }
+        pts.push(row);
+      }
+
+      // rear ridge silhouettes
+      ctx.strokeStyle = 'rgba(64, 228, 255, .075)';
+      ctx.lineWidth = 1;
+      for(let band=0; band<3; band++){
+        ctx.beginPath();
+        for(let c=0; c<cols; c++){
+          const xNorm = (c/(cols-1))*2 - 1;
+          const x = W/2 + xNorm * W * .55;
+          const y = H*(.33 + band*.055) + Math.sin(c*.38 + time*(5+band))*22 + Math.sin(c*.11-time*4)*18;
+          if(c===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+        }
+        ctx.stroke();
+      }
+
+      // terrain horizontal grid lines
+      ctx.strokeStyle = 'rgba(64, 228, 255, .105)';
+      for(let r=0; r<rows; r++){
+        ctx.globalAlpha = .22 + (r/rows)*.42;
+        ctx.beginPath();
+        for(let c=0; c<cols; c++){
+          const [x,y] = pts[r][c];
+          if(c===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+        }
+        ctx.stroke();
+      }
+
+      // terrain vertical grid lines
+      ctx.globalAlpha = .45;
+      for(let c=0; c<cols; c+=2){
+        ctx.beginPath();
+        for(let r=0; r<rows; r++){
+          const [x,y] = pts[r][c];
+          if(r===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+        }
+        ctx.stroke();
+      }
+
+      // triangulation diagonals
+      ctx.strokeStyle = 'rgba(64, 228, 255, .045)';
+      ctx.globalAlpha = .8;
+      for(let r=0; r<rows-1; r++){
+        for(let c=0; c<cols-1; c+=2){
+          ctx.beginPath();
+          ctx.moveTo(pts[r][c][0], pts[r][c][1]);
+          ctx.lineTo(pts[r+1][c+1][0], pts[r+1][c+1][1]);
+          ctx.stroke();
+        }
+      }
+      ctx.globalAlpha = 1;
+
+      // right-side abstract operator line art, recreated in code
+      drawHudGlyph(W*.84, H*.10, Math.max(.55, W/1600), t);
+      drawHudGlyph(W*.84, H*.72, Math.max(.48, W/1800), t + 800);
+
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  </script>
+</body>
+</html>
