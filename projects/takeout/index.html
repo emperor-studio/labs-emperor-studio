@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Takeout — Bring Your Cloud Life Home</title>
+  <style>
+    :root {
+      --paper: #eee7dc;
+      --paper-2: #e7dfd2;
+      --ink: #171512;
+      --muted: #5f5a52;
+      --line: rgba(23, 21, 18, 0.14);
+      --blue: #3158d8;
+      --green: #16714a;
+      --orange: #ee7d16;
+      --red: #ef5251;
+      --pink: #ee9ac5;
+      --purple: #7655d8;
+      --sky: #78b8e9;
+      --black: #141411;
+      --white: #faf8f1;
+      --shadow: 0 18px 40px rgba(49, 40, 28, 0.16);
+      --soft-shadow: 0 12px 28px rgba(49, 40, 28, 0.11);
+      --serif: "Iowan Old Style", "New York", "Times New Roman", Georgia, serif;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: "SFMono-Regular", Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .nav {
+      height: 76px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 38px;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(238, 231, 220, 0.86);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand, .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .nav-actions { justify-content: flex-end; gap: 18px; font-size: 14px; }
+    .brand strong { font-weight: 800; letter-spacing: -0.03em; }
+    .nav-links { display: flex; gap: 38px; font-size: 14px; }
+
+    .logo-pill, .mini-pill {
+      width: 34px;
+      height: 16px;
+      border-radius: 999px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      box-shadow: var(--soft-shadow);
+    }
+    .logo-pill span:nth-child(1), .mini-pill span:nth-child(1) { background: var(--blue); }
+    .logo-pill span:nth-child(2), .mini-pill span:nth-child(2) { background: var(--red); }
+    .logo-pill span:nth-child(3), .mini-pill span:nth-child(3) { background: var(--orange); }
+
+    .cta-pill {
+      border: 0;
+      border-radius: 999px;
+      color: white;
+      padding: 10px 16px;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--blue) 0 34%, var(--red) 34% 66%, var(--orange) 66% 100%);
+      box-shadow: 0 10px 24px rgba(49, 88, 216, 0.26);
+    }
+    .outline-pill {
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      padding: 11px 18px;
+      background: transparent;
+      font-weight: 800;
+    }
+
+    .hero {
+      min-height: calc(100vh - 76px);
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      align-items: center;
+      gap: 30px;
+      padding: 72px 40px 48px;
+      overflow: hidden;
+    }
+
+    .kicker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+    .kicker-dot { width: 8px; height: 8px; border-radius: 99px; background: var(--orange); }
+
+    h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 500; letter-spacing: -0.07em; }
+    h1 { font-size: clamp(4rem, 8vw, 8.2rem); line-height: 0.9; max-width: 820px; }
+    h2 { font-size: clamp(3rem, 6.5vw, 6.6rem); line-height: 0.92; }
+    h3 { font-size: clamp(1.8rem, 3vw, 3.1rem); line-height: 1; }
+    .script {
+      font-style: italic;
+      background: linear-gradient(90deg, var(--blue), var(--purple), var(--red), var(--orange));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      white-space: nowrap;
+    }
+
+    .hero-copy {
+      margin: 30px 0 28px;
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.45;
+    }
+    .hero-actions { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+    .proof-row { display: flex; gap: 34px; flex-wrap: wrap; margin-top: 36px; color: var(--muted); font-size: 13px; }
+    .proof-row span::before { content: "✓"; margin-right: 9px; color: var(--green); }
+
+    .ribbon-stage {
+      position: relative;
+      min-height: 620px;
+    }
+    .capsule {
+      position: absolute;
+      height: 92px;
+      border-radius: 999px;
+      overflow: hidden;
+      display: grid;
+      box-shadow: var(--shadow);
+      transform: rotate(-12deg);
+      filter: saturate(1.08);
+    }
+    .capsule span { display: block; }
+    .cap-1 { width: 520px; right: 80px; top: 18px; grid-template-columns: 1fr 1.25fr 1.5fr; }
+    .cap-2 { width: 530px; right: 92px; top: 165px; grid-template-columns: 1.1fr 1.1fr 1fr 1.25fr; }
+    .cap-3 { width: 510px; right: 92px; top: 312px; grid-template-columns: 1fr 1.15fr 1.3fr; }
+    .cap-4 { width: 445px; right: 156px; top: 458px; grid-template-columns: 1.4fr 0.8fr 1fr; }
+    .blue { background: var(--blue); } .green { background: var(--green); } .orange { background: var(--orange); }
+    .red { background: var(--red); } .pink { background: var(--pink); } .purple { background: var(--purple); }
+    .sky { background: var(--sky); } .white { background: var(--white); } .black { background: var(--black); }
+
+    .trust {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 42px 40px;
+    }
+    .trust-label { text-align: center; font-family: var(--mono); letter-spacing: 0.2em; color: var(--muted); font-size: 11px; text-transform: uppercase; margin-bottom: 28px; }
+    .trust-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 28px; align-items: center; text-align: center; color: var(--muted); }
+    .trust-grid span { font-family: var(--serif); font-size: 22px; }
+    .trust-grid b { font-size: 18px; letter-spacing: -0.04em; }
+
+    section { padding: 88px 40px; }
+    .split-heading {
+      display: grid;
+      grid-template-columns: 1fr 0.86fr;
+      gap: 80px;
+      align-items: end;
+      margin-bottom: 76px;
+    }
+    .split-heading p { color: var(--muted); font-size: 18px; line-height: 1.55; max-width: 560px; }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+    .feature-card {
+      min-height: 320px;
+      padding: 44px 34px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      align-content: space-between;
+    }
+    .feature-top { display: flex; justify-content: space-between; align-items: start; gap: 18px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: var(--muted); text-transform: uppercase; }
+    .feature-card p { color: var(--muted); line-height: 1.55; font-size: 16px; margin-top: 14px; }
+    .long-mini { width: 78px; height: 28px; }
+
+    .dark-section {
+      background: var(--black);
+      color: var(--paper);
+      text-align: center;
+      padding-top: 92px;
+      padding-bottom: 96px;
+    }
+    .dark-section .kicker { justify-content: center; color: rgba(238,231,220,.56); }
+    .dark-section h2 { max-width: 980px; margin: 0 auto; }
+    .dark-section p { color: rgba(238,231,220,.7); max-width: 620px; margin: 28px auto 58px; font-size: 18px; line-height: 1.55; }
+    .console {
+      width: min(920px, 100%);
+      margin: 0 auto;
+      border: 1px solid rgba(238,231,220,.08);
+      border-radius: 24px;
+      background: #0b0b09;
+      box-shadow: 0 28px 80px rgba(0,0,0,.42);
+      padding: 22px;
+      text-align: left;
+    }
+    .console-bar { height: 42px; border-bottom: 1px solid rgba(238,231,220,.08); display: flex; align-items: center; gap: 8px; color: rgba(238,231,220,.45); font-family: var(--mono); font-size: 12px; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(238,231,220,.13); }
+    .console-body { display: grid; grid-template-columns: 0.55fr 1fr; gap: 20px; padding-top: 20px; }
+    .source-list, .archive-preview { border: 1px solid rgba(238,231,220,.08); border-radius: 14px; padding: 22px; min-height: 300px; }
+    .source-row { display: flex; align-items: center; gap: 12px; margin: 18px 0; color: rgba(238,231,220,.72); font-family: var(--mono); font-size: 13px; }
+    .color-dot { width: 14px; height: 14px; border-radius: 5px; }
+    .archive-preview { display: grid; place-items: center; }
+    .stacked-caps { position: relative; width: 320px; height: 220px; }
+    .stacked-caps .capsule { height: 56px; width: 250px; right: auto; top: auto; transform: rotate(0); box-shadow: 0 14px 34px rgba(0,0,0,.38); }
+    .stacked-caps .s1 { left: 35px; top: 22px; grid-template-columns: 1fr 1.4fr; }
+    .stacked-caps .s2 { left: 35px; top: 92px; grid-template-columns: 1fr 1.2fr 1fr; }
+    .stacked-caps .s3 { left: 35px; top: 162px; grid-template-columns: 1.3fr 1fr; }
+
+    .pricing-heading { text-align: center; margin-bottom: 70px; }
+    .pricing-heading p { color: var(--muted); font-size: 18px; margin-top: 14px; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1120px; margin: 0 auto; }
+    .plan {
+      min-height: 520px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 34px 32px;
+      background: rgba(255,255,255,.18);
+      box-shadow: var(--soft-shadow);
+      display: flex;
+      flex-direction: column;
+    }
+    .plan.featured { background: var(--black); color: var(--paper); transform: translateY(-12px); }
+    .plan.featured p, .plan.featured li { color: rgba(238,231,220,.74); }
+    .price { font-family: var(--serif); font-size: 58px; letter-spacing: -0.08em; margin: 28px 0 4px; }
+    .plan ul { list-style: none; padding: 0; margin: 28px 0; }
+    .plan li { margin: 13px 0; color: var(--muted); }
+    .plan li::before { content: ""; display: inline-block; width: 16px; height: 6px; border-radius: 999px; background: linear-gradient(90deg, var(--orange), var(--red), var(--purple)); margin-right: 10px; vertical-align: middle; }
+    .plan-button { margin-top: auto; border: 1px solid currentColor; border-radius: 999px; padding: 14px; text-align: center; font-weight: 800; }
+    .plan.featured .plan-button { background: var(--paper); color: var(--ink); }
+
+    .quote-section { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 80px; align-items: center; }
+    .quote-ribbons { position: relative; height: 360px; }
+    .quote-ribbons .capsule { height: 74px; width: 360px; right: auto; top: auto; transform: rotate(-15deg); }
+    .quote-ribbons .q1 { left: 5px; top: 20px; grid-template-columns: 1fr 1.5fr; }
+    .quote-ribbons .q2 { left: 35px; top: 126px; grid-template-columns: 1fr 1fr 1.4fr; }
+    .quote-ribbons .q3 { left: 5px; top: 232px; grid-template-columns: 1.4fr 1fr; }
+    blockquote { margin: 0; font-family: var(--serif); font-size: clamp(2.3rem, 4.5vw, 5.2rem); line-height: 0.98; letter-spacing: -0.07em; }
+    .person { display: flex; gap: 14px; align-items: center; margin-top: 34px; }
+    .avatar { width: 46px; height: 46px; display: grid; place-items: center; color: white; border-radius: 50%; background: var(--orange); font-weight: 800; }
+    .person strong { display: block; }
+    .person span { color: var(--muted); font-size: 14px; }
+
+    .final-cta { padding: 28px 38px 64px; }
+    .cta-box {
+      min-height: 430px;
+      border-radius: 36px;
+      background: var(--paper-2);
+      position: relative;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 42px;
+    }
+    .cta-box h2 { max-width: 760px; }
+    .cta-box p { color: var(--muted); max-width: 660px; margin: 24px auto 32px; font-size: 18px; }
+    .corner-a, .corner-b { position: absolute; width: 220px; height: 74px; border-radius: 999px; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr 1fr; transform: rotate(-18deg); }
+    .corner-a { left: -58px; top: 12px; }
+    .corner-b { right: -48px; bottom: 18px; }
+
+    footer { padding: 34px 18px 28px; }
+    .footer-bar { height: 14px; border-radius: 999px; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; box-shadow: var(--soft-shadow); }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr repeat(4, 1fr); gap: 50px; padding: 42px 0; border-bottom: 1px solid var(--line); }
+    .footer-grid h4 { margin: 0 0 18px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; color: var(--muted); text-transform: uppercase; }
+    .footer-grid p, .footer-grid a { color: var(--muted); line-height: 1.7; display: block; margin: 4px 0; }
+    .legal { display: flex; justify-content: space-between; padding-top: 24px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; }
+
+    @media (max-width: 980px) {
+      .nav { grid-template-columns: 1fr auto; }
+      .nav-links { display: none; }
+      .hero, .split-heading, .console-body, .quote-section, .footer-grid { grid-template-columns: 1fr; }
+      .ribbon-stage { min-height: 430px; }
+      .capsule { height: 70px; }
+      .cap-1, .cap-2, .cap-3, .cap-4 { width: 78vw; right: 4vw; }
+      .cap-1 { top: 0; } .cap-2 { top: 108px; } .cap-3 { top: 216px; } .cap-4 { top: 324px; }
+      .feature-grid, .cards, .trust-grid { grid-template-columns: 1fr 1fr; }
+      h1 { font-size: clamp(4.2rem, 15vw, 7rem); }
+    }
+
+    @media (max-width: 640px) {
+      .nav { padding: 0 18px; height: 64px; }
+      .nav-actions a:first-child { display: none; }
+      .hero, section { padding-left: 20px; padding-right: 20px; }
+      .feature-grid, .cards, .trust-grid { grid-template-columns: 1fr; }
+      .top-copy { max-width: 100%; }
+      .proof-row { gap: 14px; }
+      .quote-ribbons { height: 280px; }
+      .quote-ribbons .capsule { width: 300px; }
+      .legal { display: grid; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="#top" aria-label="Takeout home">
+      <span class="logo-pill"><span></span><span></span><span></span></span>
+      <strong>Takeout</strong>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#product">Product</a>
+      <a href="#systems">Systems</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#studio">Studio</a>
+      <a href="#changelog">Changelog</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#signin">Sign in</a>
+      <a class="cta-pill" href="#start">Start free</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="top-copy">
+        <div class="kicker"><span class="kicker-dot"></span><span>Takeout v0.1 — home cloud release</span></div>
+        <h1>Your cloud life, <span class="script">packed to go.</span></h1>
+        <p class="hero-copy">Takeout helps you move from rented cloud to your own cloud. Connect your accounts, bring files and photos home, verify the archive, and serve it from storage you control.</p>
+        <div class="hero-actions">
+          <a class="cta-pill" href="#start">Start bringing data home</a>
+          <a class="outline-pill" href="#product">Watch the tour</a>
+        </div>
+        <div class="proof-row">
+          <span>No cloud middleman</span>
+          <span>Local-first archive</span>
+          <span>Checksum reports</span>
+        </div>
+      </div>
+
+      <div class="ribbon-stage" aria-hidden="true">
+        <div class="capsule cap-1"><span class="blue"></span><span class="green"></span><span class="orange"></span></div>
+        <div class="capsule cap-2"><span class="orange"></span><span class="red"></span><span class="pink"></span><span class="purple"></span></div>
+        <div class="capsule cap-3"><span class="purple"></span><span class="blue"></span><span class="sky"></span></div>
+        <div class="capsule cap-4"><span class="sky"></span><span class="white"></span><span class="black"></span></div>
+      </div>
+    </section>
+
+    <section class="trust" aria-label="Supported destinations">
+      <div class="trust-label">Designed for data living across</div>
+      <div class="trust-grid">
+        <span>Google</span>
+        <b>DROPBOX</b>
+        <span>iCloud</span>
+        <span>Immich</span>
+        <b>NAS°</b>
+        <span>Nextcloud_</span>
+      </div>
+    </section>
+
+    <section id="product">
+      <div class="split-heading">
+        <h2>One home for <span class="script">every file</span> you own.</h2>
+        <p>Stop wondering which subscription holds your life. Takeout turns scattered cloud accounts into a verified local archive that can live on your Mac mini, NAS, external drive, or personal cloud.</p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="feature-top"><span class="mini-pill long-mini"><span></span><span style="background:var(--green)"></span><span style="background:var(--green)"></span></span><span>01 / Connectors</span></div>
+          <div><h3>Connect the clouds.</h3><p>Google Drive, Dropbox, iCloud guidance, Google Photos, Spotify metadata, Notion, and social exports — official APIs first.</p></div>
+        </article>
+        <article class="feature-card">
+          <div class="feature-top"><span class="mini-pill long-mini"><span style="background:var(--orange)"></span><span style="background:var(--red)"></span><span style="background:var(--pink)"></span></span><span>02 / Archive</span></div>
+          <div><h3>Bring it home.</h3><p>Resumable downloads, folder mapping, duplicate detection, and readable local archives built for humans.</p></div>
+        </article>
+        <article class="feature-card">
+          <div class="feature-top"><span class="mini-pill long-mini"><span style="background:var(--purple)"></span><span style="background:var(--blue)"></span><span style="background:var(--blue)"></span></span><span>03 / Verify</span></div>
+          <div><h3>Know what made it.</h3><p>Checksums, manifests, and reports show what came home, what failed, and what requires manual action.</p></div>
+        </article>
+        <article class="feature-card">
+          <div class="feature-top"><span class="mini-pill long-mini"><span style="background:var(--sky)"></span><span style="background:var(--white)"></span><span style="background:var(--black)"></span></span><span>04 / Serve</span></div>
+          <div><h3>Run your own cloud.</h3><p>Point the archive toward Immich, Nextcloud, Synology, QNAP, a Mac mini, or any storage you control.</p></div>
+        </article>
+        <article class="feature-card">
+          <div class="feature-top"><span class="mini-pill long-mini"><span style="background:var(--green)"></span><span style="background:var(--green)"></span><span style="background:var(--orange)"></span></span><span>05 / Sync</span></div>
+          <div><h3>Keep it current.</h3><p>After the first big move, schedule periodic takeouts so your local archive stays fresh.</p></div>
+        </article>
+        <article class="feature-card">
+          <div class="feature-top"><span class="mini-pill long-mini"><span style="background:var(--red)"></span><span style="background:var(--purple)"></span><span style="background:var(--blue)"></span></span><span>06 / Trust</span></div>
+          <div><h3>No hostage feeling.</h3><p>Keep the convenience people love about cloud services without making memories dependent on rented accounts.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="dark-section" id="systems">
+      <div class="kicker"><span class="kicker-dot"></span><span>The archive console</span></div>
+      <h2>Export data <span class="script">like colors on a palette.</span></h2>
+      <p>A dedicated wizard for mapping sources to destinations. Drag services in, preview what will move, then publish the result to your own storage.</p>
+      <div class="console">
+        <div class="console-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:18px">takeout / archive-core.ribbon</span></div>
+        <div class="console-body">
+          <div class="source-list">
+            <div class="source-row"><span class="color-dot blue"></span><span>source.google.drive</span></div>
+            <div class="source-row"><span class="color-dot red"></span><span>source.dropbox.files</span></div>
+            <div class="source-row"><span class="color-dot orange"></span><span>source.icloud.photos</span></div>
+            <div class="source-row"><span class="color-dot green"></span><span>target.nas.archive</span></div>
+            <div class="source-row"><span class="color-dot purple"></span><span>target.immich.library</span></div>
+            <div class="source-row"><span class="color-dot pink"></span><span>report.checksums</span></div>
+            <div class="source-row"><span class="color-dot sky"></span><span>manifest.local.index</span></div>
+          </div>
+          <div class="archive-preview">
+            <div class="stacked-caps">
+              <div class="capsule s1"><span class="blue"></span><span class="orange"></span></div>
+              <div class="capsule s2"><span class="red"></span><span class="pink"></span><span class="purple"></span></div>
+              <div class="capsule s3"><span class="green"></span><span class="sky"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="pricing-heading">
+        <h2>Plans that <span class="script">scale with your cloud.</span></h2>
+        <p>Start with one account. Upgrade when you are ready to bring everything home.</p>
+      </div>
+      <div class="cards">
+        <article class="plan">
+          <span class="mini-pill long-mini"><span style="background:var(--sky)"></span><span style="background:var(--sky)"></span><span style="background:var(--blue)"></span></span>
+          <h3>Starter</h3>
+          <p>For people testing the idea with one cloud account.</p>
+          <div class="price">$0</div>
+          <p>for one connector</p>
+          <ul><li>One source account</li><li>Local archive export</li><li>Basic manifest</li><li>Community templates</li></ul>
+          <a class="plan-button" href="#start">Start free</a>
+        </article>
+        <article class="plan featured">
+          <span class="mini-pill long-mini"><span style="background:var(--orange)"></span><span style="background:var(--red)"></span><span style="background:var(--purple)"></span></span>
+          <h3>Homebase</h3>
+          <p>For families, creators, and people moving into their own cloud.</p>
+          <div class="price">$12</div>
+          <p>/ month</p>
+          <ul><li>Multiple connectors</li><li>Resumable jobs</li><li>Checksum reports</li><li>NAS + personal cloud targets</li><li>Scheduled takeouts</li></ul>
+          <a class="plan-button" href="#start">Start 14-day trial</a>
+        </article>
+        <article class="plan">
+          <span class="mini-pill long-mini"><span style="background:var(--green)"></span><span style="background:var(--green)"></span><span style="background:var(--blue)"></span></span>
+          <h3>Studio</h3>
+          <p>For small teams, estates, and studios with serious archives.</p>
+          <div class="price">Custom</div>
+          <p>migration support</p>
+          <ul><li>Multi-account migration</li><li>Archive planning</li><li>Local server setup</li><li>Restore testing</li><li>White-glove support</li></ul>
+          <a class="plan-button" href="#sales">Talk to sales</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="quote-section" id="studio">
+      <div class="quote-ribbons" aria-hidden="true">
+        <div class="capsule q1"><span class="blue"></span><span class="orange"></span></div>
+        <div class="capsule q2"><span class="red"></span><span class="pink"></span><span class="purple"></span></div>
+        <div class="capsule q3"><span class="green"></span><span class="sky"></span></div>
+      </div>
+      <div>
+        <blockquote>“I still want the cloud. I just want it to be <span class="script">my cloud.</span>”</blockquote>
+        <div class="person"><div class="avatar">TK</div><div><strong>Takeout user</strong><span>Creator with 2.4TB across six services</span></div></div>
+      </div>
+    </section>
+
+    <section class="final-cta" id="start">
+      <div class="cta-box">
+        <div class="corner-a"><span class="blue"></span><span class="green"></span><span class="orange"></span></div>
+        <div class="corner-b"><span class="red"></span><span class="pink"></span><span class="purple"></span></div>
+        <div>
+          <h2>Your cloud, <span class="script">finally woven together.</span></h2>
+          <p>Bring files, photos, playlists, documents, and metadata into one verified archive — then serve it from the storage you control.</p>
+          <div class="hero-actions" style="justify-content:center"><a class="cta-pill" href="#">Start bringing data home</a><a class="outline-pill" href="#">Book a demo</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="changelog">
+    <div class="footer-bar"><span class="blue"></span><span class="green"></span><span class="orange"></span><span class="red"></span><span class="pink"></span><span class="purple"></span><span class="sky"></span></div>
+    <div class="footer-grid">
+      <div><div class="brand"><span class="logo-pill"><span></span><span></span><span></span></span><strong>Takeout</strong></div><p style="max-width:280px;margin-top:18px">Personal data repatriation for people who want cloud convenience on storage they control.</p></div>
+      <div><h4>Product</h4><a>Connectors</a><a>Archive</a><a>Verification</a><a>Personal cloud</a></div>
+      <div><h4>Resources</h4><a>Documentation</a><a>Changelog</a><a>Migration guides</a><a>Community</a></div>
+      <div><h4>Company</h4><a>About</a><a>Studio</a><a>Careers</a><a>Contact</a></div>
+      <div><h4>Legal</h4><a>Terms</a><a>Privacy</a><a>Security</a><a>DPA</a></div>
+    </div>
+    <div class="legal"><span>© Takeout Systems</span><span>Bring your cloud life home</span></div>
+  </footer>
+</body>
+</html>
