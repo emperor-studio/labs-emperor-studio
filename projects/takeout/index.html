@@ -290,15 +290,135 @@
     .footer-grid p, .footer-grid a { color: var(--muted); line-height: 1.7; display: block; margin: 4px 0; }
     .legal { display: flex; justify-content: space-between; padding-top: 24px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; }
 
+
+    .calculator-section {
+      background: var(--paper-2);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .calculator-shell {
+      display: grid;
+      grid-template-columns: 0.86fr 1.14fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+    .calculator-copy {
+      border-radius: 30px;
+      background: var(--black);
+      color: var(--paper);
+      padding: 42px;
+      position: relative;
+      overflow: hidden;
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .calculator-copy p { color: rgba(238,231,220,.72); font-size: 18px; line-height: 1.55; max-width: 520px; }
+    .calc-ribbon {
+      width: 260px;
+      height: 70px;
+      border-radius: 999px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr 1.2fr;
+      transform: rotate(-18deg);
+      box-shadow: 0 20px 40px rgba(0,0,0,.28);
+      margin-top: 44px;
+    }
+    .calculator-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+    .calc-list {
+      display: grid;
+      gap: 10px;
+    }
+    .calc-row {
+      display: grid;
+      grid-template-columns: 30px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      border: 1px solid rgba(23,21,18,.1);
+      border-radius: 18px;
+      padding: 13px 14px;
+      background: rgba(238,231,220,.42);
+    }
+    .calc-row input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--orange);
+    }
+    .calc-name { font-weight: 800; letter-spacing: -.02em; }
+    .calc-note { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .calc-price {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .calc-price input {
+      width: 74px;
+      border: 1px solid rgba(23,21,18,.16);
+      border-radius: 999px;
+      padding: 8px 10px;
+      background: white;
+      color: var(--ink);
+      font: inherit;
+      text-align: right;
+    }
+    .calc-results {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .calc-result {
+      border-radius: 20px;
+      padding: 18px;
+      background: var(--black);
+      color: var(--paper);
+      min-height: 120px;
+      display: grid;
+      align-content: space-between;
+    }
+    .calc-result:nth-child(2) { background: var(--orange); color: var(--ink); }
+    .calc-result:nth-child(3) { background: var(--blue); }
+    .calc-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      opacity: .72;
+    }
+    .calc-value {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      line-height: .9;
+      letter-spacing: -.07em;
+      margin-top: 18px;
+    }
+    .calc-small {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
     @media (max-width: 980px) {
       .nav { grid-template-columns: 1fr auto; }
       .nav-links { display: none; }
-      .hero, .split-heading, .console-body, .quote-section, .footer-grid { grid-template-columns: 1fr; }
+      .hero, .split-heading, .console-body, .quote-section, .footer-grid, .calculator-shell { grid-template-columns: 1fr; }
       .ribbon-stage { min-height: 430px; }
       .capsule { height: 70px; }
       .cap-1, .cap-2, .cap-3, .cap-4 { width: 78vw; right: 4vw; }
       .cap-1 { top: 0; } .cap-2 { top: 108px; } .cap-3 { top: 216px; } .cap-4 { top: 324px; }
-      .feature-grid, .cards, .trust-grid { grid-template-columns: 1fr 1fr; }
+      .feature-grid, .cards, .trust-grid, .calc-results { grid-template-columns: 1fr 1fr; }
       h1 { font-size: clamp(4.2rem, 15vw, 7rem); }
     }
 
@@ -306,7 +426,7 @@
       .nav { padding: 0 18px; height: 64px; }
       .nav-actions a:first-child { display: none; }
       .hero, section { padding-left: 20px; padding-right: 20px; }
-      .feature-grid, .cards, .trust-grid { grid-template-columns: 1fr; }
+      .feature-grid, .cards, .trust-grid, .calc-results { grid-template-columns: 1fr; }
       .top-copy { max-width: 100%; }
       .proof-row { gap: 14px; }
       .quote-ribbons { height: 280px; }
@@ -325,6 +445,7 @@
       <a href="#product">Product</a>
       <a href="#systems">Systems</a>
       <a href="#pricing">Pricing</a>
+      <a href="#calculator">Savings</a>
       <a href="#studio">Studio</a>
       <a href="#changelog">Changelog</a>
     </nav>
@@ -432,6 +553,38 @@
       </div>
     </section>
 
+
+    <section class="calculator-section" id="calculator">
+      <div class="calculator-shell">
+        <div class="calculator-copy">
+          <div>
+            <div class="kicker"><span class="kicker-dot"></span><span>Subscription savings calculator</span></div>
+            <h2>What does rented storage <span class="script">really cost?</span></h2>
+            <p style="margin-top:26px">Pick the cloud subscriptions you are paying for now. Takeout shows the monthly and yearly burn, plus what five years of “just $9.99/mo” actually becomes.</p>
+          </div>
+          <div class="calc-ribbon" aria-hidden="true"><span class="blue"></span><span class="red"></span><span class="orange"></span></div>
+        </div>
+
+        <div class="calculator-card">
+          <div class="calc-list" id="savings-calc">
+            <label class="calc-row"><input type="checkbox" checked data-price="9.99"/><span><span class="calc-name">Google Drive / Google One</span><span class="calc-note">cloud files, photos, Gmail storage</span></span><span class="calc-price">$<input type="number" min="0" step="0.01" value="9.99" aria-label="Google Drive monthly cost"/> / mo</span></label>
+            <label class="calc-row"><input type="checkbox" checked data-price="9.99"/><span><span class="calc-name">Dropbox</span><span class="calc-note">file sync and shared folders</span></span><span class="calc-price">$<input type="number" min="0" step="0.01" value="9.99" aria-label="Dropbox monthly cost"/> / mo</span></label>
+            <label class="calc-row"><input type="checkbox" checked data-price="9.99"/><span><span class="calc-name">iCloud+</span><span class="calc-note">Apple photos, backups, family storage</span></span><span class="calc-price">$<input type="number" min="0" step="0.01" value="9.99" aria-label="iCloud monthly cost"/> / mo</span></label>
+            <label class="calc-row"><input type="checkbox" data-price="19.99"/><span><span class="calc-name">Microsoft 365 / OneDrive</span><span class="calc-note">Office bundle + cloud storage</span></span><span class="calc-price">$<input type="number" min="0" step="0.01" value="19.99" aria-label="Microsoft 365 monthly cost"/> / mo</span></label>
+            <label class="calc-row"><input type="checkbox" data-price="11.99"/><span><span class="calc-name">Notion Plus</span><span class="calc-note">docs, wikis, project workspace</span></span><span class="calc-price">$<input type="number" min="0" step="0.01" value="11.99" aria-label="Notion monthly cost"/> / mo</span></label>
+            <label class="calc-row"><input type="checkbox" data-price="10.99"/><span><span class="calc-name">Spotify Premium</span><span class="calc-note">playlists and listening history metadata</span></span><span class="calc-price">$<input type="number" min="0" step="0.01" value="10.99" aria-label="Spotify monthly cost"/> / mo</span></label>
+          </div>
+
+          <div class="calc-results">
+            <div class="calc-result"><span class="calc-label">monthly spend</span><span class="calc-value" id="calc-monthly">$29.97</span></div>
+            <div class="calc-result"><span class="calc-label">yearly spend</span><span class="calc-value" id="calc-yearly">$360</span></div>
+            <div class="calc-result"><span class="calc-label">five-year spend</span><span class="calc-value" id="calc-five-year">$1,798</span></div>
+          </div>
+          <p class="calc-small">This is not a promise that every subscription can disappear. It is a visibility tool: understand what you pay to rent storage, then decide what belongs in your own cloud.</p>
+        </div>
+      </div>
+    </section>
+
     <section id="pricing">
       <div class="pricing-heading">
         <h2>Plans that <span class="script">scale with your cloud.</span></h2>
@@ -504,5 +657,28 @@
     </div>
     <div class="legal"><span>© Takeout Systems</span><span>Bring your cloud life home</span></div>
   </footer>
+  <script>
+    function updateSavingsCalculator() {
+      const root = document.getElementById('savings-calc');
+      if (!root) return;
+      let monthly = 0;
+      root.querySelectorAll('.calc-row').forEach((row) => {
+        const check = row.querySelector('input[type="checkbox"]');
+        const price = row.querySelector('input[type="number"]');
+        const value = Number.parseFloat(price.value || '0') || 0;
+        check.dataset.price = String(value);
+        if (check.checked) monthly += value;
+      });
+      const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: monthly < 100 ? 2 : 0 });
+      const whole = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+      document.getElementById('calc-monthly').textContent = money.format(monthly);
+      document.getElementById('calc-yearly').textContent = whole.format(monthly * 12);
+      document.getElementById('calc-five-year').textContent = whole.format(monthly * 60);
+    }
+    document.addEventListener('input', updateSavingsCalculator);
+    document.addEventListener('change', updateSavingsCalculator);
+    updateSavingsCalculator();
+  </script>
+
 </body>
 </html>
