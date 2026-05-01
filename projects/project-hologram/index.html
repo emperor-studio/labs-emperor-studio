@@ -440,6 +440,15 @@
     const canvas = document.getElementById('terrain');
     const ctx = canvas.getContext('2d');
     let w, h, dpr;
+    const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
+
+    function updatePointer(clientX, clientY){
+      pointer.tx = (clientX / Math.max(innerWidth, 1) - .5) * 2;
+      pointer.ty = (clientY / Math.max(innerHeight, 1) - .5) * 2;
+    }
+
+    addEventListener('pointermove', (event) => updatePointer(event.clientX, event.clientY), { passive: true });
+    addEventListener('pointerleave', () => { pointer.tx = 0; pointer.ty = 0; }, { passive: true });
 
     function resize(){
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -470,9 +479,14 @@
 
     function draw(t){
       const W = innerWidth, H = innerHeight;
+      pointer.x += (pointer.tx - pointer.x) * .045;
+      pointer.y += (pointer.ty - pointer.y) * .045;
+      const parallaxX = pointer.x * W * .035;
+      const parallaxY = pointer.y * H * .022;
+      const cameraLean = pointer.x * .18;
       ctx.clearRect(0,0,W,H);
 
-      const grd = ctx.createRadialGradient(W*.52, H*.54, 0, W*.52, H*.54, W*.72);
+      const grd = ctx.createRadialGradient(W*.52 + parallaxX*.35, H*.54 + parallaxY*.35, 0, W*.52 + parallaxX*.35, H*.54 + parallaxY*.35, W*.72);
       grd.addColorStop(0, 'rgba(64,228,255,.032)');
       grd.addColorStop(.62, 'rgba(18,15,15,.05)');
       grd.addColorStop(1, 'rgba(0,0,0,.20)');
@@ -481,8 +495,8 @@
 
       // slow parallax dot stars, drawn in code rather than as an asset
       ctx.fillStyle = 'rgba(64, 228, 255, .13)';
-      const driftX = (t * .006) % 22;
-      const driftY = (t * .003) % 22;
+      const driftX = ((t * .006) + parallaxX * .08) % 22;
+      const driftY = ((t * .003) + parallaxY * .08) % 22;
       for(let x=-22; x<W+22; x+=22){
         for(let y=-22; y<H+22; y+=22){
           const tw = .55 + .45*Math.sin((x*13.1 + y*7.7 + t*.002));
@@ -492,7 +506,7 @@
       }
       ctx.globalAlpha = 1;
 
-      const horizon = H * .39;
+      const horizon = H * .39 + parallaxY * .22;
       const rows = 38;
       const cols = 58;
       const time = t * .00018;
@@ -505,7 +519,7 @@
         for(let c=0; c<cols; c++){
           const xNorm = (c/(cols-1))*2 - 1;
           const perspective = .12 + z * 1.36;
-          const x = W/2 + xNorm * W * .66 * perspective;
+          const x = W/2 + parallaxX * (1.15 - z * .55) + (xNorm + cameraLean * (1 - z) * .18) * W * .66 * perspective;
           const waveA = Math.sin(c*.35 + r*.18 + time*8.0) * 26;
           const waveB = Math.sin(c*.13 - r*.22 - time*5.7) * 22;
           const ridge = Math.sin(xNorm*5.8 + time*4.5) * 42 * (1-z);
@@ -523,8 +537,8 @@
         ctx.beginPath();
         for(let c=0; c<cols; c++){
           const xNorm = (c/(cols-1))*2 - 1;
-          const x = W/2 + xNorm * W * .55;
-          const y = H*(.33 + band*.055) + Math.sin(c*.38 + time*(5+band))*22 + Math.sin(c*.11-time*4)*18;
+          const x = W/2 + parallaxX * .45 + (xNorm + cameraLean * .08) * W * .55;
+          const y = H*(.33 + band*.055) + parallaxY * .10 + Math.sin(c*.38 + time*(5+band))*22 + Math.sin(c*.11-time*4)*18;
           if(c===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
         }
         ctx.stroke();
@@ -567,8 +581,8 @@
       ctx.globalAlpha = 1;
 
       // right-side abstract operator line art, recreated in code
-      drawHudGlyph(W*.84, H*.10, Math.max(.55, W/1600), t);
-      drawHudGlyph(W*.84, H*.72, Math.max(.48, W/1800), t + 800);
+      drawHudGlyph(W*.84 - parallaxX*.18, H*.10 - parallaxY*.10, Math.max(.55, W/1600), t);
+      drawHudGlyph(W*.84 - parallaxX*.12, H*.72 - parallaxY*.08, Math.max(.48, W/1800), t + 800);
 
       requestAnimationFrame(draw);
     }
