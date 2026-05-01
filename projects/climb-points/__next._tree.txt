@@ -1,2 +1,2 @@
-:HL["/projects/climb-points/_next/static/chunks/0nbm3vn4_394h.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"_gGdAKVYOD87rlUhCvTHA"}
+:HL["/projects/climb-points/_next/static/chunks/07py.kw8n~87u.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"dWH2HvH7IN1ShS0ePkVZR"}
