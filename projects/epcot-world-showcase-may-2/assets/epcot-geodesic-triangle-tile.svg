@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 681.76 590.38" width="681.76" height="590.38">
+  <defs>
+    <style>
+      .tri{fill:#6f687b;stroke:#b9b0c8;stroke-width:3;stroke-linejoin:round;opacity:.24}
+    </style>
+  </defs>
+  <rect width="681.76" height="590.38" fill="none"/>
+  <g transform="translate(-5.6 -5.6)">
+    <polygon class="tri" points="176.02 5.6 346.48 300.79 5.6 300.79"/>
+    <polygon class="tri" points="176.02 5.6 346.48 104 346.48 300.79"/>
+    <polygon class="tri" points="176.02 5.6 176.02 202.39 5.6 300.79"/>
+    <polygon class="tri" points="516.91 5.6 687.37 300.79 346.48 300.79"/>
+    <polygon class="tri" points="516.91 5.6 687.37 104 687.37 300.79"/>
+    <polygon class="tri" points="516.91 5.6 516.91 202.39 346.48 300.79"/>
+    <polygon class="tri" points="5.63 300.79 176.06 595.97 -164.8 595.97"/>
+    <polygon class="tri" points="5.63 300.79 176.06 399.18 176.05 595.97"/>
+    <polygon class="tri" points="346.51 300.79 516.94 595.97 176.05 595.97"/>
+    <polygon class="tri" points="346.51 300.79 516.94 399.18 516.94 595.97"/>
+    <polygon class="tri" points="346.48 300.79 346.48 497.58 176.05 595.97"/>
+    <polygon class="tri" points="687.39 300.79 857.82 595.97 516.94 595.97"/>
+    <polygon class="tri" points="687.39 300.79 857.82 399.18 857.82 595.97"/>
+    <polygon class="tri" points="687.36 300.79 687.36 497.58 516.94 595.97"/>
+  </g>
+</svg>
