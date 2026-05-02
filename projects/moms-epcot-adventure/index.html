@@ -161,6 +161,7 @@ const mapBars={future:{width:1989.17,fillId:'futureWorldBarFill',groupId:'Future
 const boobooMapMarkers={
   // Coordinates match Mik's placement SVG / Illustrator map art.
   mexico:{x:565,y:1535,w:92,h:160},
+  norway:{x:534,y:1178,w:92,h:160},
   china:{x:373,y:869,w:92,h:160},
   germany:{x:243,y:446,w:92,h:160},
   italy:{x:825,y:290,w:92,h:160},
@@ -171,7 +172,7 @@ const boobooMapMarkers={
   uk:{x:3268,y:1272,w:92,h:160},
   canada:{x:2994,y:1563,w:92,h:160}
 };
-const boobooVerifiedSrc='./assets/booboo_verified.svg';
+const boobooVerifiedSrc=new URL('./assets/booboo_verified.svg?v=20260502c', location.href).href;
 const stateKey='epcot-passport-countries-v4';let done=JSON.parse(localStorage.getItem(stateKey)||'{}');const cards=document.getElementById('cards');const soupCards=document.getElementById('soupCards');const boobooCards=document.getElementById('boobooCards');const festivalCards=document.getElementById('festivalCards');const classicCards=document.getElementById('classicCards');const mapSvg=document.getElementById('mapSvg');const worldPercent=document.getElementById('worldPercent');const futurePercent=document.getElementById('futurePercent');const hiddenMickeyCount=document.getElementById('hiddenMickeyCount');const hiddenMickeyCard=document.getElementById('hiddenMickeyCard');
 function getHiddenMickeyCount(){return Math.max(0,Number(done.__hiddenMickeyCount||0));}
 function setHiddenMickeyCount(value,{announce=false}={}){done.__hiddenMickeyCount=Math.max(0,value);done[hiddenMickey.id]=done.__hiddenMickeyCount>0;localStorage.setItem(stateKey,JSON.stringify(done));render();if(announce&&done.__hiddenMickeyCount>0)pop({...hiddenMickey,pop:`Hidden Mickey #${done.__hiddenMickeyCount} logged. Good eye!`},'epcot');}
