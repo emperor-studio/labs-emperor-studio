@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>App Per Week — New Normal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="App Per Week — New Normal">
+<meta property="og:description" content="Ship one focused app every 7 days. Find the 2–3 worth keeping. Kill the rest fast. A structured search algorithm for building products.">
+<meta property="og:image" content="https://labs.emperor.studio/projects/app-per-week/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://labs.emperor.studio/projects/app-per-week/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="App Per Week — New Normal">
+<meta name="twitter:description" content="Ship one focused app every 7 days. Find the 2–3 worth keeping. Kill the rest fast.">
+<meta name="twitter:image" content="https://labs.emperor.studio/projects/app-per-week/og-image.png">
+<style>
+:root {
+  --ink: #0d1554;
+  --ink-2: #1a2470;
+  --bg: #f5f3ee;
+  --panel: #ffffff;
+  --line: #e5e1d8;
+  --muted: #6b7280;
+  --accent: #c9a961;
+  --green: #1d9a68;
+  --red: #dc2626;
+  --amber: #d97706;
+  --mono: 'JetBrains Mono', monospace;
+  --serif: 'Source Serif 4', Georgia, serif;
+  --sans: 'Inter', -apple-system, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header */
+.header {
+  background: var(--ink);
+  color: #fff;
+  padding: 56px 56px 48px;
+}
+.header .eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.header h1 {
+  font-family: var(--serif);
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+.header h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+.header .sub {
+  font-size: 17px;
+  color: #c3c9e8;
+  max-width: 560px;
+  line-height: 1.65;
+  margin-bottom: 32px;
+}
+.header .tag-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #c3c9e8;
+}
+
+/* Content */
+.content {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 56px 40px 100px;
+}
+
+/* Section */
+.section { margin-bottom: 64px; }
+.section-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Pullquote */
+.pullquote {
+  font-family: var(--serif);
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.45;
+  padding: 28px 32px;
+  border-left: 3px solid var(--accent);
+  background: var(--panel);
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 48px;
+  box-shadow: 0 1px 2px rgba(13,21,84,0.04), 0 4px 16px rgba(13,21,84,0.06);
+}
+
+/* Week grid */
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(13,21,84,0.04), 0 4px 16px rgba(13,21,84,0.06);
+  margin-bottom: 48px;
+}
+.day-card {
+  padding: 20px 14px 18px;
+  border-right: 1px solid var(--line);
+  position: relative;
+}
+.day-card:last-child { border-right: none; }
+.day-card.highlight {
+  background: rgba(13,21,84,0.03);
+}
+.day-name {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.day-focus {
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--ink);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.day-output {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.day-badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 8px;
+  margin-top: 6px;
+}
+.badge-ship { background: rgba(29,154,104,0.1); color: var(--green); }
+.badge-kill { background: rgba(220,38,38,0.1); color: var(--red); }
+.badge-deploy { background: rgba(13,21,84,0.08); color: var(--ink); }
+
+/* 3-door decision */
+.doors {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.door {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 24px 22px;
+  box-shadow: 0 1px 2px rgba(13,21,84,0.04), 0 4px 16px rgba(13,21,84,0.06);
+}
+.door-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.door-label.promote { color: var(--green); }
+.door-label.continue { color: var(--amber); }
+.door-label.archive { color: var(--muted); }
+.door-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.door-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.door-trigger {
+  font-size: 11px;
+  color: var(--ink);
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+  font-style: italic;
+}
+.door-warning {
+  font-size: 11px;
+  color: var(--amber);
+  margin-top: 8px;
+}
+
+/* Checklist */
+.checklist {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(13,21,84,0.04), 0 4px 16px rgba(13,21,84,0.06);
+  margin-bottom: 48px;
+}
+.checklist-head {
+  padding: 14px 22px;
+  background: #fafaf7;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.checklist-head .title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.checklist-head .subtitle {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 22px;
+  border-bottom: 1px solid #f0ece3;
+  font-size: 13px;
+}
+.check-item:last-child { border-bottom: none; }
+.check-box {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--line);
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.check-text { color: var(--ink); line-height: 1.5; }
+.check-note { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* Model card */
+.model-card {
+  background: var(--ink);
+  color: #fff;
+  border-radius: 10px;
+  padding: 36px 40px;
+  margin-bottom: 48px;
+}
+.model-card .mc-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.model-card h3 {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 300;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+.model-card p {
+  font-size: 15px;
+  color: #c3c9e8;
+  line-height: 1.7;
+  max-width: 620px;
+}
+
+/* Team */
+.team-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 48px;
+}
+.team-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px 20px;
+  box-shadow: 0 1px 2px rgba(13,21,84,0.04), 0 4px 16px rgba(13,21,84,0.06);
+}
+.team-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.team-role {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.team-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Open questions */
+.questions {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(13,21,84,0.04), 0 4px 16px rgba(13,21,84,0.06);
+}
+.q-item {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 14px;
+  padding: 16px 22px;
+  border-bottom: 1px solid #f0ece3;
+  align-items: start;
+}
+.q-item:last-child { border-bottom: none; }
+.q-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 500;
+  padding-top: 2px;
+}
+.q-text {
+  font-size: 14px;
+  color: var(--ink);
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+.q-sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Footer */
+footer {
+  background: var(--ink);
+  color: #8a93c8;
+  padding: 24px 56px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+footer strong { color: var(--accent); }
+
+@media (max-width: 768px) {
+  .header { padding: 36px 24px 32px; }
+  .content { padding: 36px 20px 64px; }
+  .week-grid { grid-template-columns: repeat(2, 1fr); }
+  .day-card { border-bottom: 1px solid var(--line); border-right: none; }
+  .day-card:nth-child(odd) { border-right: 1px solid var(--line); }
+  .doors { grid-template-columns: 1fr; }
+  .team-row { grid-template-columns: 1fr; }
+  footer { padding: 20px 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="eyebrow">New Normal · Atelier · Internal Initiative</div>
+  <h1>One app.<br><em>Every week.</em></h1>
+  <p class="sub">A structured process for shipping focused software on a 7-day cadence. The goal isn't 52 apps — it's finding the 2–3 worth keeping. The cadence is the search.</p>
+  <div class="tag-row">
+    <span class="tag">Week Zero — Planning</span>
+    <span class="tag">Vite + React + TS</span>
+    <span class="tag">Cloudflare Pages</span>
+    <span class="tag">Ship · Kill · Learn</span>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="pullquote">
+    "The problem isn't ideas — it's finishing and launching. A fixed weekly deadline solves both."
+  </div>
+
+  <div class="section">
+    <div class="section-label">The 7-Day Schedule</div>
+    <div class="week-grid">
+      <div class="day-card highlight">
+        <div class="day-name">Mon</div>
+        <div class="day-focus">Pick + Validate</div>
+        <div class="day-output">Scope doc: problem, user, magic moment, kill criteria</div>
+        <span class="day-badge badge-kill">Kill if no signal</span>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Tue</div>
+        <div class="day-focus">Product Shape</div>
+        <div class="day-output">User story, core screens, fake-data prototype</div>
+      </div>
+      <div class="day-card highlight">
+        <div class="day-name">Wed</div>
+        <div class="day-focus">Build Core</div>
+        <div class="day-output">Magic moment working — deploy today, not Saturday</div>
+        <span class="day-badge badge-deploy">Deploy early</span>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Thu</div>
+        <div class="day-focus">Build Out</div>
+        <div class="day-output">Real data wired, empty + error states, onboarding</div>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Fri</div>
+        <div class="day-focus">Polish + QA</div>
+        <div class="day-output">"Understands in 30 sec?" test, end-to-end test passing</div>
+      </div>
+      <div class="day-card highlight">
+        <div class="day-name">Sat</div>
+        <div class="day-focus">Ship</div>
+        <div class="day-output">Live URL, README written, launch post drafted</div>
+        <span class="day-badge badge-ship">Ship gate</span>
+      </div>
+      <div class="day-card">
+        <div class="day-name">Sun</div>
+        <div class="day-focus">Review</div>
+        <div class="day-output">3-door decision: Promote, Continue, or Archive</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">The Sunday Decision — 3 Doors</div>
+    <div class="doors">
+      <div class="door">
+        <div class="door-label promote">Promote</div>
+        <div class="door-title">This is real.</div>
+        <div class="door-desc">Next week deepens this app. No new app starts until this one has legs or is archived.</div>
+        <div class="door-trigger">Triggered by: real user pull, or hitting the durable threshold.</div>
+      </div>
+      <div class="door">
+        <div class="door-label continue">Continue</div>
+        <div class="door-title">One more week.</div>
+        <div class="door-desc">Maximum one extension. The magic moment works but distribution needs attention.</div>
+        <div class="door-trigger">Triggered by: clear signal, specific gap.</div>
+        <div class="door-warning">⚠ The danger door. No extensions beyond Week 2.</div>
+      </div>
+      <div class="door">
+        <div class="door-label archive">Archive</div>
+        <div class="door-title">Done. Learned.</div>
+        <div class="door-desc">Lessons captured. Hosting cancelled. Repo archived. Most weeks end here — that's correct, not failure.</div>
+        <div class="door-trigger">Default door. Use it freely.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">The Ship Gate — 10-Item Sunday Checklist</div>
+    <div class="checklist">
+      <div class="checklist-head">
+        <span class="title">Minimum 8 of 10 to call it shipped</span>
+        <span class="subtitle">Under 8 → one more week</span>
+      </div>
+      <div class="check-item"><div class="check-box"></div><div><div class="check-text">Live at a public URL</div></div></div>
+      <div class="check-item"><div class="check-box"></div><div><div class="check-text">README: one-sentence pitch + screenshot + "what works / what's fake / what's next"</div></div></div>
+      <div class="check-item"><div class="check-box"></div><div><div class="check-text">Cold load under 2 seconds</div></div></div>
+      <div class="check-item"><div class="check-box"></div><div><div class="check-text">Empty state designed</div><div class="check-note">Not browser default blank</div></div></div>
+      <div class="check-item"><div class="check-box"></div><div><div class="check-text">Error state designed</div><div class="check-note">Not console.log</div></div></div>
+      <div class="check-item"><div class="check-box"></div><div><div class="check-text">First meaningful interaction in under 30 seconds</div></div></div>
+      <div class="check-item"><div class="check-box"></div><div><div class="check-text">Magic moment reachable in 3 clicks or fewer</div></div></div>
+      <div class="check-item"><div class="check-box"></div><div><div class="check-text">1 end-to-end test passing</div></div></div>
+      <div class="check-item"><div class="check-box"></div><div><div class="check-text">Analytics firing</div></div></div>
+      <div class="check-item"><div class="check-box"></div><div><div class="check-text">Launch post drafted</div><div class="check-note">Post Monday morning</div></div></div>
+    </div>
+  </div>
+
+  <div class="model-card">
+    <div class="mc-label">Mental Model</div>
+    <h3>This is a search algorithm, not a production line.</h3>
+    <p>The goal isn't 52 products. It's finding the 2–3 that deserve to stop being weekly and become real. The cadence is how you search fast enough to actually find them. When something breaks through — stop the cadence and go deep. That's the whole point.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">The Team</div>
+    <div class="team-row">
+      <div class="team-card">
+        <div class="team-name">Dylan</div>
+        <div class="team-role">Product Direction</div>
+        <div class="team-desc">Approves Monday scope doc. Makes the Sunday 3-door decision. Idea source and final arbiter of what's worth pursuing.</div>
+      </div>
+      <div class="team-card">
+        <div class="team-name">Mackenzi</div>
+        <div class="team-role">Build Lead</div>
+        <div class="team-desc">Owns the starter templates. Drives Days 2–6. Pipeline operator. Sets the build pace and technical direction.</div>
+      </div>
+      <div class="team-card">
+        <div class="team-name">Pablo Jr</div>
+        <div class="team-role">Research + QA</div>
+        <div class="team-desc">Research, scope docs, fake-data prototypes, QA, launch copy, lessons capture. Builds when Mackenzi is blocked.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Open Questions — Decisions Needed Before Week 1</div>
+    <div class="questions">
+      <div class="q-item">
+        <div class="q-num">01</div>
+        <div>
+          <div class="q-text">When does Week 1 start?</div>
+          <div class="q-sub">Pick a Monday. Week Zero is for building the starter template and seeding the idea backlog.</div>
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">02</div>
+        <div>
+          <div class="q-text">What does "durable" mean?</div>
+          <div class="q-sub">Define the threshold that promotes an app out of the cadence before you start. Options: 10 weekly active non-team users for 3 weeks · 1 paying user · personal daily use for 3 weeks.</div>
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">03</div>
+        <div>
+          <div class="q-text">Where does each app get announced?</div>
+          <div class="q-sub">One primary launch channel per app type. Twitter thread? HN? Product Hunt? Reddit niche sub? Agree before Week 1 so launch isn't improvised.</div>
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">04</div>
+        <div>
+          <div class="q-text">Domain and hosting strategy?</div>
+          <div class="q-sub">One root with subpaths (apps.bluecloud.com/appname) or separate root domains per app? Affects cost, branding, and how seriously each app gets treated.</div>
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">05</div>
+        <div>
+          <div class="q-text">What categories do you care about?</div>
+          <div class="q-sub">Film/media tools · ranch/location ops · entertainment · productivity · creative tools · something else? Knowing this seeds the backlog with ideas that actually fit your world.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <strong>New Normal · Atelier</strong> · App-Per-Week Initiative · Prepared May 3, 2026 · <strong>labs.emperor.studio</strong>
+</footer>
+
+</body>
+</html>
