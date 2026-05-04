@@ -181,9 +181,10 @@ footer strong { color: var(--accent); }
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 const DATA = {
-  // 2015 & 2016: annual totals confirmed, monthly detail not in Frank's ledger
-  '2015': { annual: 553504, monthly: {}, note: 'Monthly detail not in ledger' },
-  '2016': { annual: 1336479, monthly: {}, note: 'Monthly detail not in ledger' },
+  // 2015: Ranch opened July 1, 2015. Monthly subtotals from ledger.
+  '2015': { annual: 553504, monthly: { Jul:38450, Aug:75850, Sep:136580, Oct:76720, Nov:98178, Dec:127725 }, note: 'Ranch opened July 1, 2015' },
+  // 2016: Monthly totals confirmed from ledger
+  '2016': { annual: 1336479, monthly: { Jan:5400, Feb:81838, Mar:77713, Apr:355247, May:245028, Jun:53188, Jul:160956, Aug:95357, Sep:54436, Oct:55269, Nov:126874, Dec:25175 }, note: null },
   '2017': { annual: 2157286, monthly: { Mar:77712, Apr:355246, May:245027, Jun:53187, Jul:38450, Aug:75850, Sep:136580, Oct:76720, Nov:98178, Dec:127725 }, note: null },
   '2018': { annual: 2049055, monthly: { Mar:77712, May:126300, Jun:176850, Jul:119935, Aug:105790, Sep:136580, Oct:76720, Nov:98178, Dec:127725 }, note: null },
   '2019': { annual: 1878900, monthly: { Jan:43462, Mar:77712, Apr:97963, May:36656, Jun:74225, Jul:106023, Aug:173295, Sep:326314, Oct:359462, Nov:259850, Dec:231830 }, note: null },
