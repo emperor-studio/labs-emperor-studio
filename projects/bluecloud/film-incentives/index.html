@@ -1,0 +1,1087 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Film Incentive Comparison - CA · GA · NJ</title>
+  <style>
+    :root {
+      --background: #f3f1ec;
+      --foreground: #131313;
+      --panel: #ffffff;
+      --muted: #7b7b77;
+      --line: rgba(19, 19, 19, 0.12);
+      --blue: #3168de;
+      --red: #ef5d3d;
+      --cream: #f6ead9;
+      --dark: #0d1554;
+      --green: #1d9a68;
+      --gold: #c4841a;
+      --shadow: 0 16px 32px rgba(20, 20, 20, 0.05);
+      --ca: #3168de;
+      --ga: #1d9a68;
+      --nj: #ef5d3d;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--foreground);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .system-page {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    .side-rail {
+      background: #f6f4ef;
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .rail-brand {
+      background: var(--dark);
+      padding: 22px 18px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .rail-kicker {
+      margin: 0 0 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 10px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .rail-brand h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      color: white;
+    }
+
+    .rail-brand .rail-sub {
+      margin: 8px 0 0;
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .rail-section {
+      padding: 14px 18px 6px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .rail-nav { display: grid; }
+    .rail-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      padding: 13px 18px;
+      border-bottom: 1px solid rgba(19,19,19,0.06);
+      background: transparent;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .rail-link:hover { background: white; color: var(--foreground); }
+    .rail-link.active { background: white; box-shadow: inset 4px 0 0 var(--blue); color: var(--foreground); font-weight: 600; }
+
+    .state-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .rail-footer {
+      margin-top: auto;
+      padding: 16px 18px;
+      border-top: 1px solid var(--line);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Main */
+    .main-stage { padding: 24px 28px 60px; }
+
+    .top-bar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .top-bar h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: -0.03em;
+    }
+
+    .top-bar-meta {
+      text-align: right;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .updated-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--cream);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    /* State cards */
+    .state-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .state-card {
+      background: var(--panel);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .state-header {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .state-flag {
+      font-size: 28px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .state-name {
+      margin: 0 0 2px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .state-program {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .state-headline {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .state-pct {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .state-pct-label {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .state-rows {
+      padding: 12px 0;
+    }
+
+    .state-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 8px 20px;
+      border-bottom: 1px solid rgba(19,19,19,0.05);
+      font-size: 12px;
+    }
+
+    .state-row:last-child { border-bottom: none; }
+
+    .row-label {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding-top: 1px;
+    }
+
+    .row-value {
+      font-weight: 500;
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .tag-green { background: rgba(29,154,104,0.12); color: var(--green); }
+    .tag-red { background: rgba(239,93,61,0.12); color: var(--red); }
+    .tag-blue { background: rgba(49,104,222,0.12); color: var(--blue); }
+    .tag-gold { background: rgba(196,132,26,0.12); color: var(--gold); }
+
+    .state-footer {
+      padding: 12px 20px;
+      background: rgba(19,19,19,0.02);
+      border-top: 1px solid var(--line);
+      font-size: 11px;
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* Comparison table */
+    .section-header {
+      margin: 32px 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--panel);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+      margin-bottom: 32px;
+    }
+
+    .compare-table th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      background: rgba(19,19,19,0.03);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .compare-table th.state-col {
+      text-align: center;
+    }
+
+    .compare-table td {
+      padding: 11px 16px;
+      font-size: 12px;
+      border-bottom: 1px solid rgba(19,19,19,0.05);
+      vertical-align: top;
+    }
+
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:hover td { background: rgba(19,19,19,0.02); }
+
+    .compare-table td.state-col {
+      text-align: center;
+    }
+
+    .criteria-label {
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    .criteria-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* Winner bar */
+    .winner-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .winner-card {
+      background: var(--panel);
+      border-radius: 10px;
+      padding: 16px 18px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+    }
+
+    .winner-category {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin: 0 0 6px;
+    }
+
+    .winner-state {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0 0 4px;
+    }
+
+    .winner-reason {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Blue Cloud callout */
+    .bc-callout {
+      background: var(--dark);
+      border-radius: 12px;
+      padding: 24px 28px;
+      color: white;
+      margin-bottom: 32px;
+    }
+
+    .bc-callout .eyebrow { color: rgba(255,255,255,0.45); }
+
+    .bc-callout h3 {
+      margin: 0 0 12px;
+      font-size: 1.3rem;
+      letter-spacing: -0.02em;
+    }
+
+    .bc-points {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .bc-point {
+      background: rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .bc-point-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.45);
+      margin: 0 0 5px;
+    }
+
+    .bc-point-value {
+      font-size: 13px;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.4;
+    }
+
+    /* Disclaimer */
+    .disclaimer {
+      padding: 16px 20px;
+      background: var(--cream);
+      border-radius: 8px;
+      font-size: 11px;
+      color: var(--gold);
+      border: 1px solid rgba(196,132,26,0.2);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+      .system-page { grid-template-columns: 1fr; }
+      .side-rail { position: relative; height: auto; }
+      .state-grid { grid-template-columns: 1fr; }
+      .winner-bar { grid-template-columns: 1fr; }
+      .bc-points { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Emperor Studio · Labs">
+  <meta property="og:title" content="Film Tax Incentives — CA · GA · NJ Compared">
+  <meta property="og:description" content="Side-by-side comparison of California, Georgia, and New Jersey film tax incentive programs. ATL/BTL rates, qualified spend rules, and uplifts.">
+  <meta property="og:image" content="https://labs.emperor.studio/projects/film-incentives/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://labs.emperor.studio/projects/film-incentives/">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Film Tax Incentives — CA · GA · NJ Compared">
+  <meta name="twitter:description" content="Side-by-side comparison of California, Georgia, and New Jersey film tax incentive programs. ATL/BTL rates, qualified spend rules, and uplifts.">
+  <meta name="twitter:image" content="https://labs.emperor.studio/projects/film-incentives/og-image.png">
+</head>
+<body>
+<div class="system-page">
+
+  <!-- Side Rail -->
+  <aside class="side-rail">
+    <div class="rail-brand">
+      <img src="./bluecloud-logo.png" alt="Blue Cloud Ranch" style="width:100%; max-width:180px; display:block; margin-bottom:12px;" />
+      <h1>Film<br>Incentives</h1>
+      <p class="rail-sub">State Comparison Tool</p>
+    </div>
+
+    <div class="rail-section">States</div>
+    <nav class="rail-nav">
+      <a href="#california" class="rail-link active">
+        <span class="state-dot" style="background:var(--ca)"></span>
+        California
+      </a>
+      <a href="#georgia" class="rail-link">
+        <span class="state-dot" style="background:var(--ga)"></span>
+        Georgia
+      </a>
+      <a href="#new-jersey" class="rail-link">
+        <span class="state-dot" style="background:var(--nj)"></span>
+        New Jersey
+      </a>
+    </nav>
+
+    <div class="rail-section">Analysis</div>
+    <nav class="rail-nav">
+      <a href="#comparison" class="rail-link">Side-by-Side</a>
+      <a href="#winners" class="rail-link">Category Winners</a>
+      <a href="#blue-cloud" class="rail-link">Blue Cloud Angle</a>
+      <a href="#atl-btl" class="rail-link">ATL vs BTL</a>
+      <a href="#qualified-spend" class="rail-link">Qualified Spend</a>
+    </nav>
+
+    <div class="rail-footer">
+      Data current as of April 2026.<br>
+      Programs subject to change.
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-stage">
+
+    <div class="top-bar">
+      <div>
+        <p class="eyebrow">Blue Cloud Ranch · Research Brief</p>
+        <h2>Film Incentive<br>Comparison</h2>
+      </div>
+      <div class="top-bar-meta">
+        <div class="updated-badge">April 2026</div>
+        <div>CA · GA · NJ</div>
+        <div style="margin-top:4px">CFC Meeting Prep</div>
+      </div>
+    </div>
+
+    <!-- State Cards -->
+    <div class="state-grid" id="california">
+
+      <!-- California -->
+      <div class="state-card">
+        <div class="state-header">
+          <span class="state-flag">🏔️</span>
+          <h3 class="state-name" style="color:var(--ca)">California</h3>
+          <p class="state-program">Film & TV Tax Credit Program 4.0</p>
+        </div>
+        <div class="state-headline">
+          <span class="state-pct" style="color:var(--ca)">35%</span>
+          <span class="state-pct-label">transferable or refundable</span>
+        </div>
+        <div class="state-rows">
+          <div class="state-row">
+            <span class="row-label">Base Rate</span>
+            <span class="row-value">35% (most productions)<br>40% first-season Relocating TV</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Credit Type</span>
+            <span class="row-value">Indie films: transferable OR refundable<br>Non-indie &amp; TV: refundable only</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Annual Allocation</span>
+            <span class="row-value">$750M/yr - TV $300M · Relocating TV $112.5M · Non-indie features $262.5M · Indie $75M</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Eligibility</span>
+            <span class="row-value">75% of budget in CA <em>or</em> 75% of principal photography days in CA</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Production Types</span>
+            <span class="row-value">TV series, pilots, limited/miniseries, animated, features, relocating TV, competition shows</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Uplifts</span>
+            <span class="row-value">Out-of-zone filming · VFX · Local hire labor</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">DEIA</span>
+            <span class="row-value">Opt-in = 100% credit · Opt-out = limited to 96%</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Program Period</span>
+            <span class="row-value">July 1, 2025 - June 30, 2030</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Status</span>
+            <span class="row-value"><span class="tag tag-green">Active · 5-year program</span></span>
+          </div>
+        </div>
+        <div class="state-footer">
+          $750M/yr is the largest CA allocation in history. 35% tier is now transferable OR refundable - a major shift from prior programs. Five-year program: July 1, 2025 - June 30, 2030.
+        </div>
+      </div>
+
+      <!-- Georgia -->
+      <div class="state-card" id="georgia">
+        <div class="state-header">
+          <span class="state-flag">🍑</span>
+          <h3 class="state-name" style="color:var(--ga)">Georgia</h3>
+          <p class="state-program">Georgia Entertainment Industry Investment Act</p>
+        </div>
+        <div class="state-headline">
+          <span class="state-pct" style="color:var(--ga)">30%</span>
+          <span class="state-pct-label">tax credit</span>
+        </div>
+        <div class="state-rows">
+          <div class="state-row">
+            <span class="row-label">Credit Type</span>
+            <span class="row-value">Transferable / sellable on secondary market</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Base Rate</span>
+            <span class="row-value">20% labor + 20% spend</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Uplift</span>
+            <span class="row-value">+10% for including GA promotional logo or pre-approved marketing promotion</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Max Rate</span>
+            <span class="row-value">30% total (base + uplift)</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Annual Cap</span>
+            <span class="row-value"><span class="tag tag-green">None</span></span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Project Cap</span>
+            <span class="row-value">None · Comp cap $500k (no cap for loan-outs)</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Min Spend</span>
+            <span class="row-value">$500k</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Eligible</span>
+            <span class="row-value">Feature films, TV pilots, TV series, music videos</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Local Req.</span>
+            <span class="row-value">GA vendor rule applies to spend (no crew minimum)</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Carry Forward</span>
+            <span class="row-value">3 years</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Sunset Date</span>
+            <span class="row-value"><span class="tag tag-green">None</span></span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Status</span>
+            <span class="row-value"><span class="tag tag-green">Active · No sunset</span></span>
+          </div>
+        </div>
+        <div class="state-footer">
+          The dominant incentive state for 15+ years. No cap means no waitlist. Transferable credits can be sold on secondary market - actual cash value even if production has no GA tax liability.
+        </div>
+      </div>
+
+      <!-- New Jersey -->
+      <div class="state-card" id="new-jersey">
+        <div class="state-header">
+          <span class="state-flag">🗽</span>
+          <h3 class="state-name" style="color:var(--nj)">New Jersey</h3>
+          <p class="state-program">NJ Film & Digital Media Tax Credit</p>
+        </div>
+        <div class="state-headline">
+          <span class="state-pct" style="color:var(--nj)">35%</span>
+          <span class="state-pct-label">transferable tax credit</span>
+        </div>
+        <div class="state-rows">
+          <div class="state-row">
+            <span class="row-label">Credit Type</span>
+            <span class="row-value">Transferable Tax Credit (A)</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Resident ATL</span>
+            <span class="row-value">35%</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Resident BTL</span>
+            <span class="row-value">35%</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Non-Resident ATL</span>
+            <span class="row-value">35%</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Non-Resident BTL</span>
+            <span class="row-value">35%</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Diversity Uplift</span>
+            <span class="row-value">+2% or +4% on payroll with NJEDA-approved diversity plan</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Zone Rate</span>
+            <span class="row-value">30% within 30-mi of Columbus Circle<br>35% outside that radius or southern counties</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Studio Partner Tier</span>
+            <span class="row-value">40% wages + 35-40% nonpayroll (requires 250k sq ft facility, 10-yr lease)</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Annual Cap</span>
+            <span class="row-value">$400M + $150M for Studio Partners</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Min Spend</span>
+            <span class="row-value">$1M or 60% of total production expenses in NJ</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Eligible</span>
+            <span class="row-value">Animation, Documentaries, Feature Films, Pilots, Game Shows, Reality TV, Scripted TV</span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Sunset Date</span>
+            <span class="row-value"><span class="tag tag-green">June 30, 2039</span></span>
+          </div>
+          <div class="state-row">
+            <span class="row-label">Status</span>
+            <span class="row-value"><span class="tag tag-green">Active · Long runway</span></span>
+          </div>
+        </div>
+        <div class="state-footer">
+          Flat 35% on ALL labor - ATL and BTL, resident and non-resident. One of the most inclusive credit structures in the US. $400M annual cap + $150M Studio Partner pool. Long sunset (2039) provides planning certainty.
+        </div>
+      </div>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="section-header" id="comparison">
+      <h3 class="section-title">Side-by-Side Comparison</h3>
+      <div class="section-line"></div>
+    </div>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th style="width:30%">Criteria</th>
+          <th class="state-col" style="color:var(--ca)">🏔️ California</th>
+          <th class="state-col" style="color:var(--ga)">🍑 Georgia</th>
+          <th class="state-col" style="color:var(--nj)">🗽 New Jersey</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="criteria-label">Max Credit Rate</div></td>
+          <td class="state-col"><span class="tag tag-blue">35%</span></td>
+          <td class="state-col"><span class="tag tag-green">30%</span></td>
+          <td class="state-col"><span class="tag tag-blue">35%</span></td>
+        </tr>
+        <tr>
+          <td><div class="criteria-label">Credit Type</div><div class="criteria-sub">Transferable = can sell credits</div></td>
+          <td class="state-col"><span class="tag tag-green">Transferable or Refundable (35% tier) ✓</span></td>
+          <td class="state-col"><span class="tag tag-green">Transferable ✓</span></td>
+          <td class="state-col"><span class="tag tag-green">Transferable ✓</span></td>
+        </tr>
+        <tr>
+          <td><div class="criteria-label">Annual Program Cap</div></td>
+          <td class="state-col">$750M/yr (split by category)</td>
+          <td class="state-col"><span class="tag tag-green">No cap ✓</span></td>
+          <td class="state-col">$400M + $150M Studio</td>
+        </tr>
+        <tr>
+          <td><div class="criteria-label">Minimum Production Spend</div></td>
+          <td class="state-col">75% CA spend or 75% shoot days</td>
+          <td class="state-col"><span class="tag tag-green">$500k</span></td>
+          <td class="state-col">$1M or 60% in-state</td>
+        </tr>
+        <tr>
+          <td><div class="criteria-label">Local Crew Requirement</div></td>
+          <td class="state-col">75% CA spend or shoot days</td>
+          <td class="state-col"><span class="tag tag-green">None</span></td>
+          <td class="state-col">60% in-state spend</td>
+        </tr>
+        <tr>
+          <td><div class="criteria-label">Crew Talent Pool</div></td>
+          <td class="state-col"><span class="tag tag-green">World-class ✓</span></td>
+          <td class="state-col">Strong</td>
+          <td class="state-col">Good (NYC access)</td>
+        </tr>
+        <tr>
+          <td><div class="criteria-label">Infrastructure / Stages</div></td>
+          <td class="state-col"><span class="tag tag-green">World-class ✓</span></td>
+          <td class="state-col">Strong (Trilith)</td>
+          <td class="state-col">Growing</td>
+        </tr>
+        <tr>
+          <td><div class="criteria-label">On-Location Variety</div></td>
+          <td class="state-col"><span class="tag tag-green">Unmatched ✓</span></td>
+          <td class="state-col">Good</td>
+          <td class="state-col">Limited</td>
+        </tr>
+        <tr>
+          <td><div class="criteria-label">Program Stability</div></td>
+          <td class="state-col"><span class="tag tag-green">Active · thru 2030</span></td>
+          <td class="state-col"><span class="tag tag-green">No sunset</span></td>
+          <td class="state-col"><span class="tag tag-green">Sunset 2039</span></td>
+        </tr>
+        <tr>
+          <td><div class="criteria-label">Out-of-Zone Bonus</div><div class="criteria-sub">Filming outside metro core</div></td>
+          <td class="state-col"><span class="tag tag-green">+5% ✓</span></td>
+          <td class="state-col">N/A</td>
+          <td class="state-col">N/A</td>
+        </tr>
+        <tr>
+          <td><div class="criteria-label">Santa Clarita / Local Advantage</div></td>
+          <td class="state-col"><span class="tag tag-green">In-zone, no city permits</span></td>
+          <td class="state-col">N/A</td>
+          <td class="state-col">N/A</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Category Winners -->
+    <div class="section-header" id="winners">
+      <h3 class="section-title">Category Winners</h3>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="winner-bar">
+      <div class="winner-card">
+        <p class="winner-category">Best for Indie / Low-Budget</p>
+        <p class="winner-state" style="color:var(--ga)">🍑 Georgia</p>
+        <p class="winner-reason">Lowest minimum spend ($500k), no cap, no local crew requirement. Credits are transferable - can monetize even without GA tax liability.</p>
+      </div>
+      <div class="winner-card">
+        <p class="winner-category">Best for Studio Features</p>
+        <p class="winner-state" style="color:var(--ca)">🏔️ California</p>
+        <p class="winner-reason">World-class crews, infrastructure, and locations. 35% max credit now competitive. Out-of-zone bonus rewards productions that venture to places like Santa Clarita.</p>
+      </div>
+      <div class="winner-card">
+        <p class="winner-category">Best for NYC-Adjacent TV</p>
+        <p class="winner-state" style="color:var(--nj)">🗽 New Jersey</p>
+        <p class="winner-reason">Flat 35% on ALL labor — ATL and BTL, resident and non-resident. No ATL exclusions. NYC talent pool. $400M cap + $150M Studio Partner pool. Sunset 2039.</p>
+      </div>
+      <div class="winner-card">
+        <p class="winner-category">Best On-Location Variety</p>
+        <p class="winner-state" style="color:var(--ca)">🏔️ California</p>
+        <p class="winner-reason">Unmatched diversity - desert, mountain, urban, coastal, and unique built sets like Blue Cloud Ranch. Nothing Georgia or NJ can replicate.</p>
+      </div>
+      <div class="winner-card">
+        <p class="winner-category">Most Predictable / No Waitlist</p>
+        <p class="winner-state" style="color:var(--ga)">🍑 Georgia</p>
+        <p class="winner-reason">No annual cap means productions never wait in line. CA and NJ both have caps that can fill mid-year, creating uncertainty in production planning.</p>
+      </div>
+      <div class="winner-card">
+        <p class="winner-category">Best Credit Liquidity</p>
+        <p class="winner-state" style="color:var(--ga)">🍑 Georgia</p>
+        <p class="winner-reason">Georgia credits trade on secondary market at 88–92 cents on the dollar. CA indie credits are also transferable. Georgia wins on simplicity — no ATL exclusions, no zone rules, no category caps.</p>
+      </div>
+    </div>
+
+    <!-- Blue Cloud Callout -->
+    <div class="bc-callout" id="blue-cloud">
+      <p class="eyebrow">Blue Cloud Ranch · Santa Clarita, CA</p>
+      <h3>The California Advantage for Location-Heavy Productions</h3>
+      <p style="color:rgba(255,255,255,0.6); font-size:13px; margin:0 0 4px; line-height:1.6">
+        Blue Cloud Ranch sits at the intersection of CA's strengthened incentive program and the Santa Clarita location advantage. For action, military, fantasy, and period productions - the combination of CA Program 4.0 + Blue Cloud's unique sets is a competitive argument Georgia and NJ can't match on location alone.
+      </p>
+      <div class="bc-points">
+        <div class="bc-point">
+          <p class="bc-point-label">Out-of-Zone Bonus</p>
+          <p class="bc-point-value">Productions filming at Blue Cloud may qualify for CA's +5% out-of-zone bonus credit - pushing effective rate to 35%+</p>
+        </div>
+        <div class="bc-point">
+          <p class="bc-point-label">No City of LA Permits</p>
+          <p class="bc-point-value">Unincorporated LA County location. No FilmLA city permit overhead, no city fees, faster approval timeline vs. in-city locations</p>
+        </div>
+        <div class="bc-point">
+          <p class="bc-point-label">Unique Militaria Infrastructure</p>
+          <p class="bc-point-value">FOB 1 + FOB 2 (21,000 sqft+), Fight Arena, Developing World Town - no equivalent in Georgia or New Jersey's location inventory</p>
+        </div>
+        <div class="bc-point">
+          <p class="bc-point-label">CA Crew + Location Combo</p>
+          <p class="bc-point-value">CA's 60% local crew requirement = most experienced film crews in the world. Georgia equivalent requires rebuilding crew relationships from scratch</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ATL / BTL / Qualified Expenditure Section -->
+    <div class="section-header" id="atl-btl">
+      <h3 class="section-title">Above the Line vs. Below the Line</h3>
+      <div class="section-line"></div>
+    </div>
+
+    <div style="background:var(--panel); border-radius:12px; box-shadow:var(--shadow); border:1px solid var(--line); margin-bottom:32px; overflow:hidden;">
+      <div style="padding:18px 24px; border-bottom:1px solid var(--line); background:rgba(19,19,19,0.02);">
+        <p style="margin:0; font-size:12px; color:var(--muted); line-height:1.6;">
+          <strong style="color:var(--foreground)">ATL (Above the Line)</strong> covers creative talent - directors, writers, producers, principal cast, stunt performers, music directors/composers/supervisors.<br>
+          <strong style="color:var(--foreground)">BTL (Below the Line)</strong> covers production crew, equipment, locations, facilities, post-production labor, and services.
+        </p>
+      </div>
+
+      <table class="compare-table" style="margin:0; border-radius:0; border:none; box-shadow:none;">
+        <thead>
+          <tr>
+            <th style="width:30%">Category</th>
+            <th class="state-col" style="color:var(--ca)">🏔️ California</th>
+            <th class="state-col" style="color:var(--ga)">🍑 Georgia</th>
+            <th class="state-col" style="color:var(--nj)">🗽 New Jersey</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="criteria-label">ATL - Directors</div>
+            </td>
+            <td class="state-col"><span class="tag tag-red">Non-qualified ✗</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 20% ✓</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 35% ✓</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="criteria-label">ATL - Writers</div>
+            </td>
+            <td class="state-col"><span class="tag tag-red">Non-qualified ✗</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 20% ✓</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 35% ✓</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="criteria-label">ATL - Principal Cast</div>
+            </td>
+            <td class="state-col"><span class="tag tag-red">Non-qualified ✗</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 20% ✓</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 35% ✓</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="criteria-label">ATL - Producers</div>
+              <div class="criteria-sub">Any producer credit holder</div>
+            </td>
+            <td class="state-col"><span class="tag tag-red">Non-qualified ✗</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 20% ✓</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 35% ✓</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="criteria-label">BTL - Crew Wages</div>
+              <div class="criteria-sub">Camera, grip, electric, art dept, etc.</div>
+            </td>
+            <td class="state-col"><span class="tag tag-green">Qualified 35% ✓</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 20% ✓</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 35% ✓</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="criteria-label">BTL - Background / Extras</div>
+            </td>
+            <td class="state-col"><span class="tag tag-green">Qualified 35% ✓</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 20% ✓</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 35% ✓</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="criteria-label">BTL - Equipment &amp; Rentals</div>
+            </td>
+            <td class="state-col"><span class="tag tag-green">Qualified 35% ✓</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 20% ✓</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 35% ✓</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="criteria-label">BTL - Location Fees</div>
+              <div class="criteria-sub">e.g., Blue Cloud Ranch</div>
+            </td>
+            <td class="state-col"><span class="tag tag-green">Qualified 35% ✓</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 20% ✓</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 35% ✓</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="criteria-label">BTL - Set Construction</div>
+            </td>
+            <td class="state-col"><span class="tag tag-green">Qualified 35% ✓</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 20% ✓</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 35% ✓</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="criteria-label">BTL - Post Production</div>
+              <div class="criteria-sub">Editing, sound, color (in-state)</div>
+            </td>
+            <td class="state-col"><span class="tag tag-green">Qualified 35% ✓</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 20% ✓</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 35% ✓</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="criteria-label">BTL - Catering / Food</div>
+            </td>
+            <td class="state-col"><span class="tag tag-green">Qualified 35% ✓</span></td>
+            <td class="state-col"><span class="tag tag-green">Qualified 20% ✓</span></td>
+            <td class="state-col">Varies</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="criteria-label">Marketing &amp; Distribution</div>
+            </td>
+            <td class="state-col"><span class="tag tag-red">Non-qualified ✗</span></td>
+            <td class="state-col"><span class="tag tag-red">Non-qualified ✗</span></td>
+            <td class="state-col"><span class="tag tag-red">Non-qualified ✗</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="criteria-label">Out-of-state services</div>
+              <div class="criteria-sub">VFX done outside state, etc.</div>
+            </td>
+            <td class="state-col"><span class="tag tag-red">Non-qualified ✗</span></td>
+            <td class="state-col"><span class="tag tag-red">Non-qualified ✗</span></td>
+            <td class="state-col"><span class="tag tag-red">Non-qualified ✗</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="criteria-label">Federal payroll taxes</div>
+            </td>
+            <td class="state-col"><span class="tag tag-red">Non-qualified ✗</span></td>
+            <td class="state-col"><span class="tag tag-red">Non-qualified ✗</span></td>
+            <td class="state-col"><span class="tag tag-red">Non-qualified ✗</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="padding:14px 24px; background:rgba(49,104,222,0.04); border-top:1px solid var(--line);">
+        <p style="margin:0; font-size:11px; color:var(--muted); line-height:1.6;">
+          <strong style="color:var(--ca)">CA key insight:</strong> California Program 4.0 deliberately excludes ATL wages (directors, writers, producers, principal cast) from qualified expenditures. The credit is structured as a <strong>below-the-line incentive</strong> - rewarding productions that employ California crew, use California facilities, and spend money with California vendors. This means a $50M movie with $10M in star salaries gets the credit on the other $40M in BTL spend, not the full budget.
+        </p>
+      </div>
+    </div>
+
+    <!-- Qualified Expenditure Detail -->
+    <div class="section-header" id="qualified-spend">
+      <h3 class="section-title">California - Qualified vs. Non-Qualified Expenditures</h3>
+      <div class="section-line"></div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:32px;">
+      <div style="background:var(--panel); border-radius:12px; box-shadow:var(--shadow); border:1px solid var(--line); overflow:hidden;">
+        <div style="padding:14px 20px; background:rgba(29,154,104,0.08); border-bottom:1px solid var(--line);">
+          <h4 style="margin:0; font-size:13px; color:var(--green);">✓ Qualified Expenditures (earn the 35% credit)</h4>
+        </div>
+        <div style="padding:14px 20px;">
+          <ul style="margin:0; padding-left:16px; font-size:12px; line-height:2; color:var(--foreground);">
+            <li>BTL crew wages &amp; fringe benefits</li>
+            <li>Background performers, stand-ins</li>
+            <li>Off-camera stunt personnel</li>
+            <li>Equipment rentals (in CA)</li>
+            <li>Facility &amp; location rentals (in CA)</li>
+            <li>Set construction materials &amp; labor</li>
+            <li>Wardrobe, props, set dressing</li>
+            <li>Food &amp; lodging (production period)</li>
+            <li>Lab processing</li>
+            <li>Safety costs</li>
+            <li>Post-production labor &amp; services (in CA)</li>
+            <li>Visual effects (in CA) - 70% wages / 30% non-wages</li>
+            <li>Insurance (prorated for in-state work)</li>
+            <li>Contingency (up to 10% of QEB)</li>
+            <li>Completion bond (up to 2% of QEB)</li>
+          </ul>
+        </div>
+      </div>
+      <div style="background:var(--panel); border-radius:12px; box-shadow:var(--shadow); border:1px solid var(--line); overflow:hidden;">
+        <div style="padding:14px 20px; background:rgba(239,93,61,0.08); border-bottom:1px solid var(--line);">
+          <h4 style="margin:0; font-size:13px; color:var(--red);">✗ Non-Qualified Expenditures (no credit)</h4>
+        </div>
+        <div style="padding:14px 20px;">
+          <ul style="margin:0; padding-left:16px; font-size:12px; line-height:2; color:var(--foreground);">
+            <li>ATL wages: producers, writers, directors, actors, stunt performers, music directors/composers/supervisors</li>
+            <li>Development costs &amp; rights acquisition</li>
+            <li>Financing &amp; overhead costs</li>
+            <li>Marketing, publicity &amp; distribution</li>
+            <li>Digital cinema release prints</li>
+            <li>Residual &amp; clip use compensation</li>
+            <li>Ancillary products (toys, games, trailers)</li>
+            <li>Services performed outside California</li>
+            <li>CPA/AUP audit fees</li>
+            <li>Federal payroll taxes (FICA, FUTA, MEDICARE)</li>
+            <li>CA solvency taxes</li>
+            <li>Expenditures before CAL issuance</li>
+            <li>E&amp;O insurance</li>
+            <li>Career pathways program contributions</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="disclaimer">
+      <strong>Data note:</strong> Incentive rates, caps, and requirements change frequently. This comparison reflects publicly available program guidelines as of April 2026. Verify current terms directly with each state film commission before making production location decisions. California Film Commission: film.ca.gov · Georgia Film Office: georgia.org/film · New Jersey Motion Picture Commission: njfilmtv.com
+    </div>
+
+  </main>
+</div>
+</body>
+</html>

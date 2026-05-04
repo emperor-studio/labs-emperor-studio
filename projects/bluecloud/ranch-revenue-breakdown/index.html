@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blue Cloud Ranch — Monthly Revenue Breakdown</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blue Cloud Ranch — Monthly Revenue Breakdown">
+<meta property="og:description" content="Monthly production revenue at Blue Cloud Ranch, 2015–2026. Detailed breakdown by month and year.">
+<meta property="og:image" content="https://labs.emperor.studio/projects/bluecloud/ranch-revenue/og-image.png">
+<meta property="og:url" content="https://labs.emperor.studio/projects/bluecloud/ranch-revenue-breakdown/">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root {
+  --ink: #0d1554;
+  --bg: #f5f3ee;
+  --panel: #ffffff;
+  --line: #e5e1d8;
+  --muted: #6b7280;
+  --accent: #c9a961;
+  --green: #1d9a68;
+  --red: #dc2626;
+  --amber: #d97706;
+  --mono: 'JetBrains Mono', monospace;
+  --serif: 'Source Serif 4', Georgia, serif;
+  --sans: 'Inter', -apple-system, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--sans); background: var(--bg); color: var(--ink); font-size: 14px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+
+.header { background: var(--ink); color: #fff; padding: 48px 48px 40px; }
+.header .eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.header h1 { font-family: var(--serif); font-size: clamp(28px, 5vw, 44px); font-weight: 300; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 10px; }
+.header .sub { font-size: 15px; color: #c3c9e8; max-width: 600px; line-height: 1.6; }
+.header-logo { height: 44px; width: auto; display: block; opacity: 0.9; margin-bottom: 20px; }
+
+.nav-back { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); text-decoration: none; margin-top: 20px; }
+.nav-back:hover { color: #fff; }
+
+.content { padding: 40px 48px 80px; max-width: 1200px; }
+
+/* Year selector */
+.year-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+.year-tab {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  cursor: pointer;
+  color: var(--muted);
+  transition: all 0.15s;
+}
+.year-tab:hover { border-color: var(--ink); color: var(--ink); }
+.year-tab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+.year-tab.all { background: var(--accent); color: var(--ink); border-color: var(--accent); font-weight: 600; }
+.year-tab.all.active { background: var(--ink); color: var(--accent); }
+
+/* Summary stats */
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 32px; }
+.stat { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 16px 20px; }
+.stat .slabel { font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 6px; }
+.stat .sval { font-family: var(--serif); font-size: 24px; color: var(--ink); line-height: 1.2; }
+.stat .ssub { font-size: 11px; color: var(--muted); margin-top: 3px; }
+.stat.red .sval { color: var(--red); }
+.stat.green .sval { color: var(--green); }
+
+/* Month bars */
+.month-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 8px; margin-bottom: 40px; }
+.month-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 120px;
+}
+.month-card .mname { font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.month-card .mval { font-family: var(--mono); font-size: 12px; font-weight: 500; color: var(--ink); }
+.month-card .mval.zero { color: var(--line); }
+.month-card .mbar-wrap { flex: 1; display: flex; align-items: flex-end; }
+.month-card .mbar { width: 100%; border-radius: 2px; min-height: 2px; transition: height 0.4s ease; }
+.month-card.covid .mname { color: var(--amber); }
+.month-card.strike .mname { color: var(--red); }
+.month-card.no-data { opacity: 0.4; }
+
+/* All-years heatmap */
+.heatmap-wrap { margin-bottom: 40px; overflow-x: auto; }
+.heatmap { display: grid; grid-template-columns: 60px repeat(12, 1fr); gap: 3px; }
+.hm-cell {
+  height: 36px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.85);
+  cursor: default;
+}
+.hm-cell.header-cell { background: none; color: var(--muted); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; }
+.hm-cell.year-label { background: none; color: var(--ink); font-weight: 600; font-size: 11px; justify-content: flex-end; padding-right: 8px; }
+.hm-cell.empty { background: #eceae3; color: transparent; }
+
+/* Section label */
+.section-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+
+/* Year chart */
+.year-section { display: none; }
+.year-section.visible { display: block; }
+.all-section { display: block; }
+.all-section.hidden { display: none; }
+
+/* Top productions table */
+.prod-table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; margin-bottom: 40px; }
+.prod-table th { text-align: left; padding: 10px 16px; border-bottom: 1px solid var(--line); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; background: #fafaf7; font-family: var(--mono); }
+.prod-table td { padding: 10px 16px; border-bottom: 1px solid #f0ece3; }
+.prod-table tr:last-child td { border-bottom: none; }
+.prod-table td.num { font-family: var(--mono); font-size: 12px; text-align: right; color: var(--ink); font-weight: 500; }
+.prod-table td.type { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.06em; }
+
+footer { background: var(--ink); color: #8a93c8; padding: 20px 48px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; }
+footer strong { color: var(--accent); }
+
+@media (max-width: 900px) {
+  .header { padding: 28px 20px 24px; }
+  .content { padding: 24px 16px 60px; }
+  .stat-row { grid-template-columns: repeat(2, 1fr); }
+  .month-grid { grid-template-columns: repeat(4, 1fr); }
+  footer { padding: 16px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="../ranch-revenue/blue-cloud-logo.png" alt="Blue Cloud Ranch" class="header-logo">
+  <div class="eyebrow">Blue Cloud Ranch · Santa Clarita, CA · Monthly Revenue</div>
+  <h1>Production Revenue<br>Breakdown</h1>
+  <p class="sub">Month-by-month production location revenue, 2015–2026. Source: Frank's production ledger.</p>
+  <a href="../ranch-revenue/" class="nav-back">← Annual Overview</a>
+</div>
+
+<div class="content">
+
+  <div class="year-tabs" id="year-tabs">
+    <button class="year-tab all active" data-year="all">All Years</button>
+  </div>
+
+  <!-- All-years heatmap view -->
+  <div class="all-section" id="all-section">
+    <div class="section-label">Revenue Heatmap — All Years</div>
+    <div class="stat-row" id="all-stats"></div>
+    <div class="heatmap-wrap">
+      <div class="heatmap" id="heatmap"></div>
+    </div>
+
+    <div class="section-label">Year-by-Year Annual Totals</div>
+    <div id="annual-bars" style="margin-bottom:40px"></div>
+  </div>
+
+  <!-- Per-year views (generated by JS) -->
+  <div id="year-sections"></div>
+
+</div>
+
+<footer>
+  <strong>Blue Cloud Ranch</strong> · Santa Clarita, CA · Source: Production ledger (Frank) · Prepared May 2026 · <strong>Confidential</strong>
+</footer>
+
+<script>
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+const DATA = {
+  // 2015: Ranch opened July 1, 2015
+  '2015': { annual: 553504, monthly: { Jul:38450, Aug:75850, Sep:136580, Oct:76720, Nov:98178, Dec:127725 }, note: 'Ranch opened July 1, 2015' },
+  '2016': { annual: 1336479, monthly: { Jan:5400, Feb:81838, Mar:77713, Apr:355247, May:245028, Jun:53188, Jul:160956, Aug:95357, Sep:54436, Oct:55269, Nov:126874, Dec:25175 }, note: null },
+  '2017': { annual: 2157286, monthly: { Jan:96393, Feb:78554, Mar:91095, Apr:156826, May:201325, Jun:351175, Jul:38450, Aug:222300, Sep:104518, Oct:207574, Nov:287186, Dec:248732 }, note: null },
+  '2018': { annual: 2049055, monthly: { Jan:259851, Feb:253192, Mar:228476, Apr:274167, May:126300, Jun:176850, Jul:119935, Aug:105790, Sep:98722, Oct:226458, Nov:146693, Dec:32616 }, note: null },
+  '2019': { annual: 1878900, monthly: { Jan:43462, Feb:90916, Mar:78900, Apr:97963, May:36656, Jun:74225, Jul:106023, Aug:173295, Sep:326314, Oct:359462, Nov:259850, Dec:231830 }, note: null },
+  '2020': { annual: 1860156, monthly: { Jan:299765, Feb:297444, Mar:113845, Apr:0, May:0, Jun:0, Jul:3500, Aug:75235, Sep:194606, Oct:397197, Nov:265867, Dec:212695 }, note: 'COVID shutdown Mar 16 – Jul 2020' },
+  '2021': { annual: 2230925, monthly: { Jan:189752, Feb:48275, Mar:62556, Apr:38837, May:39062, Jun:176614, Jul:182232, Aug:298377, Sep:271222, Oct:331641, Nov:359227, Dec:233126 }, note: null },
+  '2022': { annual: 4648383, monthly: { Jan:137676, Feb:203400, Mar:257662, Apr:381332, May:405428, Jun:595287, Jul:604456, Aug:601687, Sep:567897, Oct:426064, Nov:363145, Dec:104343 }, note: 'Rebel Moon long-term Jan–Nov' },
+  '2023': { annual: 1670501, monthly: { Jan:109187, Feb:64384, Mar:307590, Apr:242116, May:217587, Jun:384015, Jul:42437, Aug:32842, Sep:60331, Oct:29012, Nov:50946, Dec:130049 }, note: 'WGA/SAG strike Jul–Oct 2023' },
+  '2024': { annual: 1544043, monthly: { Jan:180323, Feb:281518, Mar:404345, Apr:221930, May:73129, Jun:19287, Jul:102428, Aug:86385, Sep:49007, Oct:61835, Nov:22498, Dec:41353 }, note: null },
+  '2025': { annual: 846619, monthly: { Jan:29255, Feb:111096, Mar:18975, Apr:177091, May:84300, Jun:83203, Jul:22203, Sep:42786, Oct:45120, Nov:78890, Dec:153698 }, note: null },
+  '2026': { annual: 117189, monthly: { Jan:12187, Feb:58976, Mar:46025 }, note: 'Jan–Mar 2026 only (Q1)' },
+};
+
+const YEARS = Object.keys(DATA);
+const ALL_MONTHLY_MAX = Math.max(...YEARS.flatMap(y => MONTHS.map(m => DATA[y].monthly[m] || 0)));
+const ALL_ANNUAL_MAX = Math.max(...YEARS.map(y => DATA[y].annual));
+
+function fmt(n) {
+  if (!n && n !== 0) return '—';
+  if (n === 0) return '$0';
+  if (n >= 1000000) return '$' + (n/1000000).toFixed(2) + 'M';
+  if (n >= 1000) return '$' + Math.round(n/1000) + 'K';
+  return '$' + n.toLocaleString();
+}
+
+function color(val, max, alpha=1) {
+  if (!val) return `rgba(236,234,227,${alpha})`;
+  const pct = val / max;
+  if (pct > 0.7) return `rgba(13,21,84,${alpha})`;
+  if (pct > 0.4) return `rgba(26,36,112,${alpha})`;
+  if (pct > 0.2) return `rgba(60,80,160,${alpha})`;
+  if (pct > 0.05) return `rgba(100,130,200,${alpha})`;
+  return `rgba(180,195,230,${alpha})`;
+}
+
+// Build year tabs
+const tabsEl = document.getElementById('year-tabs');
+YEARS.forEach(y => {
+  const btn = document.createElement('button');
+  btn.className = 'year-tab';
+  btn.dataset.year = y;
+  btn.textContent = y;
+  tabsEl.appendChild(btn);
+});
+
+// All-stats
+const allStats = document.getElementById('all-stats');
+const lifetime = YEARS.reduce((s,y) => s + DATA[y].annual, 0);
+allStats.innerHTML = `
+  <div class="stat"><div class="slabel">Lifetime Revenue</div><div class="sval">${fmt(lifetime)}</div><div class="ssub">2015–2026 (2026 Q1 only)</div></div>
+  <div class="stat green"><div class="slabel">Peak Year</div><div class="sval">${fmt(4648383)}</div><div class="ssub">2022 · Rebel Moon</div></div>
+  <div class="stat red"><div class="slabel">2025 Revenue</div><div class="sval">${fmt(846619)}</div><div class="ssub">Lowest full year since 2015</div></div>
+  <div class="stat red"><div class="slabel">Decline from Peak</div><div class="sval">−82%</div><div class="ssub">2022 → 2025</div></div>
+`;
+
+// Heatmap
+const hm = document.getElementById('heatmap');
+// Header row
+const blankCell = document.createElement('div');
+blankCell.className = 'hm-cell header-cell';
+hm.appendChild(blankCell);
+MONTHS.forEach(m => {
+  const c = document.createElement('div');
+  c.className = 'hm-cell header-cell';
+  c.textContent = m;
+  hm.appendChild(c);
+});
+// Data rows
+YEARS.forEach(y => {
+  const yl = document.createElement('div');
+  yl.className = 'hm-cell year-label';
+  yl.textContent = y;
+  hm.appendChild(yl);
+  MONTHS.forEach(m => {
+    const val = DATA[y].monthly[m];
+    const c = document.createElement('div');
+    c.className = 'hm-cell' + (!val && val !== 0 ? ' empty' : '');
+    if (val || val === 0) {
+      c.style.background = val === 0 ? '#eceae3' : color(val, ALL_MONTHLY_MAX);
+      c.textContent = val > 0 ? fmt(val) : val === 0 ? '—' : '';
+      c.title = `${y} ${m}: ${fmt(val)}`;
+    }
+    hm.appendChild(c);
+  });
+});
+
+// Annual bars
+const annualBars = document.getElementById('annual-bars');
+annualBars.innerHTML = `<div style="background:var(--panel);border:1px solid var(--line);border-radius:6px;overflow:hidden">` +
+  YEARS.map(y => {
+    const pct = (DATA[y].annual / ALL_ANNUAL_MAX * 100).toFixed(1);
+    const isPeak = y === '2022';
+    const isLow = DATA[y].annual < 900000;
+    const barColor = isPeak ? '#1d9a68' : isLow ? '#dc2626' : '#0d1554';
+    return `
+      <div style="display:grid;grid-template-columns:52px 1fr 110px;align-items:center;gap:12px;padding:6px 16px;border-bottom:1px solid #f0ece3">
+        <div style="font-family:var(--mono);font-size:11px;font-weight:500;text-align:right;color:var(--ink)">${y}</div>
+        <div style="height:24px;background:#eceae3;border-radius:3px;overflow:hidden">
+          <div style="height:100%;width:${pct}%;background:${barColor};border-radius:3px;transition:width 0.6s ease"></div>
+        </div>
+        <div style="font-family:var(--mono);font-size:12px;font-weight:500;color:${barColor};text-align:right">${fmt(DATA[y].annual)}</div>
+      </div>`;
+  }).join('') + `</div>`;
+
+// Per-year sections
+const yearSections = document.getElementById('year-sections');
+YEARS.forEach(y => {
+  const d = DATA[y];
+  const monthMax = Math.max(...MONTHS.map(m => d.monthly[m] || 0));
+  const covidYear = y === '2020';
+  const strikeYear = y === '2023';
+
+  const div = document.createElement('div');
+  div.className = 'year-section';
+  div.id = `year-${y}`;
+
+  const filledMonths = MONTHS.filter(m => d.monthly[m] != null && d.monthly[m] > 0).length;
+  const bestMonth = MONTHS.reduce((best, m) => (!best || (d.monthly[m] || 0) > (d.monthly[best] || 0)) ? m : best, null);
+  const worstMonth = MONTHS.filter(m => d.monthly[m] > 0).reduce((worst, m) => (!worst || d.monthly[m] < d.monthly[worst]) ? m : worst, null);
+
+  div.innerHTML = `
+    <div class="stat-row">
+      <div class="stat"><div class="slabel">Annual Total</div><div class="sval">${fmt(d.annual)}</div><div class="ssub">${filledMonths} months with data</div></div>
+      <div class="stat"><div class="slabel">Best Month</div><div class="sval">${bestMonth || '—'}</div><div class="ssub">${fmt(d.monthly[bestMonth])}</div></div>
+      <div class="stat"><div class="slabel">Slowest Month</div><div class="sval">${worstMonth || '—'}</div><div class="ssub">${fmt(d.monthly[worstMonth])}</div></div>
+      <div class="stat"><div class="slabel">Note</div><div class="sval" style="font-size:14px">${d.note || '—'}</div></div>
+    </div>
+    <div class="section-label">Monthly Breakdown — ${y}</div>
+    <div class="month-grid">
+      ${MONTHS.map(m => {
+        const val = d.monthly[m];
+        const pct = val ? Math.max(4, (val / monthMax) * 100) : 0;
+        const isCovid = covidYear && ['Apr','May','Jun'].includes(m);
+        const isStrike = strikeYear && ['Jul','Aug','Sep','Oct'].includes(m);
+        const cls = isCovid ? 'covid' : isStrike ? 'strike' : val === 0 ? 'no-data' : '';
+        const barColor = isCovid ? '#d97706' : isStrike ? '#dc2626' : '#0d1554';
+        return `
+          <div class="month-card ${cls}">
+            <div class="mname">${m}</div>
+            <div class="mval ${!val && val !== 0 ? '' : val === 0 ? 'zero' : ''}">${val != null ? fmt(val) : '—'}</div>
+            <div class="mbar-wrap">
+              <div class="mbar" style="height:${pct}%;background:${barColor};opacity:${val ? 0.85 : 0.15}"></div>
+            </div>
+          </div>`;
+      }).join('')}
+    </div>
+  `;
+  yearSections.appendChild(div);
+});
+
+// Tab switching
+document.getElementById('year-tabs').addEventListener('click', e => {
+  const btn = e.target.closest('.year-tab');
+  if (!btn) return;
+  const year = btn.dataset.year;
+
+  document.querySelectorAll('.year-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  document.getElementById('all-section').classList.toggle('hidden', year !== 'all');
+  document.querySelectorAll('.year-section').forEach(s => s.classList.remove('visible'));
+
+  if (year !== 'all') {
+    const sec = document.getElementById(`year-${year}`);
+    if (sec) sec.classList.add('visible');
+  }
+});
+</script>
+</body>
+</html>

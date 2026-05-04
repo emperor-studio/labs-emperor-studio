@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blue Cloud Ranch — Production Metrics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta property="og:title" content="Blue Cloud Ranch — Production Metrics">
+<meta property="og:description" content="Filming days, permits, days under contract, product mix, and average spend per production type. Blue Cloud Ranch 2015–2026.">
+<meta property="og:image" content="https://labs.emperor.studio/projects/bluecloud/ranch-revenue/og-image.png">
+<style>
+:root {
+  --ink: #0d1554; --bg: #f5f3ee; --panel: #fff; --line: #e5e1d8;
+  --muted: #6b7280; --accent: #c9a961; --green: #1d9a68; --red: #dc2626; --amber: #d97706;
+  --mono: 'JetBrains Mono', monospace; --serif: 'Source Serif 4', Georgia, serif; --sans: 'Inter', -apple-system, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--sans); background: var(--bg); color: var(--ink); font-size: 14px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.header { background: var(--ink); color: #fff; padding: 48px 48px 40px; }
+.header .eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.header h1 { font-family: var(--serif); font-size: clamp(26px, 4vw, 42px); font-weight: 300; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 10px; }
+.header .sub { font-size: 15px; color: #c3c9e8; max-width: 600px; line-height: 1.6; }
+.header-logo { height: 40px; width: auto; display: block; opacity: 0.9; margin-bottom: 20px; }
+.nav-links { display: flex; gap: 20px; margin-top: 20px; flex-wrap: wrap; }
+.nav-link { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); text-decoration: none; }
+.nav-link:hover { color: #fff; }
+.content { padding: 40px 48px 80px; max-width: 1200px; }
+.section { margin-bottom: 56px; }
+.section-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+.stat { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 16px 20px; box-shadow: 0 1px 2px rgba(13,21,84,0.04), 0 4px 16px rgba(13,21,84,0.06); }
+.stat .slabel { font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 6px; }
+.stat .sval { font-family: var(--serif); font-size: 24px; color: var(--ink); line-height: 1.2; }
+.stat .ssub { font-size: 11px; color: var(--muted); margin-top: 3px; }
+.stat.red .sval { color: var(--red); } .stat.green .sval { color: var(--green); } .stat.amber .sval { color: var(--amber); }
+
+/* Bar chart rows */
+.bar-chart { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; box-shadow: 0 1px 2px rgba(13,21,84,0.04), 0 4px 16px rgba(13,21,84,0.06); }
+.chart-head { display: grid; padding: 10px 16px; background: #fafaf7; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.chart-head.cols3 { grid-template-columns: 56px 1fr 100px; gap: 12px; }
+.chart-head.cols4 { grid-template-columns: 56px 1fr 100px 100px; gap: 12px; }
+.bar-row { display: grid; align-items: center; gap: 12px; padding: 7px 16px; border-bottom: 1px solid #f0ece3; }
+.bar-row:last-child { border-bottom: none; }
+.bar-row.cols3 { grid-template-columns: 56px 1fr 100px; }
+.bar-row.cols4 { grid-template-columns: 56px 1fr 100px 100px; }
+.bar-label { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--ink); text-align: right; white-space: nowrap; }
+.bar-track { height: 22px; background: #eceae3; border-radius: 3px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 3px; }
+.bar-val { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--ink); text-align: right; white-space: nowrap; }
+.bar-val2 { font-family: var(--mono); font-size: 11px; color: var(--muted); text-align: right; white-space: nowrap; }
+
+/* Product mix donut */
+.mix-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.mix-legend { display: flex; flex-direction: column; gap: 6px; }
+.mix-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+.mix-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.mix-name { font-size: 12px; color: var(--ink); flex: 1; }
+.mix-pct { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.mix-amt { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--ink); }
+
+/* Rate table */
+.rate-table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; box-shadow: 0 1px 2px rgba(13,21,84,0.04), 0 4px 16px rgba(13,21,84,0.06); }
+.rate-table th { text-align: left; padding: 10px 16px; border-bottom: 1px solid var(--line); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; background: #fafaf7; font-family: var(--mono); }
+.rate-table td { padding: 10px 16px; border-bottom: 1px solid #f0ece3; }
+.rate-table tr:last-child td { border-bottom: none; }
+.rate-table tr:hover td { background: #fbfaf5; }
+.rate-table td.num { font-family: var(--mono); font-size: 12px; text-align: right; font-weight: 500; }
+.rate-table td.muted { color: var(--muted); font-size: 12px; }
+.pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-family: var(--mono); font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; }
+.pill-green { background: rgba(29,154,104,0.1); color: var(--green); }
+.pill-ink { background: rgba(13,21,84,0.08); color: var(--ink); }
+.pill-amber { background: rgba(217,119,6,0.1); color: var(--amber); }
+.pill-red { background: rgba(220,38,38,0.1); color: var(--red); }
+.pill-muted { background: rgba(107,114,128,0.1); color: var(--muted); }
+
+footer { background: var(--ink); color: #8a93c8; padding: 20px 48px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; }
+footer strong { color: var(--accent); }
+@media (max-width: 900px) {
+  .header { padding: 28px 20px 24px; } .content { padding: 24px 16px 60px; }
+  .stat-row { grid-template-columns: repeat(2, 1fr); } .mix-grid { grid-template-columns: 1fr; } footer { padding: 16px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="../ranch-revenue/blue-cloud-logo.png" alt="Blue Cloud Ranch" class="header-logo">
+  <div class="eyebrow">Blue Cloud Ranch · Santa Clarita, CA · Production Metrics</div>
+  <h1>Days, Permits &amp; Product Mix</h1>
+  <p class="sub">Filming days, days under contract, permit volume, production type breakdown, and average spend per production type. Source: Frank's ledger 2015–2026.</p>
+  <div class="nav-links">
+    <a href="../ranch-revenue/" class="nav-link">← Annual Overview</a>
+    <a href="../ranch-revenue-breakdown/" class="nav-link">Monthly Breakdown</a>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- Top-line metrics -->
+  <div class="section">
+    <div class="section-label">Lifetime Totals (2015–2025)</div>
+    <div class="stat-row">
+      <div class="stat"><div class="slabel">Total Film Permits</div><div class="sval">482</div><div class="ssub">Unique productions</div></div>
+      <div class="stat green"><div class="slabel">Total Filming Days</div><div class="sval">985</div><div class="ssub">Days with crew on-site</div></div>
+      <div class="stat"><div class="slabel">Days Under Contract</div><div class="sval">3,321</div><div class="ssub">Including holds &amp; long-terms</div></div>
+      <div class="stat amber"><div class="slabel">Avg Days / Permit</div><div class="sval">2.0</div><div class="ssub">Filming days per booking</div></div>
+    </div>
+  </div>
+
+  <!-- Filming days by year -->
+  <div class="section">
+    <div class="section-label">Filming Days by Year</div>
+    <div class="bar-chart">
+      <div class="chart-head cols4"><span>Year</span><span>Filming Days</span><span style="text-align:right">Days</span><span style="text-align:right">Permits</span></div>
+      <div id="days-chart"></div>
+    </div>
+  </div>
+
+  <!-- Days under contract by year -->
+  <div class="section">
+    <div class="section-label">Days Under Contract by Year</div>
+    <div class="bar-chart">
+      <div class="chart-head cols3"><span>Year</span><span>Days Under Contract</span><span style="text-align:right">Days</span></div>
+      <div id="contract-chart"></div>
+    </div>
+  </div>
+
+  <!-- Product mix -->
+  <div class="section">
+    <div class="section-label">Product Mix — Revenue by Production Type (2015–2025)</div>
+    <div class="mix-grid">
+      <canvas id="mix-canvas" height="300" style="width:100%;max-width:300px"></canvas>
+      <div class="mix-legend" id="mix-legend"></div>
+    </div>
+  </div>
+
+  <!-- Average spend per type -->
+  <div class="section">
+    <div class="section-label">Average Spend &amp; Days per Production Type</div>
+    <table class="rate-table">
+      <thead>
+        <tr>
+          <th>Production Type</th>
+          <th style="text-align:right">Bookings</th>
+          <th style="text-align:right">Avg Site Fee</th>
+          <th style="text-align:right">Avg Total</th>
+          <th style="text-align:right">Avg Days</th>
+          <th style="text-align:right">$/Day</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="rate-tbody"></tbody>
+    </table>
+  </div>
+
+  <!-- Utilization insight -->
+  <div class="section">
+    <div class="section-label">Utilization Insight — Filming Days vs Days Under Contract</div>
+    <div class="bar-chart">
+      <div class="chart-head" style="grid-template-columns:56px 1fr 90px 90px 90px;gap:12px;display:grid;padding:10px 16px;background:#fafaf7;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)">
+        <span>Year</span><span>Film Days / Contract Days</span><span style="text-align:right">Film</span><span style="text-align:right">Contract</span><span style="text-align:right">Util %</span>
+      </div>
+      <div id="util-chart"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <strong>Blue Cloud Ranch</strong> · Santa Clarita, CA · Source: Production ledger (Frank) · Prepared May 2026 · <strong>Confidential</strong>
+</footer>
+
+<script>
+const YEAR_DATA = [
+  { year:'2015', filming:70,  contract:130,  permits:37,  annual:553504 },
+  { year:'2016', filming:96,  contract:254,  permits:54,  annual:1336479 },
+  { year:'2017', filming:124, contract:335,  permits:67,  annual:2157286 },
+  { year:'2018', filming:120, contract:302,  permits:64,  annual:2049055 },
+  { year:'2019', filming:108, contract:275,  permits:60,  annual:1878900 },
+  { year:'2020', filming:69,  contract:349,  permits:30,  annual:1860156 },
+  { year:'2021', filming:96,  contract:389,  permits:51,  annual:2230925 },
+  { year:'2022', filming:99,  contract:560,  permits:21,  annual:4648383 },
+  { year:'2023', filming:70,  contract:290,  permits:22,  annual:1670501 },
+  { year:'2024', filming:51,  contract:305,  permits:24,  annual:1544043 },
+  { year:'2025', filming:72,  contract:118,  permits:37,  annual:846619 },
+  { year:'2026', filming:12,  contract:14,   permits:3,   annual:117189 },
+];
+
+// Production type data extracted from ledger
+const TYPE_DATA = [
+  { type:'Episodic TV',  code:'ES',   bookings:154, avgTotal:51428, avgDays:3.8, totalRev:11661785 },
+  { type:'Feature',      code:'F',    bookings:21,  avgTotal:305038,avgDays:5.1, totalRev:6405798  },
+  { type:'Ind. Feature', code:'IF',   bookings:78,  avgTotal:14878, avgDays:1.8, totalRev:1160714  },
+  { type:'Commercial',   code:'COM',  bookings:68,  avgTotal:57714, avgDays:1.9, totalRev:4324511  },
+  { type:'Music Video',  code:'MV',   bookings:59,  avgTotal:13644, avgDays:1.4, totalRev:865547   },
+  { type:'Promo',        code:'PROM', bookings:19,  avgTotal:8487,  avgDays:1.5, totalRev:161237   },
+  { type:'Short',        code:'SH',   bookings:21,  avgTotal:8128,  avgDays:1.6, totalRev:192868   },
+  { type:'Student',      code:'ST',   bookings:13,  avgTotal:29183, avgDays:2.0, totalRev:375329   },
+  { type:'Still Shoot',  code:'STIL', bookings:17,  avgTotal:8596,  avgDays:1.2, totalRev:146159   },
+  { type:'Documentary',  code:'DOC',  bookings:13,  avgTotal:10069, avgDays:1.3, totalRev:130899   },
+  { type:'Event',        code:'EV',   bookings:8,   avgTotal:30252, avgDays:1.0, totalRev:242017   },
+  { type:'YouTube/Digital',code:'YT', bookings:2,   avgTotal:9348,  avgDays:1.5, totalRev:18695    },
+  { type:'Game',         code:'GAM',  bookings:3,   avgTotal:126338,avgDays:null,totalRev:379015   },
+];
+
+const MIX_COLORS = ['#0d1554','#1a2470','#c9a961','#1d9a68','#dc2626','#d97706','#6b7280','#3b5998','#4a90d9','#8b5cf6','#ec4899','#14b8a6','#f97316'];
+
+function fmt(n) {
+  if (!n) return '—';
+  if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
+  if (n >= 1000) return '$' + Math.round(n/1000) + 'K';
+  return '$' + n.toLocaleString();
+}
+
+// Filming days chart
+const maxFilm = Math.max(...YEAR_DATA.map(d => d.filming));
+const daysChart = document.getElementById('days-chart');
+YEAR_DATA.forEach(d => {
+  const pct = (d.filming / maxFilm * 100).toFixed(1);
+  const isLow = d.filming < 70;
+  const isHigh = d.filming >= 120;
+  const col = isHigh ? '#1d9a68' : isLow ? '#dc2626' : '#0d1554';
+  daysChart.innerHTML += `
+    <div class="bar-row cols4">
+      <div class="bar-label">${d.year}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${col}"></div></div>
+      <div class="bar-val" style="color:${col}">${d.filming}</div>
+      <div class="bar-val2">${d.permits} permits</div>
+    </div>`;
+});
+
+// Contract days chart
+const maxContract = Math.max(...YEAR_DATA.map(d => d.contract));
+const contractChart = document.getElementById('contract-chart');
+YEAR_DATA.forEach(d => {
+  const pct = (d.contract / maxContract * 100).toFixed(1);
+  const col = d.year === '2022' ? '#1d9a68' : d.year === '2026' ? '#dc2626' : '#0d1554';
+  contractChart.innerHTML += `
+    <div class="bar-row cols3">
+      <div class="bar-label">${d.year}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${col};opacity:0.8"></div></div>
+      <div class="bar-val" style="color:${col}">${d.contract.toLocaleString()}</div>
+    </div>`;
+});
+
+// Product mix donut
+const canvas = document.getElementById('mix-canvas');
+const legend = document.getElementById('mix-legend');
+const totalRev = TYPE_DATA.reduce((s,t) => s + t.totalRev, 0);
+const sorted = [...TYPE_DATA].sort((a,b) => b.totalRev - a.totalRev);
+
+function drawDonut() {
+  const dpr = window.devicePixelRatio || 1;
+  const size = Math.min(canvas.parentElement.clientWidth, 300);
+  canvas.width = size * dpr;
+  canvas.height = size * dpr;
+  canvas.style.width = size + 'px';
+  canvas.style.height = size + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  const cx = size/2, cy = size/2, r = size*0.42, inner = size*0.25;
+  let angle = -Math.PI/2;
+  sorted.forEach((t, i) => {
+    const slice = (t.totalRev / totalRev) * Math.PI * 2;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, r, angle, angle + slice);
+    ctx.closePath();
+    ctx.fillStyle = MIX_COLORS[i % MIX_COLORS.length];
+    ctx.fill();
+    angle += slice;
+  });
+  ctx.beginPath();
+  ctx.arc(cx, cy, inner, 0, Math.PI * 2);
+  ctx.fillStyle = '#f5f3ee';
+  ctx.fill();
+  ctx.fillStyle = '#0d1554';
+  ctx.font = `bold 18px Inter, sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.fillText(sorted[0].type.split(' ')[0], cx, cy - 4);
+  ctx.font = `12px Inter, sans-serif`;
+  ctx.fillStyle = '#6b7280';
+  ctx.fillText('leads', cx, cy + 14);
+}
+setTimeout(drawDonut, 100);
+window.addEventListener('resize', drawDonut);
+
+sorted.slice(0, 8).forEach((t, i) => {
+  const pct = ((t.totalRev / totalRev) * 100).toFixed(1);
+  legend.innerHTML += `
+    <div class="mix-item">
+      <div class="mix-swatch" style="background:${MIX_COLORS[i]}"></div>
+      <div class="mix-name">${t.type}</div>
+      <div class="mix-pct">${pct}%</div>
+      <div class="mix-amt">${fmt(t.totalRev)}</div>
+    </div>`;
+});
+
+// Rate table
+const tbody = document.getElementById('rate-tbody');
+const sortedByRevenue = [...TYPE_DATA].sort((a,b) => b.totalRev - a.totalRev);
+sortedByRevenue.forEach(t => {
+  const daily = t.avgDays ? Math.round(t.avgTotal / t.avgDays) : null;
+  let pillClass = 'pill-muted', pillText = 'low';
+  if (t.avgTotal >= 40000) { pillClass = 'pill-green'; pillText = 'premium'; }
+  else if (t.avgTotal >= 20000) { pillClass = 'pill-ink'; pillText = 'mid'; }
+  else if (t.avgTotal >= 10000) { pillClass = 'pill-amber'; pillText = 'base'; }
+  tbody.innerHTML += `
+    <tr>
+      <td><strong>${t.type}</strong> <span class="muted" style="font-size:11px;color:var(--muted);margin-left:4px">[${t.code}]</span></td>
+      <td class="num">${t.bookings}</td>
+      <td class="num">${fmt(Math.round(t.avgTotal * 0.65))}</td>
+      <td class="num">${fmt(t.avgTotal)}</td>
+      <td class="num">${t.avgDays ? t.avgDays.toFixed(1) : '—'}</td>
+      <td class="num">${daily ? fmt(daily) : '—'}</td>
+      <td><span class="pill ${pillClass}">${pillText}</span></td>
+    </tr>`;
+});
+
+// Utilization chart
+const utilChart = document.getElementById('util-chart');
+YEAR_DATA.forEach(d => {
+  const util = d.contract > 0 ? Math.round((d.filming / d.contract) * 100) : 0;
+  const filmPct = (d.filming / maxFilm * 100).toFixed(1);
+  const contractPct = (d.contract / maxContract * 100).toFixed(1);
+  const utilColor = util > 35 ? '#1d9a68' : util > 20 ? '#0d1554' : '#dc2626';
+  utilChart.innerHTML += `
+    <div style="display:grid;grid-template-columns:56px 1fr 90px 90px 90px;align-items:center;gap:12px;padding:7px 16px;border-bottom:1px solid #f0ece3">
+      <div style="font-family:var(--mono);font-size:11px;font-weight:500;text-align:right;color:var(--ink)">${d.year}</div>
+      <div style="position:relative;height:22px;background:#eceae3;border-radius:3px;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;height:100%;width:${contractPct}%;background:#e5e1d8;border-radius:3px"></div>
+        <div style="position:absolute;top:0;left:0;height:100%;width:${filmPct}%;background:#0d1554;border-radius:3px;opacity:0.85"></div>
+      </div>
+      <div style="font-family:var(--mono);font-size:11px;text-align:right;color:var(--ink);font-weight:500">${d.filming}d</div>
+      <div style="font-family:var(--mono);font-size:11px;text-align:right;color:var(--muted)">${d.contract}d</div>
+      <div style="font-family:var(--mono);font-size:11px;text-align:right;color:${utilColor};font-weight:600">${util}%</div>
+    </div>`;
+});
+// Remove last border
+</script>
+</body>
+</html>
