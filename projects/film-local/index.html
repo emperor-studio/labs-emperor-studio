@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Film LoCAL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #ed2224;
+  --black: #0e0e0e;
+  --white: #ffffff;
+  --off: #f5f3ee;
+  --muted: #6b7280;
+  --line: #e5e1d8;
+  --mono: 'JetBrains Mono', monospace;
+  --serif: 'Source Serif 4', Georgia, serif;
+  --sans: 'Inter', -apple-system, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--sans); background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; }
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(14,14,14,0.96);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 64px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.nav-logo { height: 28px; width: auto; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-cta {
+  background: var(--red);
+  color: #fff !important;
+  padding: 8px 18px;
+  border-radius: 4px;
+  font-weight: 600 !important;
+}
+.nav-cta:hover { background: #c81a1b !important; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 40px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(237,34,36,0.08) 0%, transparent 70%);
+}
+.hero-logo {
+  width: min(600px, 85vw);
+  margin-bottom: 48px;
+  position: relative;
+}
+.hero-tagline {
+  font-family: var(--serif);
+  font-size: clamp(22px, 4vw, 36px);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255,255,255,0.85);
+  max-width: 620px;
+  line-height: 1.45;
+  margin-bottom: 20px;
+  position: relative;
+}
+.hero-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.45);
+  max-width: 480px;
+  line-height: 1.7;
+  margin-bottom: 48px;
+  position: relative;
+}
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+}
+.btn-primary {
+  background: var(--red);
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: background 0.15s, transform 0.1s;
+}
+.btn-primary:hover { background: #c81a1b; transform: translateY(-1px); }
+.btn-ghost {
+  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.8);
+  padding: 14px 32px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.6); color: #fff; }
+
+/* STATS BAND */
+.stats-band {
+  background: var(--red);
+  padding: 40px 48px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  text-align: center;
+}
+.stat-item {
+  padding: 0 24px;
+  border-right: 1px solid rgba(255,255,255,0.2);
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 300;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+}
+
+/* SECTIONS */
+.section {
+  padding: 96px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 16px;
+}
+.section h2 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 300;
+  color: var(--black);
+  line-height: 1.2;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+.section p {
+  font-size: 17px;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 640px;
+}
+
+/* WHY section — two col */
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.why-visual {
+  background: var(--black);
+  border-radius: 8px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.why-bar-row {
+  display: grid;
+  grid-template-columns: 52px 1fr 72px;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.why-year { font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,0.4); text-align: right; }
+.why-track { height: 20px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
+.why-fill { height: 100%; border-radius: 2px; }
+.why-val { font-family: var(--mono); font-size: 10px; text-align: right; }
+
+/* PILLARS */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.pillar {
+  padding: 28px 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  border-top: 3px solid var(--red);
+}
+.pillar-icon { font-size: 28px; margin-bottom: 14px; }
+.pillar h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--black); }
+.pillar p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+/* WHO WE ARE */
+.who-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+}
+.who-card {
+  padding: 24px;
+  background: var(--off);
+  border-radius: 8px;
+}
+.who-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; color: var(--black); }
+.who-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* CTA SECTION */
+.cta-section {
+  background: var(--black);
+  padding: 96px 48px;
+  text-align: center;
+}
+.cta-section .section-label { color: rgba(237,34,36,0.9); }
+.cta-section h2 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 300;
+  color: #fff;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+.cta-section p { font-size: 16px; color: rgba(255,255,255,0.5); max-width: 520px; margin: 0 auto 40px; line-height: 1.7; }
+
+/* FORM */
+.form-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.form-row input {
+  flex: 1;
+  min-width: 220px;
+  padding: 13px 16px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 4px;
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+}
+.form-row input::placeholder { color: rgba(255,255,255,0.35); }
+.form-row input:focus { border-color: var(--red); }
+.form-row button {
+  background: var(--red);
+  color: #fff;
+  border: none;
+  padding: 13px 24px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.form-row button:hover { background: #c81a1b; }
+
+/* FOOTER */
+footer {
+  background: #080808;
+  padding: 32px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+footer img { height: 24px; opacity: 0.6; }
+footer p { font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .stats-band { grid-template-columns: repeat(2, 1fr); gap: 24px; padding: 32px 24px; }
+  .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 20px; }
+  .section { padding: 64px 24px; }
+  .why-grid, .pillars, .who-grid { grid-template-columns: 1fr; }
+  .cta-section { padding: 64px 24px; }
+  footer { flex-direction: column; gap: 16px; padding: 24px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <img src="logo.svg" alt="Film LoCAL" class="nav-logo">
+  <div class="nav-links">
+    <a href="#why">Why LA</a>
+    <a href="#mission">Mission</a>
+    <a href="#who">Who We Are</a>
+    <a href="#join" class="nav-cta">Get Involved</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="logo.svg" alt="Film LoCAL" class="hero-logo">
+  <p class="hero-tagline">Keep production in California.<br>Keep jobs in Los Angeles.</p>
+  <p class="hero-sub">A coalition of location owners, production companies, crew, and small businesses fighting for a future where LA stays the center of the film and television industry.</p>
+  <div class="hero-actions">
+    <a href="#join" class="btn-primary">Get Involved</a>
+    <a href="#why" class="btn-ghost">See the Data</a>
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="stat-item">
+    <div class="stat-num">−82%</div>
+    <div class="stat-label">Location revenue decline since peak</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">−27%</div>
+    <div class="stat-label">Santa Clarita shoot days Q1 '25 vs '26</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">60+</div>
+    <div class="stat-label">Legislators engaged in 2025</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">$20.9M</div>
+    <div class="stat-label">Lifetime BCR production revenue at stake</div>
+  </div>
+</div>
+
+<!-- WHY -->
+<div id="why" style="background:var(--off)">
+<div class="section">
+  <div class="why-grid">
+    <div>
+      <div class="section-label">The Data</div>
+      <h2>The decline is real.<br>And it's accelerating.</h2>
+      <p>Blue Cloud Ranch — a 250-acre production location in Santa Clarita — generated $4.65M in 2022. By 2025, that number had collapsed to $847K. An 82% decline in three years. The LA wildfires, the WGA/SAG strike, and the industry-wide slowdown have compounded into a crisis that threatens not just locations — but the entire ecosystem that supports them.</p>
+      <p style="margin-top:16px">This isn't an isolated story. Santa Clarita saw a 27% decline in film shoot days from Q1 2025 to Q1 2026. The pattern is clear. The question is whether we act now or watch production leave permanently.</p>
+    </div>
+    <div class="why-visual">
+      <div id="revenue-bars"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MISSION -->
+<div id="mission">
+<div class="section">
+  <div class="section-label">Our Mission</div>
+  <h2>Make Los Angeles the easiest place<br>in the world to shoot.</h2>
+  <p>Film LoCAL is a California-focused initiative to keep production local through smarter policy, stronger community relationships, and real economic advocacy. We believe Los Angeles doesn't just have a claim to being the center of the film industry — it has an obligation to fight for it.</p>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-icon">📋</div>
+      <h3>Permitting Reform</h3>
+      <p>Streamline approvals, reduce red tape, and cut the costs that make productions choose Atlanta, Albuquerque, and Vancouver over LA.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">💰</div>
+      <h3>Competitive Incentives</h3>
+      <p>California's tax incentive program must keep pace with Georgia, New Jersey, and international competition. We advocate for policy that makes CA the obvious financial choice.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">🤝</div>
+      <h3>Industry Coalition</h3>
+      <p>Location owners, crew, vendors, and studios fighting with one voice. Production thriving in LA benefits everyone — from craft services to local restaurants to schools.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- WHO -->
+<div id="who" style="background:var(--off)">
+<div class="section">
+  <div class="section-label">Who We Are</div>
+  <h2>Rooted in California.<br>Backed by real data.</h2>
+  <p>Film LoCAL is anchored by Blue Cloud Ranch — a 250-acre working ranch in Santa Clarita that has hosted Seal Team, Rebel Moon, NCIS, SWAT, Terminal List, and hundreds of other productions. We have 10 years of production data and a front-row seat to what's happening to the LA location market.</p>
+
+  <div class="who-grid">
+    <div class="who-card">
+      <h3>Location Owners</h3>
+      <p>Properties across LA County losing bookings as productions move out of state. Our data shows the real cost of inaction.</p>
+    </div>
+    <div class="who-card">
+      <h3>Production Companies</h3>
+      <p>Companies who want to shoot in LA but need the economics to work. We're fighting for the policies that make that possible.</p>
+    </div>
+    <div class="who-card">
+      <h3>Crew & Small Business</h3>
+      <p>Every filming day supports dozens of local jobs. When production leaves, so does the economic activity that sustains our communities.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- CTA -->
+<div id="join" class="cta-section">
+  <div class="section-label">Get Involved</div>
+  <h2>This is our industry.<br>Let's keep it here.</h2>
+  <p>Whether you're a location owner, a crew member, a production company, or a business that depends on the film industry — we need your voice.</p>
+  <div class="form-row">
+    <input type="email" placeholder="Your email address">
+    <button>Stay Updated</button>
+  </div>
+</div>
+
+<footer>
+  <img src="logo.svg" alt="Film LoCAL">
+  <p>FILM LOCAL · A BLUE CLOUD RANCH INITIATIVE · SANTA CLARITA, CA · 2026</p>
+</footer>
+
+<script>
+const DATA = [
+  { year:'2019', rev:1878900, max:4648383 },
+  { year:'2020', rev:1860156, max:4648383 },
+  { year:'2021', rev:2230925, max:4648383 },
+  { year:'2022', rev:4648383, max:4648383 },
+  { year:'2023', rev:1670501, max:4648383 },
+  { year:'2024', rev:1544043, max:4648383 },
+  { year:'2025', rev:846619,  max:4648383 },
+];
+
+function fmt(n) {
+  if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
+  return '$' + Math.round(n/1000) + 'K';
+}
+
+const container = document.getElementById('revenue-bars');
+DATA.forEach((d, i) => {
+  const pct = (d.rev / d.max * 100).toFixed(1);
+  const isPeak = d.year === '2022';
+  const isLow = d.rev < 1000000;
+  const color = isPeak ? '#ed2224' : isLow ? '#ed2224' : 'rgba(255,255,255,0.35)';
+  const opacity = isPeak ? '1' : isLow ? '0.7' : '0.9';
+
+  const row = document.createElement('div');
+  row.className = 'why-bar-row';
+  row.innerHTML = `
+    <div class="why-year">${d.year}</div>
+    <div class="why-track">
+      <div class="why-fill" style="width:0%;background:${color};opacity:${opacity};transition:width 0.8s cubic-bezier(0.4,0,0.2,1) ${i*0.1}s" data-pct="${pct}"></div>
+    </div>
+    <div class="why-val" style="color:${color};opacity:${opacity}">${fmt(d.rev)}</div>
+  `;
+  container.appendChild(row);
+});
+
+// Animate bars on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('.why-fill').forEach(bar => {
+        bar.style.width = bar.dataset.pct + '%';
+      });
+      observer.disconnect();
+    }
+  });
+}, { threshold: 0.3 });
+observer.observe(container);
+</script>
+
+</body>
+</html>
