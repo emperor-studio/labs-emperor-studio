@@ -1,0 +1,314 @@
+:root {
+  color-scheme: light;
+  --cream: #fbf5e9;
+  --steam: #fffaf2;
+  --ink: #201811;
+  --muted: #6f6255;
+  --line: rgba(32, 24, 17, 0.13);
+  --orange: #d86f28;
+  --gold: #f0b44d;
+  --green: #587a52;
+  --brown: #56351f;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 18% 6%, rgba(240, 180, 77, 0.23), transparent 28%),
+    radial-gradient(circle at 86% 22%, rgba(88, 122, 82, 0.16), transparent 30%),
+    linear-gradient(180deg, #fffaf1 0%, var(--cream) 52%, #f4eadb 100%);
+  color: var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.page {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 28px 26px 86px;
+}
+
+.topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: clamp(74px, 10vw, 132px);
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.topline a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.hero {
+  min-height: 88vh;
+  padding-bottom: 56px;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.65fr);
+  gap: clamp(36px, 8vw, 96px);
+  align-items: end;
+}
+
+.eyebrow,
+.kicker,
+.broth-grid span {
+  margin: 0 0 14px;
+  color: var(--orange);
+  font-size: 0.76rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+h1 {
+  max-width: 820px;
+  font-size: clamp(4.5rem, 11vw, 10rem);
+  line-height: 0.82;
+  letter-spacing: -0.08em;
+}
+
+h2 {
+  font-size: clamp(2.4rem, 5.5vw, 5.8rem);
+  line-height: 0.92;
+  letter-spacing: -0.06em;
+}
+
+h3 {
+  font-size: clamp(1.55rem, 2.35vw, 2.45rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+p {
+  color: var(--muted);
+  font-size: 1.08rem;
+  line-height: 1.68;
+}
+
+.hero-copy p {
+  margin-top: 0;
+  color: var(--brown);
+  font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+  line-height: 1.5;
+}
+
+.button {
+  display: inline-flex;
+  margin-top: 14px;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--steam);
+  text-decoration: none;
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.marquee {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.marquee span {
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 250, 242, 0.55);
+  color: var(--brown);
+  font-size: 0.86rem;
+}
+
+.section {
+  padding: clamp(58px, 8vw, 112px) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.intro,
+.extras-section {
+  display: grid;
+  grid-template-columns: 0.46fr 1fr;
+  gap: clamp(36px, 8vw, 108px);
+  align-items: start;
+}
+
+.large-copy {
+  max-width: 760px;
+}
+
+.large-copy p {
+  color: var(--ink);
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: clamp(1.8rem, 3.4vw, 3.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+}
+
+.dispenser-card {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.8fr) 1fr;
+  gap: clamp(34px, 6vw, 78px);
+  align-items: center;
+  padding: clamp(28px, 5vw, 62px);
+  border-radius: 34px;
+  background: var(--steam);
+  border: 1px solid var(--line);
+  box-shadow: 0 30px 80px rgba(86, 53, 31, 0.08);
+}
+
+.machine {
+  position: relative;
+  min-height: 420px;
+  border: 1px solid rgba(32, 24, 17, 0.18);
+  border-radius: 38px;
+  background: linear-gradient(180deg, #f9efe0, #eadac6);
+  box-shadow: inset 0 0 0 18px rgba(255,255,255,0.35);
+  overflow: hidden;
+}
+
+.tank {
+  position: absolute;
+  left: 15%;
+  width: 70%;
+  height: 54px;
+  border-radius: 999px;
+  background: var(--gold);
+  box-shadow: 0 14px 34px rgba(32,24,17,0.12);
+}
+.tank-one { top: 84px; background: #efa83d; }
+.tank-two { top: 164px; background: #8f5130; }
+.tank-three { top: 244px; background: #657b58; }
+
+.spouts {
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 64px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.spouts i {
+  width: 28px;
+  height: 72px;
+  border-radius: 999px 999px 10px 10px;
+  background: var(--ink);
+}
+
+.section-head {
+  max-width: 840px;
+  margin-bottom: 42px;
+}
+
+.broth-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.broth-grid article {
+  min-height: 290px;
+  padding: 25px 22px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 250, 242, 0.46);
+}
+
+.broth-grid h3 { margin-top: 54px; }
+
+.extras-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+}
+
+.extras-list p {
+  margin: 0;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: clamp(1.35rem, 2vw, 2.1rem);
+}
+
+.dayparts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.dayparts article {
+  min-height: 270px;
+  padding: 26px;
+  border-radius: 30px;
+  border: 1px solid var(--line);
+  background: rgba(255, 250, 242, 0.58);
+}
+
+.dayparts h3 { margin-top: 46px; }
+
+.final {
+  text-align: center;
+  border-bottom: 0;
+}
+
+.final h2 {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.final p:not(.eyebrow) {
+  max-width: 680px;
+  margin: 26px auto 0;
+}
+
+@media (max-width: 920px) {
+  .hero { min-height: auto; }
+  .hero-grid,
+  .intro,
+  .extras-section,
+  .dispenser-card {
+    grid-template-columns: 1fr;
+  }
+  .broth-grid,
+  .dayparts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .page { padding: 22px 18px 68px; }
+  .topline { margin-bottom: 64px; }
+  h1 { font-size: clamp(3.8rem, 18vw, 6.4rem); }
+  .broth-grid,
+  .dayparts,
+  .extras-list {
+    grid-template-columns: 1fr;
+  }
+  .machine { min-height: 330px; }
+}
