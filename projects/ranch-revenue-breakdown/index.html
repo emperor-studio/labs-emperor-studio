@@ -181,18 +181,19 @@ footer strong { color: var(--accent); }
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 const DATA = {
-  '2015': { annual: 553504, monthly: { Jan:29265, Feb:38450, Mar:65320, Apr:76720, May:98178, Jun:53187, Jul:38450, Aug:75850, Sep:54436, Oct:55269, Nov:28000, Dec:40378 }, note: 'First full year' },
-  '2016': { annual: 1336479, monthly: { Jan:5400, Feb:81838, Mar:77713, Apr:355247, May:245028, Jun:53188, Jul:38450, Aug:95357, Sep:54436, Oct:55269, Nov:126874, Dec:148679 }, note: null },
-  '2017': { annual: 2157286, monthly: { Jan:null, Feb:null, Mar:77713, Apr:355247, May:245028, Jun:53188, Jul:38450, Aug:75850, Sep:136580, Oct:76720, Nov:98179, Dec:127725 }, note: null },
-  '2018': { annual: 2049055, monthly: { Jan:null, Feb:null, Mar:77713, Apr:null, May:126301, Jun:176850, Jul:119935, Aug:105790, Sep:136580, Oct:76720, Nov:98179, Dec:127725 }, note: null },
-  '2019': { annual: 1878900, monthly: { Jan:43463, Feb:null, Mar:77713, Apr:97964, May:36656, Jun:74226, Jul:106024, Aug:173295, Sep:326315, Oct:359463, Nov:259850, Dec:231830 }, note: null },
-  '2020': { annual: 1860156, monthly: { Jan:299765, Feb:297445, Mar:113845, Apr:0, May:0, Jun:0, Jul:3500, Aug:75235, Sep:194606, Oct:397198, Nov:265867, Dec:212695 }, note: 'COVID shutdown Mar 16 – Jul 2020' },
-  '2021': { annual: 2230925, monthly: { Jan:189753, Feb:null, Mar:null, Apr:38838, May:39063, Jun:176614, Jul:182232, Aug:null, Sep:271222, Oct:331642, Nov:359228, Dec:233126 }, note: null },
-  '2022': { annual: 4648383, monthly: { Jan:137676, Feb:81838, Mar:null, Apr:381333, May:405429, Jun:595288, Jul:604456, Aug:null, Sep:567897, Oct:426064, Nov:363146, Dec:104343 }, note: 'Rebel Moon long-term Jan–Nov' },
-  '2023': { annual: 1670501, monthly: { Jan:109187, Feb:null, Mar:null, Apr:242117, May:217587, Jun:384016, Jul:42437, Aug:null, Sep:60331, Oct:29012, Nov:50946, Dec:130050 }, note: 'WGA/SAG strike Jul–Oct 2023' },
-  '2024': { annual: 1544043, monthly: { Jan:180324, Feb:281519, Mar:404346, Apr:221931, May:73129, Jun:19288, Jul:102428, Aug:86386, Sep:49008, Oct:61835, Nov:22498, Dec:41353 }, note: null },
-  '2025': { annual: 846619, monthly: { Jan:29255, Feb:null, Mar:null, Apr:177091, May:84300, Jun:83203, Jul:22204, Aug:null, Sep:42786, Oct:45120, Nov:78890, Dec:153698 }, note: null },
-  '2026': { annual: 117189, monthly: { Jan:12188, Feb:null, Mar:null, Apr:null, May:null, Jun:null, Jul:null, Aug:null, Sep:null, Oct:null, Nov:null, Dec:null }, note: 'Jan–Mar Q1 only' },
+  // 2015 & 2016: annual totals confirmed, monthly detail not in Frank's ledger
+  '2015': { annual: 553504, monthly: {}, note: 'Monthly detail not in ledger' },
+  '2016': { annual: 1336479, monthly: {}, note: 'Monthly detail not in ledger' },
+  '2017': { annual: 2157286, monthly: { Mar:77712, Apr:355246, May:245027, Jun:53187, Jul:38450, Aug:75850, Sep:136580, Oct:76720, Nov:98178, Dec:127725 }, note: null },
+  '2018': { annual: 2049055, monthly: { Mar:77712, May:126300, Jun:176850, Jul:119935, Aug:105790, Sep:136580, Oct:76720, Nov:98178, Dec:127725 }, note: null },
+  '2019': { annual: 1878900, monthly: { Jan:43462, Mar:77712, Apr:97963, May:36656, Jun:74225, Jul:106023, Aug:173295, Sep:326314, Oct:359462, Nov:259850, Dec:231830 }, note: null },
+  '2020': { annual: 1860156, monthly: { Jan:299765, Feb:81837, Jul:3500, Sep:194606, Oct:397197, Nov:265867, Dec:212695 }, note: 'COVID shutdown Mar 16 – Jul 2020' },
+  '2021': { annual: 2230925, monthly: { Jan:189752, Apr:38837, May:39062, Jun:176614, Jul:182232, Sep:271222, Oct:331641, Nov:359227, Dec:233126 }, note: null },
+  '2022': { annual: 4648383, monthly: { Jan:137676, Feb:81837, Apr:381332, May:405428, Jun:595287, Jul:604456, Sep:567897, Oct:426064, Nov:363145, Dec:104343 }, note: 'Rebel Moon long-term Jan–Nov' },
+  '2023': { annual: 1670501, monthly: { Jan:109187, Apr:242116, May:217587, Jun:384015, Jul:42437, Sep:60331, Oct:29012, Nov:50946, Dec:130049 }, note: 'WGA/SAG strike Jul–Oct 2023' },
+  '2024': { annual: 1544043, monthly: { Jan:180323, Apr:221930, May:73129, Jun:19287, Jul:102428, Sep:49007, Oct:61835, Nov:22498, Dec:41353 }, note: null },
+  '2025': { annual: 846619, monthly: { Jan:29255, Apr:177091, May:84300, Jun:83203, Jul:22203, Sep:42786, Oct:45120, Nov:78890, Dec:153698 }, note: null },
+  '2026': { annual: 117189, monthly: { Jan:12187 }, note: 'Jan–Mar Q1 only · monthly detail pending' },
 };
 
 const YEARS = Object.keys(DATA);
