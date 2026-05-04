@@ -89,15 +89,24 @@ li,
 }
 
 .lead {
-  max-width: 780px;
+  max-width: 820px;
   margin: 18px 0 0;
   font-size: 1.18rem;
   line-height: 1.76;
 }
 
+.hero-footnote {
+  max-width: 720px;
+  margin: 20px 0 0;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
 .hero-note,
 .memo-card,
-.question-item {
+.question-item,
+.callout-card,
+.final-card {
   border: 1px solid var(--line);
   background: var(--card);
   backdrop-filter: blur(8px);
@@ -172,6 +181,25 @@ li,
 
 .memo-card.soft {
   background: rgba(255,255,255,0.5);
+}
+
+.callout-card,
+.final-card {
+  margin-top: 22px;
+  border-radius: 26px;
+  padding: 26px 28px;
+  background: rgba(255, 255, 255, 0.56);
+}
+
+.callout-card p,
+.final-card p {
+  margin: 0;
+  max-width: 920px;
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: clamp(1.35rem, 2.2vw, 2rem);
+  line-height: 1.28;
+  letter-spacing: -0.015em;
+  color: var(--ink);
 }
 
 .memo-card p {
