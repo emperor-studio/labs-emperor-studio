@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Film LoCAL — Flag Concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;1,300&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background: #0e0e0e; color: #fff; -webkit-font-smoothing: antialiased; padding: 60px 40px; }
+h1 { font-family: 'Source Serif 4', serif; font-weight: 300; font-size: 36px; margin-bottom: 8px; }
+.sub { color: rgba(255,255,255,0.4); font-size: 14px; margin-bottom: 56px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; }
+
+.concepts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; max-width: 1100px; }
+
+.concept { background: #1a1a1a; border-radius: 12px; overflow: hidden; }
+.concept-label { padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.concept-label h3 { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+.concept-label p { font-size: 12px; color: rgba(255,255,255,0.4); }
+.concept-visual { padding: 32px; display: flex; align-items: center; justify-content: center; min-height: 280px; }
+
+/* Concept 1: Flag with Film LoCAL overlay */
+.flag-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+}
+.flag-wrap img { width: 100%; border-radius: 4px; display: block; }
+.flag-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(237,34,36,0.92);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.flag-overlay img { height: 28px; filter: brightness(0) invert(1); }
+.flag-overlay span { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.7); }
+
+/* Concept 2: Film Republic flag */
+.film-republic {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 3/2;
+  background: #fff;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+.fr-stripe { position: absolute; bottom: 0; left: 0; right: 0; height: 16.67%; background: #BA0C2F; }
+.fr-star { position: absolute; top: 12%; left: 16%; font-size: 42px; color: #BA0C2F; line-height: 1; }
+.fr-bear-area { position: absolute; left: 22%; top: 15%; right: 8%; bottom: 20%; display: flex; align-items: center; justify-content: center; }
+.fr-bear { font-size: 80px; filter: grayscale(1) brightness(0.2); }
+.fr-clapper { position: absolute; right: 15%; top: 18%; font-size: 32px; }
+.fr-text {
+  position: absolute;
+  bottom: 19%;
+  left: 0; right: 0;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #5C462B;
+}
+
+/* Concept 3: Logo + flag texture background */
+.logo-flag {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 3/2;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.logo-flag img.bg-flag {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: saturate(0.3) brightness(0.4);
+  position: absolute; inset: 0;
+}
+.logo-flag .logo-center {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 12px;
+}
+.logo-flag img.logo { width: 65%; filter: brightness(0) invert(1); }
+.logo-flag .tagline {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+
+/* Concept 4: Bear + clapperboard graphic */
+.bear-clapper {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 3/2;
+  background: #fff;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bc-stripe { position: absolute; bottom: 0; left: 0; right: 0; height: 16.67%; background: #BA0C2F; display: flex; align-items: center; justify-content: center; }
+.bc-stripe-text { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #fff; }
+.bc-content { display: flex; flex-direction: column; align-items: center; padding-bottom: 12%; }
+.bc-emoji { font-size: 72px; line-height: 1; filter: grayscale(1) brightness(0.2); }
+.bc-clapper-emoji { font-size: 36px; margin-top: -16px; margin-left: 36px; }
+.bc-star { position: absolute; top: 10%; left: 14%; font-size: 40px; color: #BA0C2F; }
+
+.note { margin-top: 56px; max-width: 680px; }
+.note h3 { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
+.note p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.7; }
+.note ul { margin-top: 12px; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.note li { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<h1>Film LoCAL — Flag Concepts</h1>
+<p class="sub">Mockup · Internal · May 2026</p>
+
+<div class="concepts">
+
+  <!-- Concept 1: Flag with overlay -->
+  <div class="concept">
+    <div class="concept-label">
+      <h3>Concept A — Flag + Logo Bar</h3>
+      <p>California flag with Film LoCAL branded red bar at bottom</p>
+    </div>
+    <div class="concept-visual">
+      <div class="flag-wrap">
+        <img src="california-flag.svg" alt="California Flag">
+        <div class="flag-overlay">
+          <img src="logo.svg" alt="Film LoCAL">
+          <span>Keep production local</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Concept 2: Film Republic text swap -->
+  <div class="concept">
+    <div class="concept-label">
+      <h3>Concept B — "Film Republic"</h3>
+      <p>"California Republic" replaced with "Film Republic" — bear + clapperboard</p>
+    </div>
+    <div class="concept-visual">
+      <div class="film-republic">
+        <div class="fr-star">★</div>
+        <div class="fr-bear-area">
+          <div class="fr-bear">🐻</div>
+          <div class="fr-clapper">🎬</div>
+        </div>
+        <div class="fr-text">Film Republic</div>
+        <div class="fr-stripe"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Concept 3: Logo over faded flag -->
+  <div class="concept">
+    <div class="concept-label">
+      <h3>Concept C — Logo on Flag Texture</h3>
+      <p>Film LoCAL logo centered on a desaturated California flag</p>
+    </div>
+    <div class="concept-visual">
+      <div class="logo-flag">
+        <img class="bg-flag" src="california-flag.svg" alt="">
+        <div class="logo-center">
+          <img class="logo" src="logo.svg" alt="Film LoCAL">
+          <span class="tagline">Keep production in California</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Concept 4: Bear + clapperboard standalone -->
+  <div class="concept">
+    <div class="concept-label">
+      <h3>Concept D — Bear + Clapperboard Mark</h3>
+      <p>Simplified flag structure — bear holding clapperboard as a standalone mark</p>
+    </div>
+    <div class="concept-visual">
+      <div class="bear-clapper">
+        <div class="bc-star">★</div>
+        <div class="bc-content">
+          <div style="display:flex;align-items:flex-end">
+            <div class="bc-emoji">🐻</div>
+            <div class="bc-clapper-emoji">🎬</div>
+          </div>
+        </div>
+        <div class="bc-stripe">
+          <span class="bc-stripe-text">Film LoCAL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="note">
+  <h3>Notes for Dylan</h3>
+  <p>All four directions use public domain California flag imagery — no copyright issues. Which direction feels right?</p>
+  <ul>
+    <li><strong>A</strong> — Most direct/literal. Flag stays intact, brand lives in the red bar. Works as a social media header.</li>
+    <li><strong>B</strong> — Most provocative. "Film Republic" is a strong statement. Works as a campaign poster.</li>
+    <li><strong>C</strong> — Most versatile. Logo-forward, flag as texture/context. Works everywhere.</li>
+    <li><strong>D</strong> — Most iconic. Bear + clapperboard as a standalone mark. The one that could live on merch, pins, stickers.</li>
+  </ul>
+</div>
+
+</body>
+</html>
